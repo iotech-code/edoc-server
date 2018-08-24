@@ -86,7 +86,7 @@ $('#addFile').click(function () {
 });
 $(document).on('click', '.btn-remove-file', function () {
   // console.log("tete");
-  // val = $(this).data('file');
+  val = $(this).data('file');
   console.log('====================================');
   console.log(val);
   console.log('====================================');

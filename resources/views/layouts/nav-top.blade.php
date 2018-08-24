@@ -1,8 +1,4 @@
 <div class="nav-wrapper">
-  
- 
-  
-
     <div class="container">
         <div class="row mt-3">
             <div class="col">
@@ -44,7 +40,7 @@
             </li>
             <li>
                 <a  class="edoc-nav-link  @if(isset($active) && $active==4) active @endif"  href="">
-                    ข้อูลสวนตัว
+                    ข้อมูลส่วนตัว
                 </a>
             </li>
           </ul>
