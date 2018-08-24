@@ -7,7 +7,7 @@
 @section('content')
 <div class="container">
   <form >
-    <div class="row">
+    <div class="row mt-2">
       <div class="col">
         <div class="form-group">
             <label for="exampleInputEmail1">ค้นหาจากคำ</label>
@@ -53,7 +53,7 @@
         <div class="col">
           <label style="color:white" for="">s</label>
           <div class="form-group ">
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" class="btn edoc-btn-primary">
                   เริ่มค้นหา
               </button>
           </div>
@@ -61,7 +61,7 @@
     </div>
   </form>
 
-  <div class="card">
+  <div class="card mt-4">
       <div class="card-body p-0 border-top-primary">
             <table class="table ">
                     <thead>
@@ -115,17 +115,18 @@
                 </table>
       </div>
   </div>
-  
-    {{-- <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end">
-            <li class="page-item disabled"><a class="page-link " href="#">ก่อนหน้า</a></li>
-            <li class="page-item active"><a class="page-link " href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">ถัดไป</a></li>
-        </ul>
-    </nav> --}}
-    {{ $documents->links() }}
+  <div class="row mt-3" style="color: #515151; font-weight: bold">
+      <div class="col">
+        สถานะ: 
+        <span class="status-circle status-grey"></span> ยังไม่มีการตรวจสอบ
+        <span class="status-circle status-yellow"></span> กำลังดำเนินการ
+        <span class="status-circle status-red"></span> ไม่อนุมัติ
+        <span class="status-circle status-green"></span> อนุมัติ
+      </div>
+      <div class="col">
+        {{ $documents->links() }}
+      </div>
+  </div>
 </div>
 @endsection
 

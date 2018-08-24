@@ -41,12 +41,23 @@
   }
 }
 
-.bg-primary {
+.bg-primary,
+.edoc-bg-primary {
   background-color: $color-primary
 }
-.bg-secondary {
+.bg-secondary,
+.edoc-bg-primary {
   background-color: $color-secondary
 }
+
+.edoc-btn-primary {
+  color: #fff;
+  background-color: $color-primary;
+  transition: 300ms !important;
+  &:hover{
+    opacity: 0.9;
+  }
+} 
 
 .color-primary {
   color: $color-primary
@@ -94,6 +105,10 @@ a.edoc-nav-link {
 
 .logo {
   justify-content: center;
+  img {
+    max-width: 100%;
+    // height: 30px;
+  }
   span {
     color: $color-primary;
     font-weight: bold;

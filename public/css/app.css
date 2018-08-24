@@ -10505,12 +10505,25 @@ a.text-dark:focus {
   background-color: green;
 }
 
-.bg-primary {
+.bg-primary,
+.edoc-bg-primary {
   background-color: #0275D8;
 }
 
-.bg-secondary {
+.bg-secondary,
+.edoc-bg-primary {
   background-color: #0196D6;
+}
+
+.edoc-btn-primary {
+  color: #fff;
+  background-color: #0275D8;
+  -webkit-transition: 300ms !important;
+  transition: 300ms !important;
+}
+
+.edoc-btn-primary:hover {
+  opacity: 0.9;
 }
 
 .color-primary {
@@ -10560,6 +10573,10 @@ a.edoc-nav-link.active {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.logo img {
+  max-width: 100%;
 }
 
 .logo span {

@@ -3,10 +3,10 @@
         <div class="row mt-3">
             <div class="col">
               <div class="logo">
-                <img class="mr-1" src="https://picsum.photos/30/30" alt="" srcset="">
-                <span>
+                <img class="mr-1" src="{{ asset("image/icon-logo.png")}}" alt="" srcset="">
+                {{-- <span>
                   Smart e-Document System
-                </span>
+                </span> --}}
               </div>
             </div>
             <div class="col">
