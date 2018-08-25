@@ -78,7 +78,11 @@ class DocumentController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $data = collect() ;
+        $this->data->document = Document::findOrFail($id);
+        $data = $this->data ;
+        return view('documents.edit')
+            ->with(compact('data'));
     }
 
     /**
@@ -91,20 +95,33 @@ class DocumentController extends Controller
     public function update(Request $request, $id)
     {
         $documentModel = Document::findOrFail($id);
-        // return $request->all();
         switch ($request->action) {
             case 'update_status':
                 return $this->updateStatus($documentModel, $request);
                 break;
-            
             default:
-                # code...
+                return $this->updateAll($documentModel, $request);
                 break;
         }
     }
 
     /**
+     * update all data Dcoument
+     * 
+     * @param App\Models\Document $documentModel
+     * @param  \Illuminate\Http\Request  $request
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAll(Document $model, Request $request) {
+        $model->update($request->except(['files']));
+        return redirect()->
+            route('document.edit', $model->id);
+    }
+
+    /**
      * update status
+     * 
      * @param App\Models\Document $documentModel
      * @param  \Illuminate\Http\Request  $request
      * 
