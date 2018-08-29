@@ -24,3 +24,33 @@ $(document).on('click','.btn-remove-file',function(){
   $("#file"+val).remove();
 });
 
+$('.date-select').datepicker({
+  language: 'th'
+});
+
+axios = require("axios");
+
+$.fn.tet = function() {
+  // this.css( "color", "green" );
+  $(this).click(function(){
+    alert();
+  });
+};
+$.fn.addtag = function(text) {
+  a = `<a class="rm-tag" href="#" data-refer-id="${text}"> <i class="fa fa-times"> </i></a>`;
+  html = `
+    <span class="badge badge-info" id="refer${text}"> 
+      ${text}
+      ${a}
+    </span>
+  `;
+  $(this).append(html);
+}
+// axios("get");
+// function addRefer(ele, text) {
+//   html = `
+//   <span class="badge badge-info"> ${text} </span>
+//   `;
+//   $(ele).append(html);
+// }
+// require('semantic-ui-search');

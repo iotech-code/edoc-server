@@ -6,13 +6,15 @@
 
 @section('content')
 <div class="container">
-  <form >
+  <form method="get" action="{{ route("document.index")}}" >
     <div class="row mt-2">
       <div class="col">
         <div class="form-group">
             <label for="exampleInputEmail1">ค้นหาจากคำ</label>
             <div class="form-inline">
-              <input type="email" class="form-control mr-3" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+            <input type="text"  name="search[title]" 
+              value="{{ $title }}"
+              class="form-control mr-3" placeholder="">
             </div>
         </div>
         </div>
@@ -23,13 +25,12 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="basic-addon1">
                           <i class="fa fa-calendar"></i>
-
                       </span>
                         {{-- <button class="btn btn-outline-secondary" type="button" id="button-addon1">
                                 <i class="fa fa-calendar"></i>
                         </button> --}}
                     </div>
-                    <input autocomplete="off" type="text" class="form-control date-select" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input autocomplete="off" type="text" class="form-control date-select" placeholder="" name="search[date_start]" value="{{$date_start}}">
                 </div>
             </div>
         </div>
@@ -45,8 +46,8 @@
                           <i class="fa fa-calendar"></i>
                       </span>
                   </div>
-                  <input autocomplete="off" type="text" class="form-control date-select" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-              </div>
+                <input autocomplete="off" type="text" class="form-control date-select" placeholder="" name="search[date_end]" value="{{ $date_end }}">
+                </div>
 
           </div>
         </div>

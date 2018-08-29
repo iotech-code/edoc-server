@@ -25,4 +25,11 @@ class Cabinet extends Model
     public function documents() {
         return $this->hasMany(Document::class);
     }
+
+    /** 
+     * @return App\Models\Folder
+     */
+    public function folders() {
+        return $this->hasMany(Folder::class);
+    }
 }

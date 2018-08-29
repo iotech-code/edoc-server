@@ -12,12 +12,11 @@ class CabinetSeeder extends Seeder
     public function run()
     {
         DB::table('cabinets')->truncate();
+        DB::table('folders')->truncate();
 
-        for($i=1;$i<10;$i++) {
-            App\Models\Cabinet::create([
-                'name' => "ตู้ทดสอบ $i",
-                "description" => ""
-            ]);
-        }
+        factory(App\Models\Cabinet::class, 10)->create()->each(function($cabinet){
+            $cabinet->folders()->saveMany(factory(App\Models\Folder::class, mt_rand(1,4))->make());
+        });
+
     }
 }

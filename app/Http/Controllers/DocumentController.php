@@ -13,12 +13,25 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $documents = Document::paginate(15);
+        $title = $date_start = $date_end = "";
+
+        if (isset($request->search)) {
+            // return $request->all();
+            $documents = Document::ofSearch($request->search)->paginate(15) ;
+            $title = $request->search['title'];
+            $date_start = $request->search['date_start'];
+            $date_end = $request->search['date_end'];
+        } 
+        
         return view('documents.index')
             ->with(compact([
-                'documents'
+                'documents',
+                'title',
+                'date_start',
+                'date_end'
             ]));
     }
 
@@ -55,8 +68,14 @@ class DocumentController extends Controller
 
         return redirect()
             ->route("document.index")
-            ->with('status', 'success');
+            ->with(['status'=>'success']) ;
         // return $request->all();
+    }
+
+    public function getReference(Request $request) {
+        $status = 200;
+        $data['data'] = [];
+        return resonse()->json($data, $status) ;
     }
 
     /**
@@ -134,7 +153,7 @@ class DocumentController extends Controller
         // return $request->status_value;
         return redirect()
             ->route('document.index')
-            ->with('status', 'success') ;
+            ->with(['status'=>'success']) ;
     }
 
     /**
@@ -148,6 +167,6 @@ class DocumentController extends Controller
         Document::findOrFail($id)->delete();
         return redirect()
             ->route('document.index')
-            ->with('status', 'success') ;
+            ->with(['status'=>'success']) ;
     }
 }

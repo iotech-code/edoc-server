@@ -15,14 +15,17 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('school_id');
+            $table->unsignedInteger('type_id');
             $table->string('code');
             $table->string('from');
-            $table->string('date');
+            $table->date('date');
             $table->string('title');
             $table->string('receive_code');
-            $table->string('receive_date');
+            $table->date('receive_date');
             $table->string('receive_achives');
-            $table->string('refer')->default(null);
+            $table->string('refer')->nullable()->default(null);
             $table->string('keywords');
             $table->unsignedTinyInteger('status')->default(1);
             $table->unsignedInteger('cabinet_id');

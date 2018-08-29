@@ -19,19 +19,37 @@ class Document extends Model
         'receive_achives',
         'keywords',
         'cabinet_id',
-        'read_at'
+        'read_at',
+        'user_id',
+        'school_id',
+        'type_id'
     ];
 
     /**
+     * relation
+     * 
      * @return App\Models\DocumentAttachment
      */
     public function attachments() {
         return $this->hasMany(DocumentAttachment::class);
     }
 
-
+    /**
+     * relation 
+     * 
+     * @return App\Models\Cabinet
+     */
     public function cabinet() {
         return $this->belongsTo(Cabinet::class);
+    }
+
+    /**
+     * relation 
+     * 
+     * @return App\Models\Cabinet
+     */
+    public function type() {
+        return $this->belongsTo(DocumentType::class, 'type_id');
     }
 
     /**
@@ -80,5 +98,21 @@ class Document extends Model
         return $html;
     }
 
+    /**
+     * 
+     */
+    public function scopeOfSearch($q, array $data) {
+        
+        if( $data['title'] != null ) {
+            $q->where('title', 'like' ,"%{$data['title']}%");
+        } 
+        if($data['date_start'] != null ) {
+            $q->where('created_at', '>=', $data['date_start']);
+        }
+        if( $data['date_end'] != null ) {
+            $q->where('created_at', '<=', $data['date_end']);
+        }
+        return $q ;
+    }
 
 }

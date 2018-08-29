@@ -10515,15 +10515,30 @@ a.text-dark:focus {
   background-color: #0196D6;
 }
 
+.dropdown-toggle::after {
+  color: blue;
+}
+
+.btn.edoc-btn-primary.inverse {
+  color: #0275D8;
+  background-color: #fff;
+  border: 2px solid #0275D8;
+}
+
+.btn.edoc-btn-primary.inverse:hover {
+  color: #0275D8 !important;
+}
+
 .edoc-btn-primary {
   color: #fff;
   background-color: #0275D8;
+  border: 2px solid #0275D8 !important;
   -webkit-transition: 300ms !important;
   transition: 300ms !important;
 }
 
 .edoc-btn-primary:hover {
-  opacity: 0.9;
+  opacity: 0.7;
 }
 
 .color-primary {
@@ -10548,6 +10563,11 @@ a.text-dark:focus {
 
 .icon-link:hover {
   text-decoration: none;
+}
+
+span.red-star::after {
+  color: red;
+  content: "*";
 }
 
 a.edoc-nav-link {
@@ -10587,5 +10607,13 @@ a.edoc-nav-link.active {
 .nav-wrapper {
   -webkit-box-shadow: 0px 2px 0.5px 0px #E3E3E3;
           box-shadow: 0px 2px 0.5px 0px #E3E3E3;
+}
+
+.dropdown-toggle::after {
+  color: #0275D8;
+}
+
+tr.tr-row {
+  margin: 0;
 }
 

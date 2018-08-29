@@ -1,0 +1,33 @@
+@import '../variables';
+
+.badge {
+  a{
+    color: #fff;
+  }
+}
+
+.results {
+  display: block;
+  margin-top: 4px;
+  position: absolute;
+  background: #fff;
+  width: 80%;
+  z-index: 9;
+  border-radius: .25rem;
+  border: 1px solid #ced4da;
+  .result {
+    padding: .375rem .75rem;
+    &:hover{
+      color: #fff;
+      background-color: $color-primary;
+      &:first-child{
+        border-top-right-radius: .25rem;
+        border-top-left-radius: .25rem;
+      }
+      &:last-child{
+        border-bottom-right-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+      }
+    }
+  }
+}

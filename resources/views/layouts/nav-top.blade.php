@@ -13,11 +13,15 @@
               <div class="dropdown float-right ">
                 <button class="btn btn-primary dropdown-toggle border-primary bg-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="color-primary">
-                      สวัสดี อธิกร บดินทรา
+                      {{-- สวัสดี อธิกร บดินทรา --}}
+                    {{\Auth::user()->full_name}}
                   </span> 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">ออกจากระบบ</a>
+                  <form method="POST" action="{{route("logout")}}">
+                    @csrf
+                    <button class="dropdown-item" href="#">ออกจากระบบ</button>
+                  </form>
                 </div>
               </div>
             </div>
@@ -34,12 +38,12 @@
                   </a>
             </li>
             <li class="nav-item">
-                <a class="edoc-nav-link  @if(isset($active) && $active==3) active @endif"  href="">
-                    ตู้เอกสาร
-                  </a>
+                <a class="edoc-nav-link  @if(isset($active) && $active==3) active @endif"  href="{{route("cabinet.index")}}">
+                  ตู้เอกสาร
+                </a>
             </li>
             <li>
-                <a  class="edoc-nav-link  @if(isset($active) && $active==4) active @endif"  href="">
+                <a  class="edoc-nav-link  @if(isset($active) && $active==4) active @endif"  href="{{route("user.profile")}}">
                     ข้อมูลส่วนตัว
                 </a>
             </li>

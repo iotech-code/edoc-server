@@ -24,3 +24,6 @@ $(document).on('click','.btn-remove-file',function(){
   $("#file"+val).remove();
 });
 
+$('.date-select').datepicker({
+  language: 'th'
+});

@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -33,4 +33,22 @@ class User extends Authenticatable
     public function role() {
         return $this->belongsTo(Role::class);
     }
+
+     /**
+     * @return App\Models\School
+     */
+    public function school() {
+        return $this->belongsTo(School::class);
+    }
+
+
+    /**
+     * combine firstname and last name
+     * 
+     * @return string $fullname
+     */
+    public function getFullNameAttribute() {
+        return $this->attributes['first_name']." ".$this->attributes['last_name']; 
+    }
+    
 }

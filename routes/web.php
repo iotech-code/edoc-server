@@ -13,12 +13,20 @@
 
 Route::get('/', function () {
     // return view('welcome');
-    return redirect('/document');
+    // return redirect('/document');
+    return redirect("/document");
 });
 
-Route::resource('document', 'DocumentController');
+Route::middleware(['web','auth'])->group(function(){
 
-Route::resource('cabinet', 'CabinetController');
+    Route::resource('document', 'DocumentController');
+    Route::resource('cabinet', 'CabinetController');
+    Route::get('profile', 'UserController@profile')
+        ->name('user.profile');
+    Route::get('document/{id}/refer', 'DocumentController@getReference');
+});
+
+// Route::resource('cabinet', 'CabinetController');
 
 Auth::routes();
 

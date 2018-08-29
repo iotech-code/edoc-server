@@ -60,21 +60,20 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */
+/******/ ({
+
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(4);
+module.exports = __webpack_require__(9);
 
 
 /***/ }),
-/* 4 */
+
+/***/ 9:
 /***/ (function(module, exports) {
 
 $('a.edoc-link-form').click(function (e) {
@@ -87,5 +86,12 @@ $('a.edoc-link-form').click(function (e) {
   $(this).find('form').submit();
 });
 
+$('.date-select').datepicker({
+  language: 'th',
+  format: 'yyyy-mm-dd'
+  // startDate: 'd'
+});
+
 /***/ })
-/******/ ]);
+
+/******/ });

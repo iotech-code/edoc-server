@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('nav-top')
-    @include('layouts.nav-top', ['active'=>2])
+	@include('layouts.nav-top', ['active'=>2])
 @endsection
 
 @section('content')
@@ -15,135 +15,194 @@
 			</ul>
 	
 		</div> --}}
-  <h3>
-    รายละเอียดเอกสาร
-  </h3>
+
   <form class="" action="{{ route('document.store') }}" method="POST" enctype="multipart/form-data">
   <div class="row">
-    <div class="card border-top-primary mb-5">
-      <div class="card-body">
-          <div class="form-row">
-            <div class="form-group col-3">
-                <label for="">ตู้จัดเก็บเอกสาร</label>
-                <select class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
-									@foreach (App\Models\Cabinet::all() as $item)
-											<option value="{{$item->id}}">{{$item->name}}</option>
-									@endforeach
-								</select>
+	<div class="col-md-7 mb-2">
+		<h3>
+		รายละเอียดเอกสาร
+		</h3>
+		<div class="card border-top-primary ">
+	
+		  <div class="card-body">
+			  
+			  <div class="form-row">
+					<div class="form-group col-4">
+						<label for="">ตู้จัดเก็บเอกสาร</label>
+						<select class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
+								@foreach (App\Models\Cabinet::all() as $item)
+										<option value="{{$item->id}}">{{$item->name}}</option>
+								@endforeach
+							</select>
+					</div>
+					<div class="form-group col-4">
+						<label for="">เลขแฟ้ม</label>
+						<select class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
+								@foreach (App\Models\Cabinet::first()->folders as $item)
+										<option value="{{$item->id}}">{{$item->name}}</option>
+								@endforeach
+						</select>					</div>
+					<div class="form-group col-4">
+						<label for="">ประเภทเอกสาร</label>
+						<select class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
+								@foreach (App\Models\DocumentType::all() as $item)
+										<option value="{{$item->id}}">{{$item->name}}</option>
+								@endforeach
+						</select>
+					</div>
+			  </div>
+			  <div class="form-row">
+					<div class="form-group col">
+						<label for="">จาก</label>
+						<input type="text" name="code" class="form-control">
+					</div>
+
+					<div class="form-group col">
+						<label for="">เลขที่</label>
+						<input type="text" name="refer" class="form-control">
+					</div>
+					<div class="form-group col">
+						<label for="">วันที่</label>
+						<div class="input-group ">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+							<input type="text" name="date" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
 						</div>
-            <div class="form-group col">
-                <label for="">จาก</label>
-                <input type="text" name="from" class="form-control" required>
-            </div>
-          </div>
+					</div>
+				</div>
+				
 
-          <div class="form-row">
-            <div class="form-group col">
-                <label for="">เลขที่</label>
-                <input type="text" name="code" class="form-control">
-            </div>
-            <div class="form-group col">
-                <label for="">วันที่</label>
-                <div class="input-group ">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">
-                            <i class="fa fa-calendar"></i>
-                        </span>
-                    </div>
-                    <input type="text" name="date" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                </div>
-            </div>
-            <div class="form-group col">
-                <label for="">อ้างถึง</label>
-                <input type="text" name="refer" class="form-control">
-            </div>
-          </div>
-          {{-- <div class="form-row"> --}}
+			  {{-- <div class="form-row"> --}}
+	
+			  <div class="form-row">
+					<div class="form-group col">
+						<label for="">เอกสารอ้างอิง</label>
+							{{-- <input id="refer" type="text" name="title" required class="form-control prompt" autocomplete="off">
+							<div class="results"></div> --}}
 
-          <div class="form-row">
-            <div class="form-group col">
-              <label for="">เรื่อง *</label>
-              <input type="text" name="title" required class="form-control">
-            </div>
-
-          </div>
-          {{-- </div> --}}
-          {{-- <div class="form-row"> --}}
-            <div class="form-row">
-              <div class="col">
-                <label for="">คำสำคัญ</label>
-              </div>
-            </div>
-            <div class="form-row">
-
-              <div class="form-group col">
-                  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-              </div>
-              <div class="form-group col">
-                  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-              </div>
-              <div class="form-group col">
-                  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-              </div>
-            </div>
-          {{-- </div>      --}}
-          <div class="form-row">
-            <div class="form-group col">
-                <label for="">เลขที่รับ</label>
-                <input type="text" name="receive_code" class="form-control">
-            </div>
-            <div class="form-group col">
-                <label for="">วันที่รับ</label>
-                <div class="input-group ">
-                    <div class="input-group-prepend">
-												<span class="input-group-text" id="basic-addon1">
-													<i class="fa fa-calendar"></i>
-												</span>
-                    </div>
-                    <input name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                </div>
-            </div>
-            <div class="form-group col">
-                <label for="">ที่เก็บต้นฉบับ</label>
-                <input type="text" name="receive_achives" class="form-control">
-            </div>
-          </div>     
-
-      </div>
-
-    </div>
-  </div>
-  <h3>ไฟล์แนบ</h3>
-  <div class="row">
-    <div class="card border-top-primary">
-      <div class="card-body" style="min-width: 320px">
-          <div class="row mb-2">
-            <div class="col-12">
-							<div id="fileGroup">
-								<div class="row mb-3" id="file1">
-									<div class="col" >
-										<input type="file" name="files[]">
-										<button type="button" class="btn btn-danger btn-sm rounded-circle btn-remove-file" data-file="1">
-											<i class="fa fa-times"></i>
-										</button>
+							{{-- <div class="ui search" style="width:100%">
+									<div class="ui icon input" style="width:100%">
+										<input class="prompt form-control" type="text" placeholder="Common passwords...">
+										<i class="search icon"></i>
 									</div>
+									<div class="results"></div>
+								</div> --}}
+						<div class="input-search-group">
+							<div class="input-group refer">
+								<input class="form-control" type="text" placeholder="ค้นหาเอกสารอ้างอิง">
+								<div class="input-group-append">
+									<span class="input-group-text">
+										<i class="fa fa-search"></i>
+									</span>
 								</div>
 							</div>
-            </div>   
+							<div class="results">
+								<div class="result">test</div>
+								<div class="result">test</div>
+								<div class="result">test</div>
+							</div>
+						</div>
+						<div id="taged">
+							{{-- <span class="badge badge-info">Info ฟ</span>
+							<span class="badge badge-info">Info</span>
+							<span class="badge badge-info">Info</span>
+							<span class="badge badge-info">Info</span> --}}
 
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <button id="addFile" type="button" class="btn btn-success rounded-circle">
-								<i class="fa fa-plus"></i>
-							</button>
-            </div>   
-          </div>
-      </div>
-    </div>
+						</div>
+
+					</div>
+					<div class="form-group col">
+						<label for="">เรื่อง <span class="red-star"></span></label>
+						<input type="text" name="title" required class="form-control">
+					</div>
+	
+			  </div>
+			  {{-- </div> --}}
+			  {{-- <div class="form-row"> --}}
+				{{-- <div class="form-row">
+				  <div class="col">
+					<label for="">คำสำคัญ</label>
+				  </div>
+				</div>
+				<div class="form-row">
+	
+				  <div class="form-group col">
+					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
+				  </div>
+				  <div class="form-group col">
+					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
+				  </div>
+				  <div class="form-group col">
+					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
+				  </div>
+				</div> --}}
+			  {{-- </div>      --}}
+			  <div class="form-row">
+
+					<div class="form-group col">
+						<label for="">คำสำคัญ</label>
+						<input type="text" name="receive_achives" class="form-control">
+					</div>
+					<div class="form-group col">
+						<label for="">เลขที่รับ</label>
+						<input type="text" name="receive_code" class="form-control">
+					</div>
+					<div class="form-group col">
+						<label for="">วันที่รับ</label>
+						<div class="input-group ">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+							<input name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+						</div>
+					</div>
+			  </div>     
+	
+		  </div>
+	
+		</div>
+
+	</div>
+	<div class="col-md-5">
+  <h3>ไฟล์แนบ</h3>
+		
+		<div class="card border-top-primary">
+			<div class="card-body" style="min-width: 320px">
+				<div class="row mb-2">
+				  <div class="col-12">
+					<div id="fileGroup">
+						<div class="row mb-3" id="file1">
+							<div class="col" >
+								<input type="file" name="files[]">
+								<button type="button" class="btn btn-danger btn-sm rounded-circle btn-remove-file" data-file="1">
+									<i class="fa fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				  </div>   
+	  
+				</div>
+				<div class="row">
+				  <div class="col-12">
+					<button id="addFile" type="button" class="btn btn-success rounded-circle">
+									  <i class="fa fa-plus"></i>
+								  </button>
+				  </div>   
+				</div>
+			</div>
+		  </div>
+	</div>
+	
   </div>
+
   @csrf
-  <button class="btn btn-primary mx-auto" style="display:block" type="submit">ตกลง</button>
+  <button class="btn btn-primary mx-auto mt-3" style="display:block" type="submit">ตกลง</button>
   </form>
 
 </div>
@@ -151,17 +210,61 @@
 @endsection
 
 @section('script')
-	<script src="{{asset('js/document/create.js')}}"></script>
+<script src="{{asset('js/document/create.js')}}"></script>
+<script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script>
+<script>
+	var content = [
+  { title: 'Andorra' },
+  { title: 'United Arab Emirates' },
+  { title: 'Afghanistan' },
+  { title: 'Antigua' },
+  { title: 'Anguilla' },
+  { title: 'Albania' },
+  { title: 'Armenia' },
+  { title: 'Netherlands Antilles' },
+  { title: 'Angola' },
+  { title: 'Argentina' },
+  { title: 'American Samoa' },
+  { title: 'Austria' },
+  { title: 'Australia' },
+  { title: 'Aruba' },
+  { title: 'Aland Islands' },
+  { title: 'Azerbaijan' },
+  { title: 'Bosnia' },
+  { title: 'Barbados' },
+  { title: 'Bangladesh' },
+  { title: 'Belgium' },
+  { title: 'Burkina Faso' },
+  { title: 'Bulgaria' },
+  { title: 'Bahrain' },
+  { title: 'Burundi' }
+  // etc
+];
+		$('a').click(function(e){
+			if( $(this).hasClass("rm-tag")) {
+				e.preventDefault()
+				alert();
+			}
+		});
+	$('.input-group.refer').search()
 
+	
+	// $('input').click(function(){
+	// 	alert();
+	// })
+</script>
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="{{ asset("css/document/create.css") }}">
+	{{-- <link rel="stylesheet" type="text/css" href="{{asset("semantic/dist/semantic.css")}}"> --}}
+
 @endpush
 
 @push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.th.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.th.min.js"></script>
+	{{-- <script src="{{asset("semantic/dist/semantic.min.js")}}"></script> --}}
 @endpush

@@ -24,6 +24,3 @@
 // $('input').click(function(){
 //     alert();
 // });
-$('.date-select').datepicker({
-    language: 'th'
-});

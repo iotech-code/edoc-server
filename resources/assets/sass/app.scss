@@ -49,13 +49,29 @@
 .edoc-bg-primary {
   background-color: $color-secondary
 }
+.dropdown-toggle::after{
+  color:blue;
+}
+
+.btn.edoc-btn-primary.inverse {
+  color: $color-primary;
+  background-color: #fff;
+  border: 2px solid $color-primary;
+  &:hover{
+    color: $color-primary !important;
+    // background-color: $color-primary;
+    // opacity: 1;
+
+  }
+}
 
 .edoc-btn-primary {
   color: #fff;
   background-color: $color-primary;
+  border: 2px solid $color-primary !important;
   transition: 300ms !important;
   &:hover{
-    opacity: 0.9;
+    opacity: 0.7;
   }
 } 
 
@@ -79,6 +95,14 @@
   font-size: 1.5em;
   &:hover {
     text-decoration: none;
+
+  }
+}
+
+span.red-star {
+  &::after{
+    color: red;
+    content: "\*";
 
   }
 }
@@ -118,4 +142,17 @@ a.edoc-nav-link {
 .nav-wrapper {
   // border-bottom: 1px solid  ;
   box-shadow: 0px 2px 0.5px 0px #E3E3E3;
+}
+
+.dropdown-toggle::after{
+  color:$color-primary;
+}
+
+tr.tr-row {
+  margin: 0;
+}
+
+.input-group {
+  &>.fa{
+  }
 }
