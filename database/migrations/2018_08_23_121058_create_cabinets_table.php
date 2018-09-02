@@ -18,6 +18,7 @@ class CreateCabinetsTable extends Migration
             $table->string('name');
             $table->text('description')->default("");
             $table->unsignedInteger('school_id');
+            $table->boolean('is_set_permission')->default(0);
             $table->timestamps();
         });
     }

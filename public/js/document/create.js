@@ -60,90 +60,18 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(11);
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var member = 1;
-
-$('#addFile').click(function () {
-  member++;
-
-  var html = ' \n    <div class="row mb-3" id="file' + member + '">\n      <div class="col">\n        <input type="file" name="files[]"> \n        <button type="button" class="btn btn-danger btn-sm rounded-circle btn-remove-file" data-file="' + member + '">\n          <i class="fa fa-times"></i>\n        </button>\n      </div>\n    </div>\n    ';
-  $('#fileGroup').append(html);
-});
-$(document).on('click', '.btn-remove-file', function () {
-  // console.log("tete");
-  val = $(this).data('file');
-  console.log('====================================');
-  console.log(val);
-  console.log('====================================');
-  $("#file" + val).remove();
-});
-
-$('.date-select').datepicker({
-  language: 'th'
-});
-
-axios = __webpack_require__(27);
-
-$.fn.tet = function () {
-  // this.css( "color", "green" );
-  $(this).click(function () {
-    alert();
-  });
-};
-$.fn.addtag = function (text) {
-  a = '<a class="rm-tag" href="#" data-refer-id="' + text + '"> <i class="fa fa-times"> </i></a>';
-  html = '\n    <span class="badge badge-info" id="refer' + text + '"> \n      ' + text + '\n      ' + a + '\n    </span>\n  ';
-  $(this).append(html);
-};
-// axios("get");
-// function addRefer(ele, text) {
-//   html = `
-//   <span class="badge badge-info"> ${text} </span>
-//   `;
-//   $(ele).append(html);
-// }
-// require('semantic-ui-search');
-
-/***/ }),
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bind = __webpack_require__(22);
-var isBuffer = __webpack_require__(29);
+var bind = __webpack_require__(2);
+var isBuffer = __webpack_require__(9);
 
 /*global toString:true*/
 
@@ -446,14 +374,14 @@ module.exports = {
 
 
 /***/ }),
-/* 21 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(20);
-var normalizeHeaderName = __webpack_require__(32);
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(12);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -469,10 +397,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(23);
+    adapter = __webpack_require__(3);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(23);
+    adapter = __webpack_require__(3);
   }
   return adapter;
 }
@@ -547,10 +475,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
-/* 22 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -568,19 +496,19 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 23 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
-var settle = __webpack_require__(33);
-var buildURL = __webpack_require__(35);
-var parseHeaders = __webpack_require__(36);
-var isURLSameOrigin = __webpack_require__(37);
-var createError = __webpack_require__(24);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(38);
+var utils = __webpack_require__(0);
+var settle = __webpack_require__(13);
+var buildURL = __webpack_require__(15);
+var parseHeaders = __webpack_require__(16);
+var isURLSameOrigin = __webpack_require__(17);
+var createError = __webpack_require__(4);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(18);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -677,7 +605,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(39);
+      var cookies = __webpack_require__(19);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -755,13 +683,13 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 24 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(34);
+var enhanceError = __webpack_require__(14);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -780,7 +708,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 25 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -792,7 +720,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 26 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -818,22 +746,22 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 27 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(28);
+module.exports = __webpack_require__(8);
 
 /***/ }),
-/* 28 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
-var bind = __webpack_require__(22);
-var Axios = __webpack_require__(30);
-var defaults = __webpack_require__(21);
+var utils = __webpack_require__(0);
+var bind = __webpack_require__(2);
+var Axios = __webpack_require__(10);
+var defaults = __webpack_require__(1);
 
 /**
  * Create an instance of Axios
@@ -866,15 +794,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(26);
-axios.CancelToken = __webpack_require__(45);
-axios.isCancel = __webpack_require__(25);
+axios.Cancel = __webpack_require__(6);
+axios.CancelToken = __webpack_require__(25);
+axios.isCancel = __webpack_require__(5);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(46);
+axios.spread = __webpack_require__(26);
 
 module.exports = axios;
 
@@ -883,7 +811,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 29 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /*!
@@ -910,16 +838,16 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 30 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(21);
-var utils = __webpack_require__(20);
-var InterceptorManager = __webpack_require__(40);
-var dispatchRequest = __webpack_require__(41);
+var defaults = __webpack_require__(1);
+var utils = __webpack_require__(0);
+var InterceptorManager = __webpack_require__(20);
+var dispatchRequest = __webpack_require__(21);
 
 /**
  * Create a new instance of Axios
@@ -996,7 +924,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 31 */
+/* 11 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1186,13 +1114,13 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 32 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
+var utils = __webpack_require__(0);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -1205,13 +1133,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 33 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(24);
+var createError = __webpack_require__(4);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -1238,7 +1166,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 34 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1266,13 +1194,13 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 35 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
+var utils = __webpack_require__(0);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -1339,13 +1267,13 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 36 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
+var utils = __webpack_require__(0);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -1399,13 +1327,13 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 37 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
+var utils = __webpack_require__(0);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1474,7 +1402,7 @@ module.exports = (
 
 
 /***/ }),
-/* 38 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1517,13 +1445,13 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 39 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
+var utils = __webpack_require__(0);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -1577,13 +1505,13 @@ module.exports = (
 
 
 /***/ }),
-/* 40 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
+var utils = __webpack_require__(0);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -1636,18 +1564,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 41 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
-var transformData = __webpack_require__(42);
-var isCancel = __webpack_require__(25);
-var defaults = __webpack_require__(21);
-var isAbsoluteURL = __webpack_require__(43);
-var combineURLs = __webpack_require__(44);
+var utils = __webpack_require__(0);
+var transformData = __webpack_require__(22);
+var isCancel = __webpack_require__(5);
+var defaults = __webpack_require__(1);
+var isAbsoluteURL = __webpack_require__(23);
+var combineURLs = __webpack_require__(24);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -1729,13 +1657,13 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 42 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(20);
+var utils = __webpack_require__(0);
 
 /**
  * Transform the data for a request or a response
@@ -1756,7 +1684,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 43 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1777,7 +1705,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 44 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1798,13 +1726,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 45 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(26);
+var Cancel = __webpack_require__(6);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -1862,7 +1790,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 46 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1894,6 +1822,118 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 27 */,
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(36);
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var member = 1;
+
+$('#addFile').click(function () {
+  member++;
+
+  var html = ' \n    <div class="row mb-3" id="file' + member + '">\n      <div class="col">\n        <input type="file" name="files[]"> \n        <button type="button" class="btn btn-danger btn-sm rounded-circle btn-remove-file" data-file="' + member + '">\n          <i class="fa fa-times"></i>\n        </button>\n      </div>\n    </div>\n    ';
+  $('#fileGroup').append(html);
+});
+$(document).on('click', '.btn-remove-file', function () {
+  // console.log("tete");
+  val = $(this).data('file');
+  console.log('====================================');
+  console.log(val);
+  console.log('====================================');
+  $("#file" + val).remove();
+});
+
+$('.date-select').datepicker({
+  language: 'th',
+  format: 'yyyy-mm-dd',
+  // startDate: 'd'
+  default: true
+});
+
+axios = __webpack_require__(7);
+
+$.fn.search = function (setting) {
+
+  $input = $(this).find('.input-group').find('input');
+  $results = $(this).find('.results');
+
+  // console.log($input);
+  var url = setting.url;
+
+  $(document).click(function (e) {
+
+    if ($(e.target)[0] !== $input[0]) {
+
+      $results.removeClass("active");
+    }
+  });
+
+  $input.on("paste keyup focus", function (e) {
+    val = $(this).val();
+    // console.log(val);
+    var query = $(this).val();;
+
+    axios.get(url + ('?query=' + query)).then(function (response) {
+      data = response.data.data;
+      console.log(data.length);
+
+      $results.empty();
+      $results.addClass("active");
+      if (data.length > 0) {
+        data.forEach(function (ele) {
+          // console.log(ele);
+          $child = $('<div class="result" data-doc-id="' + ele.id + '"> ' + ele.title + ' </div>');
+          $results.append($child);
+
+          $child.click(function (e) {
+            $child = $('<div class="col-12 mb-1">');
+
+            $link = $('<a href="">' + ele.title + '</a>');
+            $deleteBtn = $('\n            <button type="button" class="btn btn-danger btn-sm rounded-circle float-right" >\n              <i class="fa fa-times"></i>\n            </button>');
+            $value = $('<input type="hidden" name="refers[]" value="' + ele.id + '" >');
+            $child.append($link);
+            $child.append($value);
+            $child.append($deleteBtn);
+            // $a = $(`<a class="rm-tag" href="#" data-refer="${ele.id}" > <i class="fa fa-times"> </i></a>`) ;
+            // $tag = $(`<span class="badge badge-info mr-1" >${ele.title}</span>`) ;
+            // $value = $(`<input type="hidden" name="refers[]" value="${ele.id}" >`)
+            $('input[name="title"]').val(ele.title);
+            $("#referItem").append($child);
+
+            // $tag.append($a);
+            // $tag.append($value);
+            $deleteBtn.click(function (e) {
+              e.preventDefault();
+              $(this).parent().remove();
+            });
+            // $("#taged").append($tag);
+          });
+        });
+      } else {
+        child = $('<div class="result" > \u0E44\u0E21\u0E48\u0E1E\u0E1A\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25 </div>');
+        $results.append(child);
+      }
+    }).catch(function (error) {
+      console.log(error);
+    });
+  });
+};
 
 /***/ })
 /******/ ]);

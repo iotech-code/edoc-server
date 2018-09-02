@@ -13,12 +13,13 @@ $factory->define(App\Models\Document::class, function (Faker $faker) {
         'title' => $faker->word,
         'receive_code' => $faker->randomNumber($nbDigits = NULL, $strict = false) ,
         'receive_date' => $faker->date($format = 'Y-m-d', $max = '+30 days') ,
-        'receive_achives' => $faker->name ,
+        // 'receive_achives' => $faker->name ,
         'date' => $faker->date($format = 'Y-m-d', $max = '+30 days') ,
-        'refer' => Document::count() ? Document::inRandomOrder()->first()->id : null ,
+        // 'refer' => Document::count() ? Document::inRandomOrder()->first()->id : null ,
         'keywords' => $faker->words($nb = 3, $asText = false) ,
         'status' => mt_rand(1,4) ,
-        'cabinet_id' => App\Models\Cabinet::inRandomOrder()->first()->id
+        'cabinet_id' => App\Models\Cabinet::inRandomOrder()->first()->id,
+        'folder_id' => App\Models\Folder::inRandomOrder()->first()->id
 
     ];
 });

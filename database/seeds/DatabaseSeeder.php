@@ -14,11 +14,10 @@ class DatabaseSeeder extends Seeder
         $this->call(SchoolSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(DocReplyTypeSeeder::class);
         $this->call(CabinetSeeder::class);
         $this->call(DocumentTypeSeeder::class);
         $this->call(DocumentSeeder::class);
-
         
-
     }
 }

@@ -10613,7 +10613,29 @@ a.edoc-nav-link.active {
   color: #0275D8;
 }
 
-tr.tr-row {
-  margin: 0;
+.edoc-breadcrumb {
+  padding: 0.75rem 0.25rem;
+  display: inline-block;
+}
+
+.edoc-breadcrumb > li.item {
+  display: inline-block;
+  list-style: none;
+}
+
+.edoc-breadcrumb > li.item.active {
+  color: #0196D6;
+}
+
+.edoc-breadcrumb > li.item a {
+  color: dimgray;
+}
+
+.edoc-breadcrumb > li.item::before {
+  content: " > ";
+}
+
+.edoc-breadcrumb > li.item:first-child::before {
+  content: "";
 }
 

@@ -14,8 +14,10 @@ let mix = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css')
    .js('resources/assets/js/document/index.js', 'public/js/document/index.js')
+   .sass('resources/assets/sass/document/index.scss', 'public/css/document/index.css')
    .js('resources/assets/js/document/create.js', 'public/js/document/create.js')
    .sass('resources/assets/sass/document/create.scss', 'public/css/document/create.css')
+   .js('resources/assets/js/document/edit.js', 'public/js/document/edit.js')
    .sass('resources/assets/sass/login.scss', 'public/css/login.css')
    .js('resources/assets/js/login.js', 'public/js/login.js');
   //  .js('resources/assets/js/document/*', 'public/js/document/*');

@@ -1,9 +1,11 @@
 {
-    "/js/login.js": "/js/login.js",
+    "/js/document/edit.js": "/js/document/edit.js",
     "/js/document/create.js": "/js/document/create.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/css/document/index.css": "/css/document/index.css",
     "/css/document/create.css": "/css/document/create.css",
     "/css/login.css": "/css/login.css",
+    "/js/login.js": "/js/login.js",
     "/js/document/index.js": "/js/document/index.js"
 }

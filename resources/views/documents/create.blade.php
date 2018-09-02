@@ -29,22 +29,25 @@
 			  <div class="form-row">
 					<div class="form-group col-4">
 						<label for="">ตู้จัดเก็บเอกสาร</label>
-						<select class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
-								@foreach (App\Models\Cabinet::all() as $item)
+						<select id="cabinetSelect" class="form-control" name="cabinet_id">
+								<option value="">เลือกตู้เอกสาร</option>
+
+								@foreach ($cabinets as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
 								@endforeach
 							</select>
 					</div>
 					<div class="form-group col-4">
 						<label for="">เลขแฟ้ม</label>
-						<select class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
-								@foreach (App\Models\Cabinet::first()->folders as $item)
+						<select id="folderSelect" class="form-control" name="folder_id"  disabled>
+								{{-- @foreach (App\Models\Cabinet::first()->folders as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
-								@endforeach
-						</select>					</div>
+								@endforeach --}}
+						</select>					
+					</div>
 					<div class="form-group col-4">
 						<label for="">ประเภทเอกสาร</label>
-						<select class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
+						<select class="form-control" name="type_id" >
 								@foreach (App\Models\DocumentType::all() as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
 								@endforeach
@@ -54,12 +57,12 @@
 			  <div class="form-row">
 					<div class="form-group col">
 						<label for="">จาก</label>
-						<input type="text" name="code" class="form-control">
+						<input type="text" name="from" class="form-control">
 					</div>
 
 					<div class="form-group col">
 						<label for="">เลขที่</label>
-						<input type="text" name="refer" class="form-control">
+						<input type="text" name="code" class="form-control">
 					</div>
 					<div class="form-group col">
 						<label for="">วันที่</label>
@@ -80,18 +83,8 @@
 			  <div class="form-row">
 					<div class="form-group col">
 						<label for="">เอกสารอ้างอิง</label>
-							{{-- <input id="refer" type="text" name="title" required class="form-control prompt" autocomplete="off">
-							<div class="results"></div> --}}
-
-							{{-- <div class="ui search" style="width:100%">
-									<div class="ui icon input" style="width:100%">
-										<input class="prompt form-control" type="text" placeholder="Common passwords...">
-										<i class="search icon"></i>
-									</div>
-									<div class="results"></div>
-								</div> --}}
-						<div class="input-search-group">
-							<div class="input-group refer">
+						<div class="input-search-group" id="refer">
+							<div class="input-group">
 								<input class="form-control" type="text" placeholder="ค้นหาเอกสารอ้างอิง">
 								<div class="input-group-append">
 									<span class="input-group-text">
@@ -100,9 +93,9 @@
 								</div>
 							</div>
 							<div class="results">
+								{{-- <div class="result">test</div>
 								<div class="result">test</div>
-								<div class="result">test</div>
-								<div class="result">test</div>
+								<div class="result">test</div> --}}
 							</div>
 						</div>
 						<div id="taged">
@@ -144,7 +137,7 @@
 
 					<div class="form-group col">
 						<label for="">คำสำคัญ</label>
-						<input type="text" name="receive_achives" class="form-control">
+						<input type="text" name="keywords" class="form-control">
 					</div>
 					<div class="form-group col">
 						<label for="">เลขที่รับ</label>
@@ -168,36 +161,49 @@
 		</div>
 
 	</div>
-	<div class="col-md-5">
-  <h3>ไฟล์แนบ</h3>
-		
-		<div class="card border-top-primary">
-			<div class="card-body" style="min-width: 320px">
-				<div class="row mb-2">
-				  <div class="col-12">
-					<div id="fileGroup">
-						<div class="row mb-3" id="file1">
-							<div class="col" >
-								<input type="file" name="files[]">
-								<button type="button" class="btn btn-danger btn-sm rounded-circle btn-remove-file" data-file="1">
-									<i class="fa fa-times"></i>
-								</button>
+	<div class="col-md-5 row">
+		<div class="col-12">
+			<h3>ไฟล์แนบ</h3>
+			<div class="card border-top-primary">
+				<div class="card-body" style="min-width: 320px">
+					<div class="row mb-2">
+						<div class="col-12">
+						<div id="fileGroup">
+							<div class="row mb-3" id="file1">
+								<div class="col" >
+									<input type="file" name="files[]">
+									<button type="button" class="btn btn-danger btn-sm rounded-circle btn-remove-file" data-file="1">
+										<i class="fa fa-times"></i>
+									</button>
+								</div>
 							</div>
 						</div>
+						</div>   
+			
 					</div>
-				  </div>   
-	  
+					<div class="row">
+						<div class="col-12">
+						<button id="addFile" type="button" class="btn btn-success rounded-circle btn-sm">
+											<i class="fa fa-plus"></i>
+										</button>
+						</div>   
+					</div>
 				</div>
-				<div class="row">
-				  <div class="col-12">
-					<button id="addFile" type="button" class="btn btn-success rounded-circle">
-									  <i class="fa fa-plus"></i>
-								  </button>
-				  </div>   
 				</div>
-			</div>
-		  </div>
-	</div>
+
+		</div>
+			<div class="col-12" >
+					<h3>รายการเอกสารอ้างอิง</h3>
+					<div class="card border-top-primary">
+						<div class="card-body" style="min-width: 320px">
+							<div class="row mb-2" id="referItem">
+		
+					
+							</div>
+						</div>
+						</div>
+				</div>
+		</div>
 	
   </div>
 
@@ -213,45 +219,37 @@
 <script src="{{asset('js/document/create.js')}}"></script>
 <script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script>
 <script>
-	var content = [
-  { title: 'Andorra' },
-  { title: 'United Arab Emirates' },
-  { title: 'Afghanistan' },
-  { title: 'Antigua' },
-  { title: 'Anguilla' },
-  { title: 'Albania' },
-  { title: 'Armenia' },
-  { title: 'Netherlands Antilles' },
-  { title: 'Angola' },
-  { title: 'Argentina' },
-  { title: 'American Samoa' },
-  { title: 'Austria' },
-  { title: 'Australia' },
-  { title: 'Aruba' },
-  { title: 'Aland Islands' },
-  { title: 'Azerbaijan' },
-  { title: 'Bosnia' },
-  { title: 'Barbados' },
-  { title: 'Bangladesh' },
-  { title: 'Belgium' },
-  { title: 'Burkina Faso' },
-  { title: 'Bulgaria' },
-  { title: 'Bahrain' },
-  { title: 'Burundi' }
-  // etc
-];
-		$('a').click(function(e){
-			if( $(this).hasClass("rm-tag")) {
-				e.preventDefault()
-				alert();
-			}
-		});
-	$('.input-group.refer').search()
 
-	
-	// $('input').click(function(){
-	// 	alert();
-	// })
+	function getFolderurl(id) {
+		host = "{{ url("") }}";
+		uri = host+"/ajax/cabinets/"+id+"/folders" ;
+		return uri ;
+	}
+	$("#cabinetSelect").change(function(){
+		id = $(this).val();
+		console.log(typeof(id));
+		$folderEle = $("#folderSelect") ;
+		if(id !== ""){
+			axios.get(getFolderurl(id))
+			.then(function(res){
+				$folderEle.prop("disabled", false);
+				$($folderEle).empty();
+				res.data.forEach(function(item) {
+					$child = $(`<option value="${item.id}">${item.name}</option>`);
+					$($folderEle).append($child);
+				});
+			})
+			.catch(function(err){
+			});
+		} else {
+			$folderEle.prop("disabled", true);
+			$folderEle.val(null);
+		}
+	});
+	$("#refer").search({
+		url: "{{ route("ajax.document_refer")}}"
+	})
+
 </script>
 @endsection
 

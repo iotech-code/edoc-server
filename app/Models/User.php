@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'first_name', 'last_name', 'password', 'role_id'
     ];
 
     /**
@@ -25,6 +25,15 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
+    ];
+
+    /**
+     * append to response json
+     * 
+     * @var array
+     */
+    protected $appends = [
+        'full_name'
     ];
 
     /**
@@ -50,5 +59,33 @@ class User extends Authenticatable
     public function getFullNameAttribute() {
         return $this->attributes['first_name']." ".$this->attributes['last_name']; 
     }
+
+
+    /**
+     * belong to many Cabinet 
+     * 
+     * @return 
+     */
+    public function cabinetPermissions() {
+        return $this->belongsToMany(Cabinet::class, 'user_cabinet_permission', 'user_id', 'cabinet_id');
+    }
+
+    public function scopeOfSearchByName($query, $text) {
+        return $query->where("first_name", "like", "%{$text}%")
+            ->orWhere("last_name", "like", "%{$text}%");
+    }
+
+    public function documentAssigns() {
+        return $this
+            ->belongsToMany(Document::class, 'document_assignments', 'user_id', 'document_id')
+            ->withPivot(["status"]);
+    }
+
+    public function assignmentAlert($document_id) {
+        $counter = $this->documentAssigns()
+            ->wherePivot('document_id', $document_id)
+            ->wherePivot('status', 2);
+        return $counter;
+    }   
     
 }

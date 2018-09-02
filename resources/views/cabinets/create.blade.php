@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('nav-top')
-	@include('layouts.nav-top', ['active'=>3])
+  @include('layouts.nav-top', ['active'=>3])
+  {{ Breadcrumbs::render('cabinet.create') }}
+
 @endsection
 @section('content')
   <div class="container">
@@ -15,7 +17,7 @@
                 <div class="form-group row">
                   <div class="col-6">
                     <label for="">ชื่อตู้เอกสาร</label><span class="red-star"></span>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="name">
                   </div>
                   <div class="col-6">
                     
@@ -23,13 +25,13 @@
                 </div>
                 <div class="form-group">
                   <label for="">คำอธิบาย ตู้เอกสาร</label>
-                  <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                  <textarea  id="" cols="30" rows="5" class="form-control" name="description"></textarea>
                 </div>
                 <div class="form-group row">
                     <div class="col-6">
                         <label for="">ชื่อแฟ้ม</label><span class="red-star"></span>
-                        <input type="text" class="form-control">
-                        <small>etstesse</small>
+                        <input type="text" class="form-control" name="folder[name]">
+                        <small class="text-danger">ระ</small>
                     </div>
                     <div class="col-6">
     
@@ -38,7 +40,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">คำอธิบาย แฟ้มเอกสาร</label>
-                  <textarea name="" id="" cols="30" rows="5" class="form-control"></textarea>
+                  <textarea id="" cols="30" rows="5" class="form-control" name="folder[description]"></textarea>
     
                   </div>
               </div>

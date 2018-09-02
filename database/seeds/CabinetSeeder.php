@@ -11,12 +11,44 @@ class CabinetSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('cabinets')->truncate();
-        DB::table('folders')->truncate();
-
-        factory(App\Models\Cabinet::class, 10)->create()->each(function($cabinet){
+        // DB::table('cabinets')->truncate();
+        // DB::table('folders')->truncate();
+        $a = [
+            [
+                'name' => "วิชาการ",
+                "school_id"=> 1,
+                "description" => ""
+            ],
+            [
+                'name' => "ธุรการ",
+                "school_id"=> 1,
+                "description" => ""
+            ],
+            [
+                'name' => "ปกครอง",
+                "school_id"=> 1,
+                "description" => ""
+            ],
+            [
+                'name' => "การศึกษา",
+                "school_id"=> 1,
+                "description" => ""
+            ],
+            [
+                'name' => "การเงิน",
+                "school_id"=> 1,
+                "description" => ""
+            ],
+            
+        ];
+        foreach($a as $data) {
+            $cabinet = App\Models\Cabinet::create($data) ;
             $cabinet->folders()->saveMany(factory(App\Models\Folder::class, mt_rand(1,4))->make());
-        });
+        }
+
+        // factory(App\Models\Cabinet::class, 10)->create()->each(function($cabinet){
+        //     $cabinet->folders()->saveMany(factory(App\Models\Folder::class, mt_rand(1,4))->make());
+        // });
 
     }
 }

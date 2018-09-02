@@ -21,4 +21,11 @@ class Folder extends Model
     public function cabinet() {
         return $this->belongsTo(Cabinet::class) ;
     }
+
+    /**
+     * 
+     */
+    public function documents() {
+        return $this->hasMany(Document::class) ;
+    }
 }

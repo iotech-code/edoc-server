@@ -12,17 +12,22 @@ class Document extends Model
         'title',
         'from',
         'code',
-        'refer',
+        // 'refer',
         'date',
         'receive_code',
         'receive_date',
-        'receive_achives',
+        // 'receive_achives',
         'keywords',
         'cabinet_id',
+        'folder_id',
         'read_at',
         'user_id',
         'school_id',
-        'type_id'
+        'type_id',
+        'heading',
+        'status',
+        'remark',
+        'reply_type'
     ];
 
     /**
@@ -77,17 +82,14 @@ class Document extends Model
                 break;
             case 2:
                 //waiting
-
                 $color = 'yellow';
                 break; 
             case 3:
                 //approve
-
                 $color = 'green';
                 break; 
             case 4:
                 //unapprove
-
                 $color = 'red';
                 break; 
             default:
@@ -96,6 +98,20 @@ class Document extends Model
         }
         $html = "<span class=\"status-circle status-${color}\" ></span>";
         return $html;
+    }
+
+    /**
+     * 
+     */
+    public function folder() {
+        return $this->belongsTo(Folder::class);
+    }   
+    
+    /**
+     * 
+     */
+    public function references() {
+        return $this->belongsTomany(Document::class, 'document_references', 'doc_id', 'refer_id');
     }
 
     /**
@@ -115,4 +131,15 @@ class Document extends Model
         return $q ;
     }
 
+    public function getLinkAttribute(){
+        return route("document.edit", $this->id) ;
+    }
+
+    public function getDateAttribute() {
+        return date("d-m-Y", strtotime("{$this->attributes['date']} +543 years")) ;
+    }
+
+    public function documentAssigns() {
+        return $this->belongsToMany(User::class, 'document_assignments', 'document_id', 'user_id');
+    }
 }

@@ -16,7 +16,8 @@ class Cabinet extends Model
      */
     protected $fillable = [
         'name',
-        'desription'
+        'description',
+        'school_id'
     ];
 
     /** 
@@ -31,5 +32,12 @@ class Cabinet extends Model
      */
     public function folders() {
         return $this->hasMany(Folder::class);
+    }
+
+    /** 
+     * @return App\Models\User
+     */
+    public function permissions() {
+        return $this->belongsToMany(User::class, 'user_cabinet_permission', 'cabinet_id', 'user_id');
     }
 }

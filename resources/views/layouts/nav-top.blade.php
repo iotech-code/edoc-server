@@ -28,6 +28,11 @@
           </div>
         <ul class="nav justify-content-center">
             <li class="nav-item">
+                <a alt="Dashboard" class="edoc-nav-link @if(isset($active) && $active==0) active @endif"  href="{{ route('document.index') }}">
+                  แดชบอร์ด
+                </a>        
+            </li>
+            <li class="nav-item">
                 <a alt="ค้นหาเอกสาร" class="edoc-nav-link @if(!isset($active) || $active==1) active @endif"  href="{{ route('document.index') }}">
                   ค้นหาเอกสาร
                 </a>        

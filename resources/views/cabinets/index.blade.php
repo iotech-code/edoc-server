@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('nav-top')
-	@include('layouts.nav-top', ['active'=>3])
+  @include('layouts.nav-top', ['active'=>3])
+  {{-- {{ Breadcrumbs::render('cabinet.index') }} --}}
+  
 @endsection
 
 @section('content')
@@ -36,7 +38,7 @@
                           {{$cabinet->name}} 
                         </span>
                         (
-                        <a href="">
+                        <a href=" {{ route("cabinet.folder.index", $cabinet->id) }}">
                           {{ $cabinet->folders->count()." แฟ้ม"}}
                         </a>
                         )
@@ -48,7 +50,7 @@
                     </div>
                   </td>
                   <td class="">
-                      <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
+                      <a class="text-secondary icon-link" href="{{ route('cabinet.permission.index', $cabinet->id) }}">
                           <i class="fa fa-address-book"></i>
                       </a>
                       <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
@@ -65,6 +67,11 @@
     
         </div>
 
+      </div>
+    </div>
+    <div class="row mt-3" style="color: #515151; font-weight: bold">
+      <div class="col-8 offset-2">
+        {{ $cabinets->links() }}
       </div>
     </div>
   </div>

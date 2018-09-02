@@ -11,7 +11,7 @@ class DocumentSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('documents')->truncate();
+        // DB::table('documents')->truncate();
         // used variable from App\Database\factorie(s
         factory(App\Models\Document::class, 30)->create();
     }

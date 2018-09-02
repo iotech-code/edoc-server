@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Cabinet;
+use App\Models\User;
+
+// use App\Http\Controllers\CabinetFolderTrait ;
 
 class CabinetController extends Controller
 {
+    use CabinetFolderTrait ;
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,7 @@ class CabinetController extends Controller
      */
     public function index()
     {
-        $cabinets = Cabinet::paginate(15);
+        $cabinets = Cabinet::paginate(8);
 
         return view("cabinets.index")
         ->with(compact([
@@ -30,11 +34,9 @@ class CabinetController extends Controller
      */
     public function create()
     {
-        $cabinets = Cabinet::paginate(15);
-        return view("cabinets.create")
-            ->with(compact([
-                'cabinets'
-            ]));
+        // $cabinets = Cabinet::paginate(15);
+        return view("cabinets.create");
+
         
     }
 
@@ -46,7 +48,20 @@ class CabinetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request ;
+        $school_id =  auth()->user()->school_id;
+        $create_cabinet_data = array_merge(
+            $request->except(['_token', 'folder']),
+            [
+                "school_id" =>$school_id
+            ]
+        );
+        // return [$request->folder, 'school_id' => $school_id];
+
+        $cabinet = Cabinet::create($create_cabinet_data);
+        $cabinet->folders()->create( array_merge($request->folder, ['school_id' => $school_id]));
+        return $cabinet->folders; 
+        return redirect()->route("cabinet.index");
     }
 
     /**
@@ -66,9 +81,11 @@ class CabinetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cabinet $cabinet)
     {
-        //
+        return view("cabinets.edit", compact([
+            'cabinet'
+        ]));
     }
 
     /**
@@ -93,4 +110,29 @@ class CabinetController extends Controller
     {
         //
     }
+
+    public function getAjaxFolderByCabinetId($id) {
+        $folders = Cabinet::find($id)->folders;
+        return response()->json($folders);
+    }
+
+    public function permission(Cabinet $cabinet){
+        $school_id = auth()->user()->school_id; 
+        $users = User::where('school_id', $school_id)->get()->keyBy("id");
+        // return $users;
+        return view('cabinets.permission.index')
+            ->with('users', $users)
+            ->with('cabinet', $cabinet);
+    }
+
+
+    public function updatePermission(Cabinet $cabinet, Request $request){
+        // return $request->all();
+        $cabinet->permissions()->sync($request->users);
+        return redirect()->back();
+    }
+
+    // public function getAjax
+
+
 }
