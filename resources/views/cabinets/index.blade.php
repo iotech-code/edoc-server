@@ -50,12 +50,15 @@
                     </div>
                   </td>
                   <td class="">
+                      @if( auth()->user()->role_id == 1 ) 
                       <a class="text-secondary icon-link" href="{{ route('cabinet.permission.index', $cabinet->id) }}">
                           <i class="fa fa-address-book"></i>
                       </a>
                       <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
                           <i class="fa fa-edit"></i>
                       </a>
+
+                      @endif
     
                   </td>
                 </tr>

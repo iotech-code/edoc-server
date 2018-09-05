@@ -81,11 +81,51 @@ class User extends Authenticatable
             ->withPivot(["status"]);
     }
 
+    // document assigment query
     public function assignmentAlert($document_id) {
-        $counter = $this->documentAssigns()
+        $query = $this->documentAssigns()
             ->wherePivot('document_id', $document_id)
-            ->wherePivot('status', 2);
-        return $counter;
+            ->wherePivot('status', 1);
+        return $query;
     }   
+
+    /**
+     * @return array $list_of_access_cabinet_id
+     */
+    public function documentCanAccesses() {
+        // return cabinetPermissions
+        if( $this->role_id == 1 ) {
+            return Document::all() ;
+        } else {
+            $cabinet_list = $this->cabinetPermissions->pluck(['id'])->toArray();
+            // $cabinet_list = $this->cabinetPermissions->edocuments;
+            $documents = Document::where('cabinet_id', $cabinet_list[0]);
+            foreach ( array_slice($cabinet_list, 1) as $c_id) {
+                $documents->orWhere('cabinet_id', $c_id);
+            }
+            return $documents;
+        }
+    }
+
+    /**
+     * @return array $list_of_access_cabinet_id
+     */
+    public function getAccessCabinetsAttribute() {
+        // return cabinetPermissions
+        if( $this->attributes['role_id'] == 1 ) {
+            return Cabinet::all()->pluck(['id']) ;
+        } else {
+            $cabinet_list = $this->cabinetPermissions->pluck(['id']);
+            return $cabinet_list->toArray();
+        }
+    }
+
+    public function getLocalCabinetsAttribute() {
+        return Cabinet::where('school_id', $this->school_id)->get();
+    }
+
+    public function getAssignedDocumentsAttribute() {
+        return $this->documentAssigns->pluck(['id'])->toArray();
+    }
     
 }

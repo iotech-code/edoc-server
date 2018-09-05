@@ -19,7 +19,7 @@ class CreateDocumentsTable extends Migration
             $table->unsignedInteger('school_id');
             $table->unsignedInteger('type_id');
             $table->string('code');
-            $table->string('from');
+            // $table->string('from');
             $table->string('heading')->nullable();
             $table->date('date');
             $table->string('title');
@@ -28,7 +28,7 @@ class CreateDocumentsTable extends Migration
             $table->text("remark")->nullable()->defaulk("");
             $table->unsignedInteger('reply_type')
             ->nullable()->default(null);
-            // $table->string('receive_achives');
+            $table->unsignedInteger('send_to_cabinet_id');
             // $table->string('refer')->nullable()->default(null);
             $table->string('keywords');
             $table->unsignedTinyInteger('status')->default(1);

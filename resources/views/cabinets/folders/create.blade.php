@@ -17,7 +17,7 @@
                     <div class="col-6">
                         <label for="">ชื่อแฟ้ม</label><span class="red-star"></span>
                         <input type="text" class="form-control" name="name">
-                        <small>etstesse</small>
+                        <small></small>
                     </div>
                     <div class="col-6">
     

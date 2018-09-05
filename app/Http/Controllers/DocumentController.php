@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
+
+    use DocumentReply;
     /**
      * Display a listing of the resource.
      *
@@ -16,18 +18,48 @@ class DocumentController extends Controller
      */
     public function index(Request $request)
     {
-        $documents = Document::paginate(15);
         $title = $date_start = $date_end = "";
         $user = auth()->user();
+        // $documents = Document::where('school_id', $user->school_id);
 
         if (isset($request->search)) {
-            // return $request->all();
-            $documents = Document::where('school_id', auth()->user()->school_id)
-                ->ofSearch($request->search)->paginate(15) ;
+            $documents = Document::where('school_id', $user->school_id)
+                ->ofSearch($request->search) ;
             $title = $request->search['title'];
             $date_start = $request->search['date_start'];
             $date_end = $request->search['date_end'];
-        } 
+        } else {
+            $documents = Document::where('school_id', $user->school_id);
+        }
+
+        if($user->role_id != 1 ) {
+            $access_list = $user->access_cabinets ;
+            $assign_list = $user->assigned_documents ;
+            if( count($assign_list) == 0 && count($access_list) == 0) {
+                $documents = [];
+                return view('documents.index')
+                ->with(compact([
+                    'documents',
+                    'user',
+                    'title',
+                    'date_start',
+                    'date_end'
+                ]));
+            }
+
+            if( count($access_list) != 0 ) {
+                $documents = $documents
+                    ->ofCabinets($access_list);
+            } 
+
+            if( count($assign_list) != 0 ) {
+                $documents = $documents
+                    ->ofById($assign_list);
+            }             
+
+        }
+
+        $documents = $documents->paginate(10);
         
         return view('documents.index')
             ->with(compact([
@@ -47,9 +79,11 @@ class DocumentController extends Controller
     public function create()
     {
         $cabinets = Cabinet::where('school_id', auth()->user()->school_id)->get();
+        $user = auth()->user();
         return view('documents.create')
             ->with(compact([
-                'cabinets'
+                'cabinets',
+                'user'
             ]));
     }
 
@@ -102,7 +136,15 @@ class DocumentController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = auth()->user();
+        $document = Document::find($id);
+        if ( $document->school_id != $user->school_id) {
+            abort(404);
+        } else{
+            return view('documents.show', compact([
+                'document'
+            ]));
+        }
     }
 
     /**
@@ -216,5 +258,15 @@ class DocumentController extends Controller
         $document->update($info);
         return redirect()->back() ;
         // return 
+    }
+    
+    public function acknowledge(Document $document, Request $request) {
+        $user = auth()->user();
+        \DB::table('document_assignments')
+            ->where("document_id", $document->id)
+            ->where("user_id", $user->id)
+            ->update(["status" => 2]);
+        return redirect()->route('document.index') ;
+
     }
 }

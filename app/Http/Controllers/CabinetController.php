@@ -49,7 +49,8 @@ class CabinetController extends Controller
     public function store(Request $request)
     {
         // return $request ;
-        $school_id =  auth()->user()->school_id;
+        $user = auth()->user();
+        $school_id =  $user->school_id;
         $create_cabinet_data = array_merge(
             $request->except(['_token', 'folder']),
             [
@@ -59,8 +60,9 @@ class CabinetController extends Controller
         // return [$request->folder, 'school_id' => $school_id];
 
         $cabinet = Cabinet::create($create_cabinet_data);
+        $cabinet->permissions()->attach($user->id);
         $cabinet->folders()->create( array_merge($request->folder, ['school_id' => $school_id]));
-        return $cabinet->folders; 
+        // return $cabinet->folders; 
         return redirect()->route("cabinet.index");
     }
 

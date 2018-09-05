@@ -6,11 +6,11 @@ $factory->define(App\Models\Document::class, function (Faker $faker) {
     $user = App\Models\User::inRandomOrder()->first();
     return [
         'code' => $faker->randomNumber($nbDigits = NULL, $strict = false) ,
-        'from' => $faker->name,
+        // 'from' => $faker->name,
         'user_id' => $user->id,
         'school_id' => $user->school_id,
         'type_id' => App\Models\DocumentType::inRandomOrder()->first()->id,
-        'title' => $faker->word,
+        'title' => $faker->text($maxNbChars = 100)  ,
         'receive_code' => $faker->randomNumber($nbDigits = NULL, $strict = false) ,
         'receive_date' => $faker->date($format = 'Y-m-d', $max = '+30 days') ,
         // 'receive_achives' => $faker->name ,
@@ -19,6 +19,7 @@ $factory->define(App\Models\Document::class, function (Faker $faker) {
         'keywords' => $faker->words($nb = 3, $asText = false) ,
         'status' => mt_rand(1,4) ,
         'cabinet_id' => App\Models\Cabinet::inRandomOrder()->first()->id,
+        'send_to_cabinet_id' => App\Models\Cabinet::inRandomOrder()->first()->id,
         'folder_id' => App\Models\Folder::inRandomOrder()->first()->id
 
     ];

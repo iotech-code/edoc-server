@@ -57,7 +57,13 @@
 			  <div class="form-row">
 					<div class="form-group col">
 						<label for="">จาก</label>
-						<input type="text" name="from" class="form-control">
+						{{-- <input type="text" name="from" class="form-control">
+						 --}}
+						 <select class="form-control" name="from" >
+								@foreach ( $user->local_cabinets as $item)
+										<option value="{{$item->id}}">{{$item->name}}</option>
+								@endforeach
+						</select>
 					</div>
 
 					<div class="form-group col">

@@ -12,7 +12,7 @@ class UserApiController extends Controller
     public function login(){
         if(Auth::attempt(['user_id' => request('user_id'), 'password' => request('password')])){ 
             $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')->accessToken; 
+            $success['token'] =  $user->createToken('edoc')->accessToken; 
             return response()->json(['success' => $success], 200); 
         } 
         else{ 

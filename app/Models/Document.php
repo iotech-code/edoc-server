@@ -10,7 +10,7 @@ class Document extends Model
 
     protected $fillable = [
         'title',
-        'from',
+        // 'from',
         'code',
         // 'refer',
         'date',
@@ -18,6 +18,7 @@ class Document extends Model
         'receive_date',
         // 'receive_achives',
         'keywords',
+        'send_to_cabinet_id',
         'cabinet_id',
         'folder_id',
         'read_at',
@@ -46,6 +47,15 @@ class Document extends Model
      */
     public function cabinet() {
         return $this->belongsTo(Cabinet::class);
+    }
+
+    /**
+     * relation 
+     * 
+     * @return App\Models\Cabinet
+     */
+    public function sendToCabinet() {
+        return $this->belongsTo(Cabinet::class, 'send_to_cabinet_id');
     }
 
     /**
@@ -131,15 +141,51 @@ class Document extends Model
         return $q ;
     }
 
+    /**
+     * @return Collection $list of Document
+     */
+    public function scopeOfCabinets($query, array $cabibets) {
+        if (count($cabibets) < 1) {
+            return $query;
+        }
+        $query->where('cabinet_id', $cabibets[0]); 
+        foreach ( array_slice($cabibets, 1) as $c_id) {
+            $query->orWhere("cabinet_id", $c_id);
+        }
+        return $query ;
+    }
+
     public function getLinkAttribute(){
         return route("document.edit", $this->id) ;
     }
 
-    public function getDateAttribute() {
-        return date("d-m-Y", strtotime("{$this->attributes['date']} +543 years")) ;
+    public function getBeDateAttribute() {
+        return date("d/m/Y", strtotime("{$this->attributes['date']} +543 years")) ;
     }
 
     public function documentAssigns() {
         return $this->belongsToMany(User::class, 'document_assignments', 'document_id', 'user_id');
+    }
+
+    public function replyType(){
+        return $this->belongsTo(DocumentReplyType::class, 'reply_type');
+    }
+
+    /**
+     * @return Collection $list of Document
+     */
+    public function scopeOfById($query, array $list) {
+        if (count($list) < 1) {
+            return $query;
+        }
+        // $query->where('id', $list[0]); 
+        foreach ( array_slice($list, 1) as $id) {
+            $query->orWhere("id", $id);
+        }
+        return $query ;
+    }
+
+    public function canAccess($user_id) {
+        return $this->documentAssigns()->wherePivot('user_id', $user_id)->count();
     }
 }

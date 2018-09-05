@@ -42,11 +42,13 @@
                     เพิ่มเอกสาร
                   </a>
             </li>
+            {{-- @if( Auth::user()->role_id == 1 ) --}}
             <li class="nav-item">
                 <a class="edoc-nav-link  @if(isset($active) && $active==3) active @endif"  href="{{route("cabinet.index")}}">
                   ตู้เอกสาร
                 </a>
             </li>
+            {{-- @endif --}}
             <li>
                 <a  class="edoc-nav-link  @if(isset($active) && $active==4) active @endif"  href="{{route("user.profile")}}">
                     ข้อมูลส่วนตัว

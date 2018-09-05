@@ -21,9 +21,17 @@ Route::middleware(['web','auth'])->group(function(){
 
     // document
     Route::resource('document', 'DocumentController');
+    Route::put('document/{docuemnt}/reply', 'DocumentController@reply')
+        ->name('document.replay');
+    Route::get('document/{docuemnt}/reply/create', 'DocumentController@createReply')
+        ->name('document.replay.crate');
+    Route::post('document/{docuemnt}/reply', 'DocumentController@createReply')
+        ->name('document.replay.store');
     Route::put('document/{document}/assign', 'DocumentController@assign')
         ->name('document.assign');
-    
+    Route::put('document/{document}/acknowledge', 'DocumentController@acknowledge')
+        ->name('document.acknowledge');
+
     // cabinet
     Route::resource('cabinet', 'CabinetController');
 

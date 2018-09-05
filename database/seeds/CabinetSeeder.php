@@ -44,6 +44,9 @@ class CabinetSeeder extends Seeder
         foreach($a as $data) {
             $cabinet = App\Models\Cabinet::create($data) ;
             $cabinet->folders()->saveMany(factory(App\Models\Folder::class, mt_rand(1,4))->make());
+            $users = App\Models\User::inRandomOrder()->take(3)->get();
+            $cabinet->permissions()->sync($users->pluck(['id']));
+
         }
 
         // factory(App\Models\Cabinet::class, 10)->create()->each(function($cabinet){

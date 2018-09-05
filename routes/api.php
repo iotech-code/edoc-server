@@ -13,8 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('login', 'Api\UserApiController@login');
-Route::any('logout', 'Api\UserApiController@logout');
+Route::post('login', 'UserApiController@login');
+Route::any('logout', 'UserApiController@logout');
 
 Route::middleware('auth:api')->group(function(){
     
@@ -22,4 +22,7 @@ Route::middleware('auth:api')->group(function(){
         return $request->user();
         // return response()->json("test");
     });
+    Route::get('documents', 'DocumentApiController@getDocuments');
+    Route::post('documents/{document}/reply', 'DocumentApiController@createReplyDocument');
+    Route::post('documents/{document}', 'DocumentApiController@approveDocument');
 });

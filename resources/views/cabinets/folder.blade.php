@@ -56,9 +56,9 @@
                     </div>
                   </td>
                   <td class="">
-                      <a class="text-secondary icon-link" href="{{ route('folder.edit', $folder->id) }}">
+                      {{-- <a class="text-secondary icon-link" href="{{ route('folder.edit', $folder->id) }}">
                           <i class="fa fa-address-book"></i>
-                      </a>
+                      </a> --}}
                       <a class="text-secondary icon-link" href="{{ route('folder.edit', $folder->id) }}">
                           <i class="fa fa-edit"></i>
                       </a>
