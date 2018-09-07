@@ -16,7 +16,7 @@ class CreateCabinetsTable extends Migration
         Schema::create('cabinets', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->text('description')->default("");
+            $table->text('description')->nullable();
             $table->unsignedInteger('school_id');
             $table->boolean('is_set_permission')->default(0);
             $table->timestamps();
