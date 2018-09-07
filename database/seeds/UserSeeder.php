@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'user_id' => 'admin@sh1',
             'first_name' => "Admin",
             'last_name' => "Admin",
-            // 'email' => "",
+            'email' => "",
             'school_id' => 1,
             'role_id' => 1,
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'user_id' => 'tester@sh1',
             'first_name' => "Tester",
             'last_name' => "Tester",
-            // 'email' => "",
+            'email' => "",
             'school_id' => 1,
             'role_id' => 2,
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret

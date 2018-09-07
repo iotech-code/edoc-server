@@ -54,7 +54,14 @@ Route::middleware(['web','auth'])->group(function(){
         ->name('cabinet.folder.edit');
 
     // Route::resource('folder', 'FolderController');
-    
+    Route::resource('officer', 'OfficerController');
+    Route::post('officer/import', 'OfficerController@import')
+        ->name("officer.import");
+    Route::get('officer/download/template', function(){
+        return response()->download(
+            storage_path("import-template.csv")
+        );
+    });
     // user profile
     Route::get('profile', 'UserController@edit')
         ->name('user.profile');
