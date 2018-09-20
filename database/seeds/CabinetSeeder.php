@@ -29,11 +29,11 @@ class CabinetSeeder extends Seeder
                 "school_id"=> 1,
                 "description" => ""
             ],
-            [
-                'name' => "การศึกษา",
-                "school_id"=> 1,
-                "description" => ""
-            ],
+            // [
+            //     'name' => "การศึกษา",
+            //     "school_id"=> 1,
+            //     "description" => ""
+            // ],
             [
                 'name' => "การเงิน",
                 "school_id"=> 1,

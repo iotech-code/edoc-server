@@ -31,7 +31,7 @@
 					<div class="form-group col-4">
 						<label for="">ตู้จัดเก็บเอกสาร</label>
 						<select id="cabinetSelect" class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
-								<option value="">เลือกตู้เอกสาร</option>
+								{{-- <option value="">เลือกตู้เอกสาร</option> --}}
 
 								@foreach ($cabinets as $item)
 									@if ($document->cabinet_id == $item->id)
@@ -70,15 +70,17 @@
 			  </div>
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">จาก</label>
-						<select class="form-control" name="type_id" id="exampleFormControlSelect1">
-							@foreach (App\Models\DocumentType::all() as $item)
+						<label for="">ที่มาเอกสาร</label>
+						<select class="form-control" name="send_to_cabinet_id" id="exampleFormControlSelect1">
+
+							@foreach ($cabinets as $item)
 								@if ($document->send_to_cabinet_id == $item->id)
 								<option value="{{$item->id}}" selected>{{$item->name}}</option>
 								@else
 								<option value="{{$item->id}}">{{$item->name}}</option>
 
 								@endif
+								
 							@endforeach
 						</select>
 					</div>

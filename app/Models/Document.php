@@ -46,7 +46,7 @@ class Document extends Model
      * @return App\Models\Cabinet
      */
     public function cabinet() {
-        return $this->belongsTo(Cabinet::class);
+        return $this->belongsTo(Cabinet::class, 'cabinet_id');
     }
 
     /**

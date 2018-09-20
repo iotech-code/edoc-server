@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(DocReplyTypeSeeder::class);
         $this->call(CabinetSeeder::class);
         $this->call(DocumentTypeSeeder::class);
-        $this->call(DocumentSeeder::class);
+        // $this->call(DocumentSeeder::class);
         
     }
 }

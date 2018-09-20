@@ -80,11 +80,13 @@
                        @foreach ($documents as $document)
                            <tr>
                              <td> {!!$document->render_status !!}</td>
-                             <td> {{ $document->sendToCabinet->name }} </td>
+                             <td> {{ $document->cabinet->name }} </td>
+
                              <td> {{ $document->code }} </td>
                              <td> {{ $document->title }} </td>
+                             <td> {{ $document->sendToCabinet->name }} </td>
+
                              {{-- <td></td> --}}
-                             <td> {{ $document->cabinet->name }} </td>
                              <td> {{ $document->be_date }} </td>
                              <td>
                                @if ($user->assignmentAlert($document->id)->count() )
