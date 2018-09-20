@@ -29,7 +29,7 @@
 			  <div class="form-row">
 					<div class="form-group col-4">
 						<label for="">ตู้จัดเก็บเอกสาร</label>
-						<select id="cabinetSelect" class="form-control" name="cabinet_id">
+						<select id="cabinetSelect" class="form-control" name="send_to_cabinet_id">
 								<option value="">เลือกตู้เอกสาร</option>
 
 								@foreach ($cabinets as $item)
@@ -56,10 +56,10 @@
 			  </div>
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">จาก</label>
+						<label for="">ที่มาเอกสาร</label>
 						{{-- <input type="text" name="from" class="form-control">
 						 --}}
-						 <select class="form-control" name="from" >
+						 <select class="form-control" name="cabinet_id" >
 								@foreach ( $user->local_cabinets as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
 								@endforeach
