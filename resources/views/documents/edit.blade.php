@@ -71,7 +71,16 @@
 			  <div class="form-row">
 					<div class="form-group col">
 						<label for="">จาก</label>
-						<input type="text" name="from" value="{{$document->from}}" class="form-control">
+						<select class="form-control" name="type_id" id="exampleFormControlSelect1">
+							@foreach (App\Models\DocumentType::all() as $item)
+								@if ($document->send_to_cabinet_id == $item->id)
+								<option value="{{$item->id}}" selected>{{$item->name}}</option>
+								@else
+								<option value="{{$item->id}}">{{$item->name}}</option>
+
+								@endif
+							@endforeach
+						</select>
 					</div>
 
 					<div class="form-group col">
