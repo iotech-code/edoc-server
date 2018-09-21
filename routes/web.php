@@ -68,7 +68,7 @@ Route::middleware(['web','auth'])->group(function(){
     Route::put('profile', 'UserController@update')
         ->name('user.update');
 
-    
+    Route::get('dashboard', 'DashBoardController@index');
 });
 
 // donload file

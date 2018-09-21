@@ -28,7 +28,7 @@
           </div>
         <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a alt="Dashboard" class="edoc-nav-link @if(isset($active) && $active==0) active @endif"  href="{{ route('document.index') }}">
+                <a alt="Dashboard" class="edoc-nav-link @if(isset($active) && $active==0) active @endif"  href="{{ url('dashboard') }}">
                   แดชบอร์ด
                 </a>        
             </li>
@@ -54,6 +54,13 @@
                     ข้อมูลส่วนตัว
                 </a>
             </li>
+            @if (auth()->user()->role_id == 1 )
+              <li>
+                  <a  class="edoc-nav-link  @if(isset($active) && $active==5) active @endif"  href="{{route("officer.index")}}">
+                      เพิ่มบุลคลากร
+                  </a>
+              </li>
+            @endif
           </ul>
     </div>    
 </div>

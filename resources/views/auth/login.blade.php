@@ -65,8 +65,8 @@
                                     <div class="form-group row mb-0">
                                         <div class="col-12">
                                             <button type="submit" class="btn btn-primary">
-                                                {{-- {{ __('Login') }} --}}
-                                                เข้าสู่ระบบ                                    
+                                                {{ __('auth.Login') }}
+                                                {{-- เข้าสู่ระบบ                                     --}}
                                             </button>
             
                                             {{-- <a class="btn btn-link" href="{{ route('password.request') }}">

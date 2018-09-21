@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('nav-top')
-    @include('layouts.nav-top')
+    @include('layouts.nav-top',['active'=>5])
 @endsection
 
 @section('content')
@@ -16,9 +16,13 @@
           <i class="fa fa-plus"></i>
           นำเข้ารายชื่อ
         </a>
+        <a id="importFile" href="{{ url('/officer/download/template')}}" class="btn btn-primary ">
+          <i class="fa fa-plus"></i>
+          โหลดแม่แบบ
+        </a>
         <form action="{{ route("officer.import")}}" method="post" enctype="multipart/form-data">
           @csrf
-          <input type="file" name="import_file" id="" style="display:none"/>
+          <input type="file" name="import_file" accept=".csv" id="" style="display:none"/>
         </form>
       </div>
   
@@ -30,14 +34,23 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+
+                  <th class="">ID</th>
                   <th class="w-75">ชื่อ นามสกุล</th>
+                  <th class="w-75">ตำแหน่ง</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($officers as $officer)
                 <tr class="">
                   <td class="">
+                    {{ $officer->user_id}}
+                  </td>
+                  <td class="">
                     {{ $officer->full_name}}
+                  </td>
+                  <td class="">
+                      {{ __('role.'.$officer->role->name)}}
                   </td>
 
                 </tr>

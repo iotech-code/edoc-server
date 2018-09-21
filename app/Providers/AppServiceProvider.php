@@ -16,6 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // \App::setLocale('th');
+
         Schema::defaultStringLength(191);
 
         Paginator::defaultView('vendor.pagination.bootstrap-4');

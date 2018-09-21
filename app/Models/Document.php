@@ -79,6 +79,31 @@ class Document extends Model
         }
     }
 
+    public function getStatusTextAttribute() {
+        switch ($this->attributes['status']) {
+            case 1:
+                // daft
+                $text = 'แบบร่าง';
+                break;
+            case 2:
+                //waiting
+                $text = 'กำลังดำเนินการ';
+                break; 
+            case 3:
+                //approve
+                $text = 'อนุมัติ/รับทราบ';
+                break; 
+            case 4:
+                //unapprove
+                $text = 'ไม่อนุมัติ';
+                break; 
+            default:
+                $text = 'แบบร่าง';
+                break;
+        }
+        return $text;
+    }
+
     /**
      * cast to render html 
      * 

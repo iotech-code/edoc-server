@@ -34,6 +34,7 @@ class OfficerController extends Controller
                 return User::create([
                     'user_id' => $line['id'],
                     'password' => bcrypt($line['id']),
+                    'role_id' => 2,
                     'school_id' => $school_id,
                     'first_name' => $line['first_name'],
                     'last_name' => $line['last_name'],
