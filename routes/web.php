@@ -79,4 +79,6 @@ Route::get('file/{token}', 'FileController@downloadFile')
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function(){
+    return redirect('/');
+});
