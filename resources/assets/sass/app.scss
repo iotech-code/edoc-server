@@ -23,20 +23,24 @@
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
+  &.status-blue {
+    background-color: #3A3EDB;
+
+  }
   &.status-grey {
-    background-color: grey;
+    background-color: #525252;
 
   }
   &.status-yellow {
-    background-color: yellow;
+    background-color: #F4AA00;
     
   }
   &.status-red {
-    background-color: red;
+    background-color: #FF0000;
     
   }
   &.status-green {
-    background-color: green;
+    background-color: #00D446;
     
   }
 }

@@ -41,3 +41,53 @@
   border-bottom-left-radius: .25rem;
 }
 
+.mdi {
+  font-size: 2em;
+}
+
+.table-tab .dropdown-toggle::after {
+  color: #fff;
+}
+
+.table-tab .item {
+  font-size: 1.2em;
+  color: #838383;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px 6px;
+  border-bottom: 4px solid #fff;
+  cursor: pointer;
+}
+
+.table-tab .item:last-child {
+  cursor: default;
+}
+
+.table-tab .item .fas {
+  font-size: 1.5em;
+}
+
+.table-tab .item span.header {
+  margin-left: 8px;
+}
+
+.table-tab .item.t-all.active {
+  color: #2780DA;
+  border-bottom: 4px solid #2780DA;
+}
+
+.table-tab .item.t-inbox.active {
+  color: #2A730B;
+  border-bottom: 4px solid #2A730B;
+}
+
+.table-tab .item.t-sentbox.active {
+  color: #F5B100;
+  border-bottom: 4px solid #F5B100;
+}
+
+.table-tab .item.t-cabinet.active {
+  color: #320093;
+  border-bottom: 4px solid #320093;
+}
+

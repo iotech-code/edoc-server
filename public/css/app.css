@@ -10489,20 +10489,24 @@ a.text-dark:focus {
   display: inline-block;
 }
 
+.status-circle.status-blue {
+  background-color: #3A3EDB;
+}
+
 .status-circle.status-grey {
-  background-color: grey;
+  background-color: #525252;
 }
 
 .status-circle.status-yellow {
-  background-color: yellow;
+  background-color: #F4AA00;
 }
 
 .status-circle.status-red {
-  background-color: red;
+  background-color: #FF0000;
 }
 
 .status-circle.status-green {
-  background-color: green;
+  background-color: #00D446;
 }
 
 .bg-primary,

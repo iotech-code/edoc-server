@@ -18,11 +18,15 @@
                   </span> 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <form method="POST" action="{{route("logout")}}">
+
+                  <form id="formLogout" method="POST" action="{{route("logout")}}" style="cursor: pointer">
                     @csrf
-                    <button class="dropdown-item" href="#">ออกจากระบบ</button>
+                    {{-- <button class="dropdown-item" href="#">ออกจากระบบ</button> --}}
                   </form>
+                  <a class="dropdown-item" href="{{ route("user.profile") }}">แก้ไขข้อมูลส่วนตัว</a>
+                  <a class="dropdown-item" href="#" onclick="document.getElementById('formLogout').submit()">ออกจากระบบ</a>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -49,15 +53,15 @@
                 </a>
             </li>
             {{-- @endif --}}
-            <li>
+            {{-- <li>
                 <a  class="edoc-nav-link  @if(isset($active) && $active==4) active @endif"  href="{{route("user.profile")}}">
                     ข้อมูลส่วนตัว
                 </a>
-            </li>
+            </li> --}}
             @if (auth()->user()->role_id == 1 )
               <li>
                   <a  class="edoc-nav-link  @if(isset($active) && $active==5) active @endif"  href="{{route("officer.index")}}">
-                      เพิ่มบุลคลากร
+                      จัดการบุคลากร
                   </a>
               </li>
             @endif

@@ -5,65 +5,65 @@
 @endsection
 
 @section('content')
-<div class="container">
-  <form method="get" action="{{ route("document.index")}}" >
-    <div class="row mt-2">
-      <div class="col">
-        <div class="form-group">
-            <label for="exampleInputEmail1">ค้นหาจากคำ</label>
-            <div class="form-inline">
-            <input type="text"  name="search[title]" 
-              value="{{ $title }}"
-              class="form-control mr-3" placeholder="">
-            </div>
-        </div>
-        </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="exampleInputEmail1">ค้นหาจากวันที่เอกสาร</label>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">
-                          <i class="fa fa-calendar"></i>
-                      </span>
-                        {{-- <button class="btn btn-outline-secondary" type="button" id="button-addon1">
-                                <i class="fa fa-calendar"></i>
-                        </button> --}}
-                    </div>
-                    <input autocomplete="off" type="text" class="form-control date-select" placeholder="" name="search[date_start]" value="{{$date_start}}">
-                </div>
-            </div>
-        </div>
-        <div class="col">
-          <label for="exampleInputEmail1">ถึง</label>
-          <div class="form-group">
-              <div class="input-group ">
-                  <div class="input-group-prepend">
-                      {{-- <button class="btn btn-outline-secondary" type="button" id="button-addon1">
-                          <i class="fa fa-calendar"></i>                        
-                      </button> --}}
-                      <span class="input-group-text" id="basic-addon1">
-                          <i class="fa fa-calendar"></i>
-                      </span>
-                  </div>
-                <input autocomplete="off" type="text" class="form-control date-select" placeholder="" name="search[date_end]" value="{{ $date_end }}">
-                </div>
+<div class="container-fluid " style="padding: 0">
+  {{-- <div class="row"> --}}
+    <form method="get" action="{{ route("document.index")}}" >
+      <div class="w-75" style="margin: auto">
+        <input type="text" class="w-100">
+      </div>
+    {{-- </form> --}}
 
-          </div>
-        </div>
-        <div class="col">
-          <label style="color:white" for="">s</label>
-          <div class="form-group ">
-              <button type="submit" class="btn edoc-btn-primary">
-                  เริ่มค้นหา
-              </button>
-          </div>
-        </div>
+  </div>
+  <div class="row table-tab">
+    <div class="col t-all item active">
+        {{-- <span class="mdi mdi-inbox"></span> --}}
+        <i class="fas fa-inbox"></i>
+        <span class="header">
+          ทั้งหมด
+        
+        </span>
     </div>
-  </form>
+    <div class="col t-inbox item active">
+      <i class="fas fa-envelope-open-text"></i>
+      {{-- <span class="mdi mdi-inbox-arrow-down"></span> --}}
+      <span class="header">
+        เอกสารขาเข้า
+          
+      </span>
 
-  <div class="card mt-4">
-      <div class="card-body p-0 border-top-primary">
+    </div>
+    <div class="col t-sentbox item active">
+      <i class="fas fa-envelope"></i>
+      {{-- <span class="mdi mdi-inbox-arrow-up"></span> --}}
+      <span class="header">
+        เอกสารขาออก
+          
+      </span>
+    </div>
+    <div class="col item t-cabinet active">
+        <i class="fas fa-archive active"></i>
+        <span class="header">
+          ตู้เอกสาร
+        </span>
+    </div>
+    <div class="col item ">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              สถานนะ
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#"><span class="status-circle status-blue mr-1"></span> ทั้งหมด</a>
+              <a class="dropdown-item" href="#"><span class="status-circle status-grey mr-1"></span> ฉบับร่าง</a>
+              <a class="dropdown-item" href="#"> <span class="status-circle status-yellow mr-1"></span> ดำเนินการ</a>
+              <a class="dropdown-item" href="#"><span class="status-circle status-red mr-1"></span> ไม่อนุมัติ</a>
+              <a href="#" class="dropdown-item"><span class="status-circle status-green mr-1"></span>สำเร็จ</a>
+            </div>
+          </div>
+
+    </div>
+  </div>
+  <div class="">
+      <div class="card-body p-0 ">
             <table class="table ">
                     <thead>
                         <tr class="">
@@ -279,8 +279,9 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="{{ asset("css/document/create.css") }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.css">
+    <link rel="stylesheet" href="{{ asset("css/document/index.css") }}">
 
 @endpush
 

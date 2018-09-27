@@ -38,3 +38,49 @@
     }
   }
 }
+
+.mdi {
+  font-size: 2em
+}
+
+.table-tab {
+  .dropdown-toggle::after {
+    color: #fff;
+  }
+  .item {
+    font-size: 1.2em;
+    color: #838383;
+    text-align: center;
+    vertical-align: middle;
+    padding: 6px 6px;
+    border-bottom: 4px solid #fff;
+    cursor: pointer;
+    &:last-child {cursor: default }
+    .fas {
+      font-size: 1.5em;
+    }
+
+    span.header{
+      margin-left: 8px;
+    }
+    
+    &.t-all.active {
+      color:#2780DA;
+      border-bottom: 4px solid #2780DA;
+    } 
+    &.t-inbox.active {
+      color:#2A730B;
+      border-bottom: 4px solid #2A730B;
+    } 
+    &.t-sentbox.active {
+      color:#F5B100;
+      border-bottom: 4px solid #F5B100;
+    } 
+    &.t-cabinet.active {
+      color:#320093;
+      border-bottom: 4px solid #320093;
+    } 
+    
+
+  }
+}
