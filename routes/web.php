@@ -21,12 +21,22 @@ Route::middleware(['web','auth'])->group(function(){
 
     // document
     Route::resource('document', 'DocumentController');
+    Route::get('document/inbox', 'DocumentController@inbox');
+    Route::get('document/sentbox', 'DocumentController@sentbox');
+    Route::get('doc/test', function(){
+        return Request::all();
+    });
+    
+    Route::post('document/{document}/comment', 'DocumentController@comment')
+        ->name('document.comment');
+
+
     Route::put('document/{docuemnt}/reply', 'DocumentController@reply')
-        ->name('document.replay');
+        ->name('document.reply');
     Route::get('document/{docuemnt}/reply/create', 'DocumentController@createReply')
-        ->name('document.replay.crate');
+        ->name('document.reply.crate');
     Route::post('document/{docuemnt}/reply', 'DocumentController@createReply')
-        ->name('document.replay.store');
+        ->name('document.reply.store');
     Route::put('document/{document}/assign', 'DocumentController@assign')
         ->name('document.assign');
     Route::put('document/{document}/acknowledge', 'DocumentController@acknowledge')

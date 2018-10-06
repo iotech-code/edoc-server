@@ -19,5 +19,10 @@ mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/document/create.scss', 'public/css/document/create.css')
    .js('resources/assets/js/document/edit.js', 'public/js/document/edit.js')
    .sass('resources/assets/sass/login.scss', 'public/css/login.css')
-   .js('resources/assets/js/login.js', 'public/js/login.js');
+   .js('resources/assets/js/login.js', 'public/js/login.js')
+
+
+
+   .js('resources/assets/js/nameSearch.js', 'public/js/nameSearch.js');
+
   //  .js('resources/assets/js/document/*', 'public/js/document/*');

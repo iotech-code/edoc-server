@@ -19,12 +19,11 @@ class CabinetController extends Controller
      */
     public function index()
     {
-        $cabinets = Cabinet::paginate(8);
-
-        return view("cabinets.index")
-        ->with(compact([
+        $cabinets = Cabinet::where('school_id', auth()->user()->school_id)->paginate(10);
+        return view("cabinets.index", compact([
             'cabinets'
-        ]));;
+        ]));
+
     }
 
     /**
@@ -36,8 +35,6 @@ class CabinetController extends Controller
     {
         // $cabinets = Cabinet::paginate(15);
         return view("cabinets.create");
-
-        
     }
 
     /**
@@ -85,8 +82,10 @@ class CabinetController extends Controller
      */
     public function edit(Cabinet $cabinet)
     {
+        $cabinets = Cabinet::where('school_id', auth()->user()->school_id)->get();
+
         return view("cabinets.edit", compact([
-            'cabinet'
+            'cabinets'
         ]));
     }
 

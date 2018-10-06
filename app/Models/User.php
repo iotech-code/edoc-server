@@ -75,17 +75,21 @@ class User extends Authenticatable
             ->orWhere("last_name", "like", "%{$text}%");
     }
 
-    public function documentAssigns() {
-        return $this
-            ->belongsToMany(Document::class, 'document_assignments', 'user_id', 'document_id')
-            ->withPivot(["status"]);
+    // public function documentAssigns() {
+    //     return $this->belongsToMany(Document::class, 'documents_users', 'user_id', 'document_id');
+    //         // ->withPivot(["status"]);
+    // }
+
+    public function accessibleDocuments() {
+        return $this->belongsToMany(Document::class, 'documents_users', 'user_id', 'document_id')
+            ->withPivot(["document_user_status", "is_read"]);
     }
 
     // document assigment query
     public function assignmentAlert($document_id) {
-        $query = $this->documentAssigns()
+        $query = $this->accessibleDocuments()
             ->wherePivot('document_id', $document_id)
-            ->wherePivot('status', 1);
+            ->wherePivot('document_user_status', 1);
         return $query;
     }   
 
@@ -125,7 +129,8 @@ class User extends Authenticatable
     }
 
     public function getAssignedDocumentsAttribute() {
-        return $this->documentAssigns->pluck(['id'])->toArray();
+        return $this->accessibleDocuments->pluck(['id'])->toArray();
     }
     
+    // public function
 }

@@ -14,11 +14,11 @@
         </a>
         <a id="importFile" href="{{route('officer.create' )}}" class="btn btn-primary ">
           <i class="fa fa-plus"></i>
-          นำเข้ารายชื่อ
+          นำเข้ารายชื่อจากไฟล์
         </a>
         <a id="importFile" href="{{ url('/officer/download/template')}}" class="btn btn-primary ">
           <i class="fa fa-plus"></i>
-          โหลดแม่แบบ
+          ไฟล์ตัวอย่าง
         </a>
         <form action="{{ route("officer.import")}}" method="post" enctype="multipart/form-data">
           @csrf

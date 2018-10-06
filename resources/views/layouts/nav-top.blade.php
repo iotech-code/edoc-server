@@ -38,7 +38,7 @@
             </li>
             <li class="nav-item">
                 <a alt="ค้นหาเอกสาร" class="edoc-nav-link @if(!isset($active) || $active==1) active @endif"  href="{{ route('document.index') }}">
-                  ค้นหาเอกสาร
+                  เอกสาร
                 </a>        
             </li>
             <li class="nav-item">

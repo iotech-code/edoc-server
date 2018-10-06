@@ -1,158 +1,208 @@
 @extends('layouts.app')
 
 @section('nav-top')
-	@include('layouts.nav-top', ['active'=>2])
+	@include('layouts.nav-top', ['active'=>1])
 @endsection
 
 @section('content')
 <div class="container">
-	  {{-- <div class="alert alert-danger alert-dismissible" role="alert">
-				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-				<strong>Danger!</strong> You should <a href="#" class="alert-link">read this message</a>.
-			<ul>
-			
-				<li> list </li>
-			</ul>
-	
-		</div> --}}
+	<div class="row">
+		<div class="col">
+			<h2>
+					{{$document->title}}
+					<span class="badge badge-secondary" style="font-size: 0.5em">{{$document->type->name}}</span>
+			</h2>
 
-	{{-- <form class="" action="{{ route('document.update', $document->id) }}" method="POST" enctype="multipart/form-data">
-		@method("PUT") --}}
-  	<div class="row">
-			<div class="col-md-8 offset-md-2 mb-2">
+		</div>
+	</div>
+	<div class="row mt-3">
+		<div class="col">
+			<span class="font-weight-bold">
+				เอกสารจาก: 
+			</span>
+			{{ $document->sendFormCabinet->name }}
+			@if($document->replyType )
+				|
+				<span class="font-weight-bold">
+					รูปแบบการตอบกลับ: 
+				</span>
+				{{ $document->replyType->name }}
+			@endif
 
-				<div class="card border-top-primary ">
-					{{-- <div class="card-header">
-							เอกสารจาก: {{ $document->from }}
-					</div> --}}
-					<div class="card-body">
-						<div class="row">
-							<div class="col-8">
-								<h5>เอกสารจาก: {{ $document->from }}</h5>
-							</div>
-							<div class="col-4 text-right">
-								<a href="">
-									<i class="fa fa-reply"></i>
-									ตอบกลับ
-								</a>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-6">
-								<label for="">ประเภทของเอกสาร: </label>
-								<input type="text" class="form-control" value="{{ $document->type->name }}" disabled>
-							</div>
-							<div class="form-group col-6">
-								<label for="">การตอบลับ: </label>
-								<input type="text" class="form-control" value="{{ $document->replyType->name }}" disabled>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="">ความคิดเห็นเพิ่มเติม: </label>
-						<textarea class="form-control" cols="30" rows="5" disabled>{{ $document->remark }}</textarea>
-						</div>
-						<div class="form-group">
-								<span class="font-weight-bold">
-										เอกสารอ้างอิง:
-								</span>								
+		</div>
 
-								<ul class="list-group">
-										@foreach ($document->references as $item)
-										<li class="list-group-item"> <a href="#">{{$item->title}}</a> </li>
-										@endforeach
-								</ul>
-							</div>
-						<div class="form-group">
-							<span class="font-weight-bold">
-								ไฟล์แนบ:
-							</span>
-							<ul class="list-group">
-							@foreach ($document->attachments as $item)
-							<li class="list-group-item"> <a href="{{ $item->link}}">{{$item->name}}</a> </li>
-							@endforeach
-							</ul>
+	</div>
+	<div class="row mt-3">
+		<div class="col-2">
+			<span class="font-weight-bold">
+				ผู้รับ: 
+			</span>
+		</div>
+		<div class="col">
+			@foreach ($document->accessibleUsers as $user)
+				@if ($user->pivot->is_read)
+					<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
+				@else
+					<span class="badge badge-secondary" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
+				@endif
+			@endforeach
+				{{-- <span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
+				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
+				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
+				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
+				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span> --}}
 
-						</div>
+		</div>
+	</div>
+	<div class="row mt-3">
+		<div class="col-2">
+			<span class="font-weight-bold">
+				เอกสารอ้างอิง: 
+			</span>
+		</div>
+		<div class="col-2">
+			@foreach ($document->references as $ref)
+				{{-- <input> --}}
+				<a  style="display: block" href="{{ route('document.show', $ref->id)}}"> {{ $ref->title }}</a>
+			@endforeach
+		</div>
+	</div>
 
-						<div class="from-group">
-								<div class="row">
-										<div class="col-8 offset-2 text-center">
-										@if($document->reply_type == 1) 
-											<form action="{{ route("document.acknowledge", $document->id) }}" method="post">
-												@csrf
-												@method("PUT")
-												<button class="btn btn-primary mt-3" name="status" value="approve" type="submit">รับทราบ</button>
-											</form>
-											
-										@else
-											<button class="btn btn-outline-primary mt-3" name="status" value="unapprove" type="submit">ไม่อนุมัติ</button>
-											<button class="btn btn-primary mt-3" name="status" value="approve" type="submit">อนุมัติ</button>
-								
-										@endif
-										</div>
-									</div>
-						</div>
+	<div class="row  mt-3">
+		<div class="col-2">
+			<span class="font-weight-bold">
+				ไฟล์แนบ :
+			</span>
+		</div>
+		<div class="col">
+			@foreach ($document->attachments as $file)
+			{{-- <input> --}}
+				<a  style="display: block" href="{{ route('attachment.download', $file->id)}}"> {{ $file->name }}</a>
+			@endforeach
+		</div>
+	</div>
+
+	@if( $document->reply_type == 1)
+		<div class="row mt-3">
+			<div class="col-2">
+				<span class="font-weight-bold">
+					การดำเนินการ:
+				</span>
+			</div>
+			<div class="col">
+				<button class="btn btn-success">
+					รับทราบ
+				</button>
+
+			</div>
+		</div>
+	@elseif( $document->reply_type == 2 && $document->approved_user_id == $user->id )
+		<div class="row mt-3">
+			<div class="col-2">
+				<span class="font-weight-bold">
+					การดำเนินการ:
+				</span>
+			</div>
+			<div class="col">
+				<button class="btn btn-success">
+					อนุมัติ
+				</button>
+				<button class="btn btn-danger">
+					ไม่อนุมัติ
+				</button>
+			</div>
+		</div>
+	@endif
 
 
+
+	<div class="row mt-3">
+		<div class="col-12">
+			<span class="font-weight-bold">
+				ความคิดเห็น
+			</span>
+		</div>
+		
+		@foreach ($document->comments as $comment)
+		<div class="col-12 mb-3">
+			<div class="card  bg-light">
+				<div class="card-body">
+					<p class="card-text">
+						{{$comment->comment}}
+					</p>
+					<p class="card-text font-weight-bold">
+						ไฟล์แนบ 
+					</p>
+					@foreach ($document->attachments as $file)
+					{{-- <input> --}}
+					<div style="display: block" >
+						<a  href="{{ route('attachment.download', $file->id)}}"> {{ $file->name }}</a>
 					</div>
-
-
+					@endforeach
+				</div>
+				<div class="card-footer">
+					{{$comment->author->full_name}} | {{ $comment->created_thai_format}}
 				</div>
 			</div>
 		</div>
-	
-	@csrf
+		@endforeach
+	</div>
 
-  {{-- </form> --}}
+	@if ($pivot->document_user_status == 1)
+	<div class="row mt-3">
+		<div class="col">
+			<h2>การตอบกลับ</h2>
 
+		</div>
+	</div>
+	<div style="display:block" class="row">
+		<span>
+		</span>
+		<div class="card">
+			<form action="{{ route('document.comment', $document->id) }}" method="post"> 
+				@csrf
+				<div class="card-body">
+					<div class="from-group mb-2">
+						<label for="">ผู้รับ:</label>
+						{{-- <input type="text" class="form-control" name="user"> --}}
+						<select class="form-control" name="receivers" id="">
+							@foreach ( $users_in_school as $user_school)
+								@if( auth()->user()->id != $user_school->id )
+									<option value="{{ $user_school->id}}">{{$user_school->full_name}}</option>
+								@endif
+							@endforeach
+						</select>
+					</div>
+					<div class="from-group">
+						<label for="">ข้อความ:</label>
+						<textarea name="comment" cols="30" rows="5" class="form-control"></textarea>
+					</div>
+					<div class="row mt-3">
+						<div class="col-12">
+							<label for="">ไฟล์แนบ:</label>
+							
+						</div>
+						<div class="col-12"></div>
+					</div>
+					<div class="mt-3">
+						<button class="btn btn-primary" style="padding-left:1em;padding-right:1em;">ส่ง</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+			
+	@endif
 </div>
 
 @endsection
 
 @section('script')
-<script src="{{asset('js/document/edit.js')}}"></script>
+<script src="{{asset('js/document/show.js')}}"></script>
 <script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script>
 <script>
 
-	function getFolderurl(id) {
-		host = "{{ url("") }}";
-		uri = host+"/ajax/cabinets/"+id+"/folders" ;
-		return uri ;
-	}
-	$('button.rm-file').click(function(e){
-		id = $(this).data("file");
-		$ele = $(`<input name="file_delete[]" value="${id}">`);
-		$('form').append($ele);
-		$(this).parent().parent().remove();
-	});
-	$('button.rm-refer').click(function(e){
-		e.preventDefault();
-		$(this).parent().remove();
-	});
-	$("#cabinetSelect").change(function(){
-		id = $(this).val();
-		console.log(typeof(id));
-		$folderEle = $("#folderSelect") ;
-		if(id !== ""){
-			axios.get(getFolderurl(id))
-			.then(function(res){
-				$folderEle.prop("disabled", false);
-				$($folderEle).empty();
-				res.data.forEach(function(item) {
-					$child = $(`<option value="${item.id}">${item.name}</option>`);
-					$($folderEle).append($child);
-				});
-			})
-			.catch(function(err){
-			});
-		} else {
-			$folderEle.prop("disabled", true);
-			$folderEle.val(null);
-		}
-	});
-	$("#refer").search({
-		url: "{{url("document_refer")}}"
-	})
+
 
 </script>
 @endsection

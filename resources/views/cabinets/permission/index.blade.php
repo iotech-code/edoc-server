@@ -34,15 +34,23 @@
                 <tr >
                   <td>  
                       {{$user->full_name}}
-  
+                    
                   </td>
                   <td class="w-25 text-center">
-                    @if ($user->role_id == 1)
-                      <input type="checkbox" disabled checked>
-                    @elseif( $user->cabinetPermissions()->where("cabinet_id", $cabinet->id)->count()  )
-                      <input type="checkbox" name="users[]" value="{{ $user->id }}" data-user-id="{{ $user->id }}" checked>
+                    @if (auth()->user()->role_id == 1)
+                      <input 
+                        value="{{ $user->id }}"
+                        name="users[]"
+                        @if( $user->cabinetPermissions()->where("cabinet_id", $cabinet->id)->count()  ) checked @endif
+                        type="checkbox">
+                    {{-- @elseif( $user->cabinetPermissions()->where("cabinet_id", $cabinet->id)->count()  ) --}}
+                      {{-- <input type="checkbox" name="users[]" value="{{ $user->id }}" data-user-id="{{ $user->id }}" checked @if ($user->role_id != 1)>  --}}
+                    {{-- @else --}}
                     @else
-                      <input type="checkbox" name="users[]" value="{{ $user->id }}" data-user-id="{{ $user->id }}">
+                      <input 
+                        @if( $user->cabinetPermissions()->where("cabinet_id", $cabinet->id)->count()  ) checked @endif
+                        disabled
+                        type="checkbox" name="users[]" value="{{ $user->id }}" data-user-id="{{ $user->id }}">
                     @endif
                   </td>
        
@@ -62,7 +70,9 @@
 
         <div class="button-group text-center">
           <a href="{{ route("cabinet.index", $cabinet->id) }}" class="btn edoc-btn-primary inverse">ย้อนกลับ</a>
-          <button class="btn edoc-btn-primary">บันทึก</button>
+          @if (auth()->user()->role_id == 1)
+            <button class="btn edoc-btn-primary">บันทึก</button>
+          @endif
 
         </div>
       </div>

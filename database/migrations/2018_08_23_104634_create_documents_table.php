@@ -25,16 +25,19 @@ class CreateDocumentsTable extends Migration
             $table->string('title');
             $table->string('receive_code');
             $table->date('receive_date');
+            $table->unsignedInteger('approved_user_id')
+                ->nullable();
+
             $table->text("remark")->nullable()->defaulk("");
             $table->unsignedInteger('reply_type')
-            ->nullable()->default(null);
+                ->nullable()->default(null);
             $table->unsignedInteger('send_to_cabinet_id');
-            // $table->string('refer')->nullable()->default(null);
             $table->string('keywords');
             $table->unsignedTinyInteger('status')->default(1);
             $table->unsignedInteger('cabinet_id');
             $table->unsignedInteger('folder_id');
-            $table->dateTime('read_at')->nullable()->default(null);
+            // $table->string('refer')->nullable()->default(null);
+            // $table->dateTime('read_at')->nullable()->default(null);
             $table->timestamps();
         });
     }

@@ -28,7 +28,8 @@ class Document extends Model
         'heading',
         'status',
         'remark',
-        'reply_type'
+        'reply_type',
+        'approved_user_id'
     ];
 
     /**
@@ -56,6 +57,14 @@ class Document extends Model
      */
     public function sendToCabinet() {
         return $this->belongsTo(Cabinet::class, 'send_to_cabinet_id');
+    }
+
+    public function sendFormCabinet() {
+        return $this->belongsTo(Cabinet::class, 'cabinet_id');
+    }
+
+    public function comments() {
+        return $this->hasMany(DocumentComment::class, 'document_id');
     }
 
     /**
@@ -87,11 +96,13 @@ class Document extends Model
                 break;
             case 2:
                 //waiting
-                $text = 'กำลังดำเนินการ';
+                // $text = 'กำลังดำเนินการ';
+                $text = 'ดำเนินการ';
                 break; 
             case 3:
                 //approve
-                $text = 'อนุมัติ/รับทราบ';
+                // $text = 'อนุมัติ/รับทราบ';
+                $text = 'สำเร็จ';
                 break; 
             case 4:
                 //unapprove
@@ -102,6 +113,36 @@ class Document extends Model
                 break;
         }
         return $text;
+    }
+
+    public function getRenderStatusTagAttribute() {
+        switch ($this->attributes['status']) {
+            case 1:
+                // daft
+                $color = 'grey';
+                break;
+            case 2:
+                //waiting
+                $color = 'yellow';
+                break; 
+            case 3:
+                //approve
+                $color = 'green';
+                break; 
+            case 4:
+                //unapprove
+                $color = 'red';
+                break; 
+            case 5:
+                //unapprove
+                $color = 'black';
+                break; 
+            default:
+                $color = 'grey';
+                break;
+        }
+        $html = "<span class=\"status-tag status-${color}\" >$this->status_text</span>";
+        return $html;
     }
 
     /**
@@ -167,7 +208,7 @@ class Document extends Model
     }
 
     /**
-     * @return Collection $list of Document
+     * @return Builder $list of Document
      */
     public function scopeOfCabinets($query, array $cabibets) {
         if (count($cabibets) < 1) {
@@ -184,8 +225,14 @@ class Document extends Model
         return route("document.edit", $this->id) ;
     }
 
+    public function getThaiDateAttribute() {
+        return dateToFullDateThai(date("d/m/Y", strtotime("{$this->attributes['date']}"))) ;
+
+    }
+
     public function getBeDateAttribute() {
-        return date("d/m/Y", strtotime("{$this->attributes['date']} +543 years")) ;
+        // return date("d/m/Y")
+        // return date("d/m/Y", strtotime("{$this->attributes['date']} +543 years")) ;
     }
 
     public function documentAssigns() {
@@ -212,5 +259,12 @@ class Document extends Model
 
     public function canAccess($user_id) {
         return $this->documentAssigns()->wherePivot('user_id', $user_id)->count();
+    }
+
+    public function accessibleUsers() {
+        return $this->belongsToMany(User::class, 'documents_users', 'document_id', 'user_id');
+        // return $this->belongsToMany(User::class, 'document_assignments', 'document_id', 'user_id');
+
+
     }
 }

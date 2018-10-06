@@ -18,9 +18,9 @@ $('#addFile').click(function(){
 $(document).on('click','.btn-remove-file',function(){ 
   // console.log("tete");
   val = $(this).data('file');
-  console.log('====================================');
-  console.log(val);
-  console.log('====================================');
+  // console.log('====================================');
+  // console.log(val);
+  // console.log('====================================');
   $("#file"+val).remove();
 });
 
@@ -50,6 +50,7 @@ $.fn.search = function(setting) {
   });
 
   $input.on("paste keyup focus", function(e){
+    console.log($(this))
     val = $(this).val();
     // console.log(val);
     let query = $(this).val(); ;
@@ -57,7 +58,7 @@ $.fn.search = function(setting) {
     axios.get(url+`?query=${query}`)
     .then(function(response){
       data = response.data.data ;
-      console.log(data.length);
+      // console.log(data.length);
       
       $results.empty();
       $results.addClass("active")
@@ -83,6 +84,7 @@ $.fn.search = function(setting) {
             // $tag = $(`<span class="badge badge-info mr-1" >${ele.title}</span>`) ;
             // $value = $(`<input type="hidden" name="refers[]" value="${ele.id}" >`)
             $('input[name="title"]').val(ele.title);
+            setting.callback(ele.title);
             $("#referItem").append($child);
 
             // $tag.append($a);
@@ -101,7 +103,79 @@ $.fn.search = function(setting) {
       }
     })
     .catch(function(error){
-      console.log(error);
+      console.error(error);
     })
   })
 }
+
+
+
+// $.fn.nameSearch = function(setting) {
+  
+//   $input = $(setting.el).find('.input-group').find('input');
+//   $results = $(setting.el).find('.results');
+
+//   // console.log($input);
+//   let url = setting.url ;
+
+//   $(document).click(function(e){
+    
+//     if ($(e.target)[0] !== $input[0]) {
+      
+//       $results.removeClass("active")
+//     }
+//   });
+
+//   $input.on("paste keyup focus", function(e){
+//     val = $(this).val();
+//     console.log(val);
+//     let query = $(this).val(); ;
+
+//     axios.get(url+`?search=${query}`)
+//     .then(function(response){
+//       data = response.data.data ;
+//       console.log(data.length);
+      
+//       $results.empty();
+//       $results.addClass("active")
+//       if (data.length > 0) {
+//         data.forEach(ele => {
+//           // console.log(ele);
+//           $child = $(`<div class="result" data-doc-id="${ele.id}"> ${ele.full_name} </div>`)
+//           $results.append($child);
+//           $child.click(function(e){ 
+//             // $child = $(`<div class="col-12 mb-1">`) ;
+//             $link = $(`<a href="">${ele.full_name}</a>`);
+//             // $deleteBtn = $(`
+//             // <button type="button" class="btn btn-danger btn-sm rounded-circle float-right" >
+//             //   <i class="fa fa-times"></i>
+//             // </button>`)
+//             // $child.append($link);
+//             // $child.append($value);
+//             // $child.append($deleteBtn);            
+//             $deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${ele.id}" > <i class="fa fa-times"> </i></a>`) ;
+//             $value = $(`<input type="hidden" name="users[]" value="${ele.id}" >`);
+//             $tag = $(`<span class="badge badge-info mr-1" > ${ele.full_name}</span>`) ;
+            
+//             $('input[name="title"]').val(ele.full_name);
+//             // $("#referItem").append($child);
+//             $tag.append($deleteBtn);
+//             $tag.append($value);
+//             $deleteBtn.click(function(e){
+//               e.preventDefault();
+//               $(this).parent().remove();
+//             });
+//             $("#tagged").append($tag);
+//           });
+
+//         });
+//       } else {
+//         child = $(`<div class="result" > ไม่พบข้อมูล </div>`)
+//         $results.append(child);
+//       }
+//     })
+//     .catch(function(error){
+//       console.log(error);
+//     })
+//   })
+// }

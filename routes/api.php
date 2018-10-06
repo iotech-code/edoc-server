@@ -23,6 +23,8 @@ Route::middleware('auth:api')->group(function(){
         // return response()->json("test");
     });
     Route::get('documents', 'DocumentApiController@getDocuments');
+    Route::get('documents/{id}', 'DocumentApiController@getDocumentById');
     Route::post('documents/{document}/reply', 'DocumentApiController@createReplyDocument');
     Route::post('documents/{document}', 'DocumentApiController@approveDocument');
+
 });

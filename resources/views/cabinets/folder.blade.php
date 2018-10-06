@@ -24,7 +24,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th class="w-75">ตู้เอกสาร</th>
+                  <th class="w-75">แฟ้มเอกสาร</th>
                   <th>จัดการ</th>
                 </tr>
               </thead>

@@ -49,45 +49,221 @@
   color: #fff;
 }
 
-.table-tab .item {
+.table-tab > .item {
   font-size: 1.2em;
+  padding: 0 !important;
   color: #838383;
   text-align: center;
   vertical-align: middle;
-  padding: 6px 6px;
   border-bottom: 4px solid #fff;
   cursor: pointer;
 }
 
-.table-tab .item:last-child {
+.table-tab > .item:last-child {
   cursor: default;
 }
 
-.table-tab .item .fas {
+.table-tab > .item .fas {
   font-size: 1.5em;
 }
 
-.table-tab .item span.header {
+.table-tab > .item span.header {
   margin-left: 8px;
 }
 
-.table-tab .item.t-all.active {
+.table-tab > .item a {
+  display: block;
+  padding: 0.75rem;
+}
+
+.table-tab > .item a:hover {
+  text-decoration: none;
+}
+
+.table-tab > .item.t-all {
   color: #2780DA;
+}
+
+.table-tab > .item.t-all a {
+  color: #2780DA;
+}
+
+.table-tab > .item.t-all.active {
   border-bottom: 4px solid #2780DA;
 }
 
-.table-tab .item.t-inbox.active {
+.table-tab > .item.t-inbox {
   color: #2A730B;
+}
+
+.table-tab > .item.t-inbox a {
+  color: #2A730B;
+}
+
+.table-tab > .item.t-inbox.active {
   border-bottom: 4px solid #2A730B;
 }
 
-.table-tab .item.t-sentbox.active {
+.table-tab > .item.t-sentbox {
   color: #F5B100;
+}
+
+.table-tab > .item.t-sentbox a {
+  color: #F5B100;
+}
+
+.table-tab > .item.t-sentbox.active {
   border-bottom: 4px solid #F5B100;
 }
 
-.table-tab .item.t-cabinet.active {
+.table-tab > .item.t-cabinet.active {
   color: #320093;
   border-bottom: 4px solid #320093;
+}
+
+.input-icon > input {
+  border-radius: 8px;
+  background-color: #F3F3F3;
+  border: none !important;
+  padding: 4px 8px;
+}
+
+.input-icon > input::-webkit-input-placeholder {
+  font-family: 'Font Awesome 5 Brands' !important;
+  color: #838383;
+}
+
+.input-icon > input:-ms-input-placeholder {
+  font-family: 'Font Awesome 5 Brands' !important;
+  color: #838383;
+}
+
+.input-icon > input::-ms-input-placeholder {
+  font-family: 'Font Awesome 5 Brands' !important;
+  color: #838383;
+}
+
+.input-icon > input::placeholder {
+  font-family: 'Font Awesome 5 Brands' !important;
+  color: #838383;
+}
+
+.input-icon > input:focus {
+  background-color: #fff;
+  border-radius: 8px;
+  border: none !important;
+}
+
+.explain-search {
+  display: none;
+  max-width: 100%;
+  overflow: hidden;
+  background-color: #eee;
+  position: relative;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  right: 0;
+}
+
+.explain-search.active {
+  display: block;
+}
+
+.explain-search > .body {
+  max-width: 100%;
+  position: relative;
+  display: block;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.inline-group {
+  position: relative;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  vertical-align: middle;
+}
+
+.inline-group label {
+  margin-right: 15px;
+}
+
+.status-tag {
+  padding: 0.1em 0rem;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  max-width: 115px;
+  position: relative;
+  display: block;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+
+.status-tag.status-blue {
+  background-color: #3A3EDB;
+}
+
+.status-tag.status-grey {
+  background-color: #525252;
+}
+
+.status-tag.status-yellow {
+  background-color: #F4AA00;
+}
+
+.status-tag.status-red {
+  background-color: #FF0000;
+}
+
+.status-tag.status-green {
+  background-color: #00D446;
+}
+
+.status-tag.status-black {
+  background-color: #000000;
+}
+
+.status-circle {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-circle.status-blue {
+  background-color: #3A3EDB;
+}
+
+.status-circle.status-black {
+  background-color: #000000;
+}
+
+.status-circle.status-grey {
+  background-color: #525252;
+}
+
+.status-circle.status-yellow {
+  background-color: #F4AA00;
+}
+
+.status-circle.status-red {
+  background-color: #FF0000;
+}
+
+.status-circle.status-green {
+  background-color: #00D446;
 }
 
