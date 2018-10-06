@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "iotechth/edoc",
+    "description": "Electronic Document Manager",
     "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "license": "GPL2",
     "type": "project",
     "require": {
         "php": "^7.1.3",
