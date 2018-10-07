@@ -1845,8 +1845,31 @@ axios = __webpack_require__(7);
 $('.date-select').datepicker({
   language: 'th',
   format: 'yyyy-mm-dd',
-  // startDate: 'd'
+  // format: {
+
+  //     toDisplay: function (date, format, language) {
+  //         var d = new Date(date);
+  //         d.setFullYear(d.getFullYear());
+  //         // return new Date(d).toDateString();
+  //         return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+
+  //     },
+  //     toValue: function (date, format, language) {
+  //       var d = new Date(date);
+  //       d.setFullYear(d.getFullYear());
+  //       // return new Date(d).toDateString();
+  //       return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  //     },
+
+  // },
+  // defaultViewDate: "test",
+  // defaultViewDate: function(date) {
+  //   return {
+  //     enabled: false
+  //   }
+  // },
   default: true
+
 });
 
 $.fn.search = function (setting) {

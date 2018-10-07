@@ -32,6 +32,19 @@
 		</div>
 
 	</div>
+
+	<div class="row mt-3">
+		<div class="col-2">
+			<span class="span font-weight-bold">
+				สถานะของเอกสาร:
+			</span>
+		</div>
+		<div class="col">
+			{!! $document->render_status !!}
+			{{ $document->status_text }}
+		</div>
+	</div>
+	
 	<div class="row mt-3">
 		<div class="col-2">
 			<span class="font-weight-bold">
@@ -82,7 +95,8 @@
 		</div>
 	</div>
 
-	@if( $document->reply_type == 1)
+	@if( !is_null($pivot) )
+		@if( $document->reply_type == 1 && $user->accessibleDocuments()->wherePivot('is_read', '!=', 0)->count())
 		<div class="row mt-3">
 			<div class="col-2">
 				<span class="font-weight-bold">
@@ -90,13 +104,17 @@
 				</span>
 			</div>
 			<div class="col">
-				<button class="btn btn-success">
+			<form action="{{ route('document.respond', $document->id) }}" method="post">
+				@csrf
+				@method("PUT")
+				<button class="btn btn-success" >
 					รับทราบ
 				</button>
+			</form>
 
 			</div>
 		</div>
-	@elseif( $document->reply_type == 2 && $document->approved_user_id == $user->id )
+	@elseif( $document->reply_type == 2 && $document->approved_user_id == $user->id && $document->status == 2 )
 		<div class="row mt-3">
 			<div class="col-2">
 				<span class="font-weight-bold">
@@ -104,15 +122,25 @@
 				</span>
 			</div>
 			<div class="col">
-				<button class="btn btn-success">
+				<form class="d-inline-block" action="{{ route('document.respond', $document->id) }}" method="post">
+						@csrf
+						@method("PUT")
+					<button class="btn btn-success" name="is_approve" value="1">
 					อนุมัติ
-				</button>
-				<button class="btn btn-danger">
-					ไม่อนุมัติ
-				</button>
+					</button>
+				</form>
+				<form class="d-inline-block" action="{{ route('document.respond', $document->id) }}" method="post">
+					@csrf
+					@method("PUT")
+					<button class="btn btn-danger" name="is_approve" value="0">
+						ไม่อนุมัติ
+					</button>
+				</form>
 			</div>
 		</div>
+		@endif
 	@endif
+	
 
 
 
@@ -148,11 +176,10 @@
 		@endforeach
 	</div>
 
-	@if ($pivot->document_user_status == 1)
+	@if ( !is_null($pivot) && $pivot->document_user_status == 1 && $document->status  == 2)
 	<div class="row mt-3">
 		<div class="col">
 			<h2>การตอบกลับ</h2>
-
 		</div>
 	</div>
 	<div style="display:block" class="row">

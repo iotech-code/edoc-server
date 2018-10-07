@@ -230,11 +230,6 @@ class Document extends Model
 
     }
 
-    public function getBeDateAttribute() {
-        // return date("d/m/Y")
-        // return date("d/m/Y", strtotime("{$this->attributes['date']} +543 years")) ;
-    }
-
     public function documentAssigns() {
         return $this->belongsToMany(User::class, 'document_assignments', 'document_id', 'user_id');
     }
@@ -243,27 +238,14 @@ class Document extends Model
         return $this->belongsTo(DocumentReplyType::class, 'reply_type');
     }
 
-    /**
-     * @return Collection $list of Document
-     */
-    public function scopeOfById($query, array $list) {
-        if (count($list) < 1) {
-            return $query;
-        }
-        // $query->where('id', $list[0]); 
-        foreach ( array_slice($list, 1) as $id) {
-            $query->orWhere("id", $id);
-        }
-        return $query ;
+    public function getApprovableAttribute() {
+        return $this->attributes['reply_type'] == 2;
     }
 
-    public function canAccess($user_id) {
-        return $this->documentAssigns()->wherePivot('user_id', $user_id)->count();
-    }
 
     public function accessibleUsers() {
-        return $this->belongsToMany(User::class, 'documents_users', 'document_id', 'user_id');
-        // return $this->belongsToMany(User::class, 'document_assignments', 'document_id', 'user_id');
+        return $this->belongsToMany(User::class, 'documents_users', 'document_id', 'user_id')
+            ->withPivot(['is_read', 'document_user_status']);
 
 
     }

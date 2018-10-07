@@ -4,7 +4,7 @@
 cp env-example .env
 ```
 
-then Edit your .env file
+then **Don't froget to edit your .env file**
 
 ``` sh
 php artisan key:generate
@@ -13,7 +13,7 @@ php artisan migrate [--seed]
 
 ```
 
-You can edit mock data seedxer at [database/seeds/DatabaseSeeder.php](database/seeds/DatabaseSeeder.php)
+You can edit mock data seeder at [database/seeds/DatabaseSeeder.php](database/seeds/DatabaseSeeder.php)
 
 ## Seed all Mock Data
 

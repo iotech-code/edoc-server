@@ -23,7 +23,8 @@ class CreateDocumentsUsersTable extends Migration
             // 2 => sentbox
             $table->unsignedTinyInteger('document_user_status');
             $table->boolean('is_read')->default(0);
-            // $table->unsignedTinyInteger('type');
+            $table->boolean('can_comment')
+                ->comment('to check user can comment this document');
             $table->timestamps();
         });
     }

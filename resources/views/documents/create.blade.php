@@ -32,7 +32,7 @@
 						<label for="">ตู้จัดเก็บเอกสาร</label>
 						<select id="cabinetSelect" class="form-control" name="send_to_cabinet_id" required>
 								<option value="">เลือกตู้เอกสาร</option> 
-								@foreach ($cabinets as $item)
+								@foreach ($user->getLocalCabinets() as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
 								@endforeach
 						</select>
@@ -66,8 +66,8 @@
 						 <select class="form-control" name="cabinet_id" >
 								<option value="">เลือกที่มาเอกสาร</option> 
 							 
-								@foreach ( $user->local_cabinets as $item)
-										<option value="{{$item->id}}">{{$item->name}}</option>
+								@foreach ( $user->getLocalCabinets() as $cabinet) 
+										<option value="{{$cabinet->id}}">{{$cabinet->name}}</option>
 								@endforeach
 						</select>
 					</div>
@@ -432,7 +432,9 @@
 
 @push('css')
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> --}}
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
 	<link rel="stylesheet" href="{{ asset("css/document/create.css") }}">
 	{{-- <link rel="stylesheet" type="text/css" href="{{asset("semantic/dist/semantic.css")}}"> --}}
 

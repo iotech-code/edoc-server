@@ -12,11 +12,9 @@
     <div class="col t-all item @if($tab_active == 'all') active @endif">
         {{-- <span class="mdi mdi-inbox"></span> --}}
         <a href="{{ route("document.index", ['t'=>'all']) }}">
-        <i class="fas fa-inbox"></i>
-        <span class="header">
-          
+          <i class="fas fa-inbox"></i>
+          <span class="header">
             ทั้งหมด
-            
           </span>
         </a>
     </div>
@@ -43,7 +41,7 @@
     <div class="col">
       <div class="item">
         <div class="input-icon">
-          <input id="searchInput" type="text" placeholder="ค้นหา">
+          <input id="searchInput" type="text" placeholder="ค้นหา" name="search[title]" @isset($old) value="{{ $old['title']}}" @endisset>
         </div>
       </div>
         {{-- <div class="dropdown">
@@ -63,22 +61,50 @@
   </div>
   <div class="row">
     <div id="moreSearch" class="explain-search">
-      <form action="/doc/test" method="get">
-        <input id="textSearch" type="hidden" name="text">
+      <form action="{{ route('document.index')}}" method="get">
+      <input id="textSearch" type="hidden" name="search[title]" @isset($old) value="{{ $old['title']}}" @endisset>
         <div class="body">
           <div class="row align-items-center mb-3 mt-3">
             <div class="col-2">
               <label for="">วันที่เอกสาร</label>
             </div>
             <div class="col-4">
-              <input class="form-control" type="text">
+              {{-- <input class="form-control" type="text"> --}}
+              <div class="input-group ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                  @if( isset($old['date_start']))
+                    <input value="{{ $old['date_start'] }}"  type="text" name="search[date_start]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @else
+                    <input  type="text" name="search[date_start]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @endif
+                </div>
 
             </div>
             <div class="col-2">
               <label class="label" for="">วันที่สิ้นสุด</label>
             </div>
             <div class="col-4">
-              <input type="text" class="form-control">
+              {{-- <input type="text" class="form-control"> --}}
+              <div class="input-group ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                  @if( isset($old['date_end']))
+                    <input value="{{ $old['date_end'] }}"  type="text" name="search[date_end]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @else
+                    <input  type="text" name="search[date_end]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @endif
+                  </div>
             </div>
           </div>
           {{--  --}}
@@ -88,10 +114,16 @@
             </div>
             <div class="col-4">
               {{-- <input type="text" class="form-control"> --}}
-              <select name="cabinet_id" id="cabinetSelect" class="form-control">
+              <select name="search[cabinet_id]" id="cabinetSelect" class="form-control">
                 <option value="">เลือกตู้เอกสาร</option>
                 @foreach ($cabinets as $item)
-                  <option value=" {{ $item->id }}"> {{ $item->name }}</option>
+                  @if( isset($old['cabinet_id']) && $item->id == $old['cabinet_id'] )
+                    <option value=" {{ $item->id }}" selected> {{ $item->name }}</option>
+
+                  @else
+                    <option value=" {{ $item->id }}"> {{ $item->name }}</option>
+
+                  @endif
                 @endforeach
               </select>
             </div>
@@ -99,11 +131,18 @@
               <label class="label" for="">แฟ้มเอกสาร</label>
             </div>
             <div class="col-4">
-              <select name="folder_id" id="folderSelect" class="form-control">
+              <select name="search[folder_id]" id="folderSelect" class="form-control">
                 <option value="">เลือกเแฟ้มเอกสาร</option>
+
                 @foreach ($folders as $item)
-                <option value="{{ $item->id }}"> {{ $item->name }}</option>
-                @endforeach
+                @if( isset($old['folder_id']) && $item->id == $old['folder_id'] )
+                  <option value=" {{ $item->id }}" selected> {{ $item->name }}</option>
+
+                @else
+                  <option value=" {{ $item->id }}"> {{ $item->name }}</option>
+
+                @endif
+              @endforeach
               </select>
             </div>
           </form>
@@ -114,9 +153,15 @@
               <label for="">ประเภทเอกสาร</label>
             </div>
             <div class="col">
-              @foreach (App\Models\DocumentType::all() as $item)
+              @foreach ($document_types as $item)
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" name="document_type[]" type="checkbox" value="{{$item->id}}" id="docType{{$item->id}}">
+                  @if( isset($old['document_type']) && in_array($item->id, $old['document_type']) )
+                    <input class="form-check-input" name="search[document_type][]" type="checkbox" value="{{$item->id}}" id="docType{{$item->id}}" checked>
+                  
+                  @else
+                    <input class="form-check-input" name="search[document_type][]" type="checkbox" value="{{$item->id}}" id="docType{{$item->id}}">
+                  
+                  @endif
                   <label class="form-check-label" for="docType{{$item->id}}">
                     {{-- Default checkbox --}}
                     {{ $item->name }}
@@ -132,7 +177,13 @@
             <div class="col">
               @foreach (App\Models\DocumentStatus::all() as $item)
                 <div class="form-check form-check-inline" style="padding: 12px 0" >
-                  <input class="form-check-input" type="checkbox" value="" id="docStatus{{$item->id}}">
+                  @if( isset($old['statuses']) && in_array($item->id, $old['statuses']) )
+                    <input class="form-check-input" type="checkbox" value="{{$item->id}}" name="search[statuses][]" id="docStatus{{$item->id}}" checked>
+                  
+                  @else
+                    <input class="form-check-input" type="checkbox" value="{{$item->id}}" name="search[statuses][]" id="docStatus{{$item->id}}">
+                  
+                  @endif
                   <label class="form-check-label" for="docStatus{{$item->id}}">
                     {{-- Default checkbox --}}
                     <span class="status-circle status-{{$item->color}}"></span>

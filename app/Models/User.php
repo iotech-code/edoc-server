@@ -80,6 +80,16 @@ class User extends Authenticatable
     //         // ->withPivot(["status"]);
     // }
 
+    // public function accessibleCabinets() {
+    //     return $this->belongsTomany(Cabinet::class, 'user_cabinet_permission', 'user_id', 'cabinet_id');
+    //     // return date("d/m/Y")
+    //     // return date("d/m/Y", strtotime("{$this->attributes['date']} +543 years")) ;
+    // }
+
+    public function getLocalCabinets() {
+        return Cabinet::where('school_id', $this->school_id)->get();
+    }
+
     public function accessibleDocuments() {
         return $this->belongsToMany(Document::class, 'documents_users', 'user_id', 'document_id')
             ->withPivot(["document_user_status", "is_read"]);
@@ -93,44 +103,14 @@ class User extends Authenticatable
         return $query;
     }   
 
-    /**
-     * @return array $list_of_access_cabinet_id
-     */
-    public function documentCanAccesses() {
-        // return cabinetPermissions
-        if( $this->role_id == 1 ) {
-            return Document::all() ;
-        } else {
-            $cabinet_list = $this->cabinetPermissions->pluck(['id'])->toArray();
-            // $cabinet_list = $this->cabinetPermissions->edocuments;
-            $documents = Document::where('cabinet_id', $cabinet_list[0]);
-            foreach ( array_slice($cabinet_list, 1) as $c_id) {
-                $documents->orWhere('cabinet_id', $c_id);
-            }
-            return $documents;
-        }
-    }
-
-    /**
-     * @return array $list_of_access_cabinet_id
-     */
-    public function getAccessCabinetsAttribute() {
-        // return cabinetPermissions
-        if( $this->attributes['role_id'] == 1 ) {
-            return Cabinet::all()->pluck(['id']) ;
-        } else {
-            $cabinet_list = $this->cabinetPermissions->pluck(['id']);
-            return $cabinet_list->toArray();
-        }
-    }
-
-    public function getLocalCabinetsAttribute() {
-        return Cabinet::where('school_id', $this->school_id)->get();
-    }
-
     public function getAssignedDocumentsAttribute() {
         return $this->accessibleDocuments->pluck(['id'])->toArray();
     }
+
+    // public function acceptDocument($document_id) {
+    //     $this->
+    //     // $document = Document::find($document_id);
+        
+    // }
     
-    // public function
 }

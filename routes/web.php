@@ -30,17 +30,20 @@ Route::middleware(['web','auth'])->group(function(){
     Route::post('document/{document}/comment', 'DocumentController@comment')
         ->name('document.comment');
 
+    Route::put('document/{document}/respond', 'DocumentController@respond')
+        ->name('document.respond');
 
-    Route::put('document/{docuemnt}/reply', 'DocumentController@reply')
-        ->name('document.reply');
-    Route::get('document/{docuemnt}/reply/create', 'DocumentController@createReply')
-        ->name('document.reply.crate');
-    Route::post('document/{docuemnt}/reply', 'DocumentController@createReply')
-        ->name('document.reply.store');
-    Route::put('document/{document}/assign', 'DocumentController@assign')
-        ->name('document.assign');
-    Route::put('document/{document}/acknowledge', 'DocumentController@acknowledge')
-        ->name('document.acknowledge');
+
+    // Route::put('document/{docuemnt}/reply', 'DocumentController@reply')
+    //     ->name('document.reply');
+    // Route::get('document/{docuemnt}/reply/create', 'DocumentController@createReply')
+    //     ->name('document.reply.crate');
+    // Route::post('document/{docuemnt}/reply', 'DocumentController@createReply')
+    //     ->name('document.reply.store');
+    // Route::put('document/{document}/assign', 'DocumentController@assign')
+    //     ->name('document.assign');
+    // Route::put('document/{document}/acknowledge', 'DocumentController@acknowledge')
+    //     ->name('document.acknowledge');
 
     // cabinet
     Route::resource('cabinet', 'CabinetController');

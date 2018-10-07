@@ -6,7 +6,7 @@ use App\Models\Document ;
 
 use Illuminate\Http\Request;
 
-trait CommentAble {
+trait DocumentCommentTrait {
     
 
     public function comment($id, Request $request) {
@@ -27,7 +27,7 @@ trait CommentAble {
         if ($document->accessibleUsers->where('id', $request->receivers)->count()) {
             $document->accessibleUsers()->updateExistingPivot($request->receivers, [
                 'document_user_status' => 1,
-                ]);
+            ]);
                 
             } else {
             $document->accessibleUsers()->attach($request->receivers, [

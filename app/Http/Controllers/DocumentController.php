@@ -7,9 +7,11 @@ use App\Models\DocumentStatus;
 use App\Models\Folder;
 use App\Models\Cabinet;
 use App\Models\User;
+use App\Models\DocumentType;
 
 use App\Http\Controllers\Traits\DocumentReply ;
-use App\Http\Controllers\Traits\CommentAble ;
+use App\Http\Controllers\Traits\DocumentCommentTrait ;
+use App\Http\Controllers\Traits\DocumentRespondTrait ;
 
 use Illuminate\Http\Request;
 
@@ -17,7 +19,8 @@ class DocumentController extends Controller
 {
 
     use DocumentReply,
-        CommentAble;
+        DocumentRespondTrait,
+        DocumentCommentTrait;
     /**
      * Display a listing of the resource.
      *
@@ -31,36 +34,42 @@ class DocumentController extends Controller
         $cabinets = $user->cabinetPermissions()->get();
         $folders = Folder::where('school_id', $user->school_id)->get();
         $documents = Document::where('school_id', $user->school_id);
-
-        $access_cabinet_list = $user->cabinetPermissions()->get()->pluck(['id']);
-        $access_document = $user->accessibleDocuments()->get()->pluck(['id']);
-
-        $documents->whereIn('cabinet_id', $access_cabinet_list);
-        $documents->whereIn('send_to_cabinet_id', $access_cabinet_list, 'or');
-        $documents->whereIn('id', $access_document, 'or');
+        $document_types = DocumentType::all();
 
         $tab_active = isset($request->t)? $request->t : "all";
+        $old = null;
+        $current_active_tab = $this->getActiveTabToId($tab_active);
 
-        // if( isset($request->t) && $request->t == 'inbox') {
-        //     return "test";
-        // } else if( isset($request->t) && $request->t == 'sent' ) {
-        //     return "test";
-        // } else {
-
-        // }
-
-
-
-        if (isset($request->search)) {
-            $documents = $documents->ofSearch($request->search) ;
-            $title = $request->search['title'];
-            $date_start = $request->search['date_start'];
-            $date_end = $request->search['date_end'];
+        if( !is_null($current_active_tab)) {
+            $access_document = $user->accessibleDocuments()->wherePivot('document_user_status', $current_active_tab)->get()->pluck(['id']);
+            // return $current_active_tab;
+            $documents->whereIn('id', $access_document);
         } else {
-            // $documents = Document::where('school_id', $user->school_id);
+            $access_cabinet_list = $user->cabinetPermissions()->get()->pluck(['id']);
+            $access_document = $user->accessibleDocuments()->get()->pluck(['id']);
+            $documents->whereIn('cabinet_id', $access_cabinet_list);
+            $documents->whereIn('send_to_cabinet_id', $access_cabinet_list, 'or');
+            $documents->whereIn('id', $access_document, 'or');
+
         }
+
         
-        $documents = $documents->paginate(15);
+        // return $current_active_tab;
+        if (isset($request->search)) {  
+            $documents = $documents->ofSearch($request->search) ;
+            // $old['title'] = $request->search['title'];
+            // $old['date_start'] = $request->search['date_start'];
+            // $old['date_end'] = $request->search['date_end'];
+            $old=$request->search;
+        } else {
+
+        }
+
+        // return $old;
+
+
+        
+        $documents = $documents->orderBy('created_at')->paginate(15);
         
         return view('documents.index')
             ->with(compact([
@@ -71,8 +80,21 @@ class DocumentController extends Controller
                 'date_end',
                 'cabinets',
                 'folders',
-                'tab_active'
+                'tab_active',
+                'document_types',
+                'old'
             ]));
+    }
+
+    public function getActiveTabToId($text){
+        switch($text) {
+            case 'inbox':
+                return 1;
+            case 'sent':
+                return 2;
+            default:
+                return null;
+        }
     }
 
     /**
@@ -167,7 +189,11 @@ class DocumentController extends Controller
         $user = auth()->user();
         $users_in_school = User::where('school_id', $user->school_id)->get();
         // $document->accessibleUsers()->attach($user->id, ['document_user_status' => 1]);
-        $pivot = $user->accessibleDocuments->where('id', $document->id)->first()->pivot ;
+        $accessible = $user->accessibleDocuments->where('id', $document->id);
+        $pivot = null;
+        if( $accessible->count() ) {
+            $pivot = $accessible->first()->pivot ;
+        } 
         // return $pivot ;
         if ( $document->school_id != $user->school_id) {
             abort(404);

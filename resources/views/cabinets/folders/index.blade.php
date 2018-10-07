@@ -40,9 +40,9 @@
                         </span>
                         (
                           @if($folder->documents->count())
-                            <a href=" {{ route("document.index") }}">
+                            <span style="color:dimgray">
                               {{ "มีเอกสาร ".$folder->documents->count()." ฉบับ"}}
-                            </a>
+                            </span>
                           @else 
                             <span style="color:dimgray">ไม่มีเอกสาร</span>
                           @endif
