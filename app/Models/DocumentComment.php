@@ -13,8 +13,20 @@ class DocumentComment extends Model
         'comment',
     ];
 
+    protected $appends = [
+        'thai_date'
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     public function author() {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    public function getThaiDateAttribute() {
+        return dateToFullDateThai(date("d/m/Y", strtotime("{$this->attributes['created_at']}"))) ;
     }
 
     public function getCreatedThaiFormatAttribute() {

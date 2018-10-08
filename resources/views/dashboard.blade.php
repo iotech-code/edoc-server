@@ -7,7 +7,7 @@
 @section('content')
     <div class="container">
       <div class="row">
-        <div class="col">
+        <div class="col-sm-12 col-md-6 col-lg-6">
           <h2>ปริมาณแยกตามตู้</h2>
 
             <table>
@@ -27,13 +27,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="col">
+        <div class="col-sm-12 col-md-6 col-lg-6">
           <h2>แผนภูมิ ปริมาณแยกตามตู้</h2>
           <canvas id="chart1" ></canvas>
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col">
+        <div class="col-sm-12 col-md-6 col-lg-6">
             <h2>เอกสารล่าสุด</h2>
             <table>
               <thead>
@@ -44,7 +44,7 @@
               </thead>
               <tbody>
               @foreach ($documents as $item)
-                <tr>
+                <tr class="mb-1">
                     <td width="360">{{$item->title}}</td>
                     <td>{{$item->status_text}}</td>
                 </tr>
@@ -53,7 +53,7 @@
             </table>
           
         </div>
-        <div class="col">
+        <div class="col-sm-12 col-md-6 col-lg-6">
             <h2>แผนภูมิ ปริมาณแยกตามประเภท</h2>
 
             <canvas id="chart2" ></canvas>

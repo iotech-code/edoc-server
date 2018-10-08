@@ -135,6 +135,11 @@ class DocumentController extends Controller
             $documentModel->accessibleUsers()->attach($user->id,[
                 'document_user_status' => 2
             ]);
+
+            $documentModel->comments()->create([
+                'author_id' => $user->id,
+                'comment' => $request->comment 
+            ]);
             foreach($request->send_to_users as $user_id) {
                 $documentModel->accessibleUsers()->attach($user_id,[
                     'document_user_status' => 1

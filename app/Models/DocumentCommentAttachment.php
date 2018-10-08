@@ -12,4 +12,8 @@ class DocumentCommentAttachment extends Model
         'file_path',
         'name'
     ];
+    
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
 }

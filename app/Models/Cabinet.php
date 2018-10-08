@@ -20,6 +20,10 @@ class Cabinet extends Model
         'school_id'
     ];
 
+    protected $hidden = [
+        'created_at', 'updated_at'
+    ];
+
     /** 
      * @return App\Models\Document
      */

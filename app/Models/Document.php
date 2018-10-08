@@ -25,11 +25,17 @@ class Document extends Model
         'user_id',
         'school_id',
         'type_id',
-        'heading',
+        // 'heading',
         'status',
         'remark',
         'reply_type',
         'approved_user_id'
+    ];
+
+    protected $appends = [
+        'thai_date'
+        // 'document_type_text',
+        // 'reply_type_text'
     ];
 
     /**
@@ -253,7 +259,17 @@ class Document extends Model
     public function accessibleUsers() {
         return $this->belongsToMany(User::class, 'documents_users', 'document_id', 'user_id')
             ->withPivot(['is_read', 'document_user_status']);
+    }
 
+    public function getDocumentTypeTextAttribute() {
+        return $this->type->name;
+    }
 
+    public function getReplyTypeTextAttribute() {
+        return $this->replyType->name;
+    }
+
+    public function fromCabinet() {
+        return $this->belongsTo(Cabinet::class, 'cabinet_id');
     }
 }
