@@ -11,7 +11,7 @@
 
     <div class="col t-all item @if($tab_active == 'all') active @endif">
         {{-- <span class="mdi mdi-inbox"></span> --}}
-        <a href="{{ route("document.index", ['t'=>'all']) }}">
+        <a href="#" class="tab-box" data-tab="all">
           <i class="fas fa-inbox"></i>
           <span class="header">
             ทั้งหมด
@@ -19,7 +19,7 @@
         </a>
     </div>
     <div class="col t-inbox item @if($tab_active == 'inbox') active @endif">
-      <a href="{{ route("document.index", ['t'=>'inbox']) }}">
+      <a href="#" class="tab-box" data-tab="inbox">
         <i class="fas fa-envelope-open-text"></i>
         {{-- <span class="mdi mdi-inbox-arrow-down"></span> --}}
         <span class="header">
@@ -28,7 +28,7 @@
       </a>
     </div>
     <div class="col t-sentbox item @if($tab_active == 'sent') active @endif">
-      <a href="{{ route("document.index", ['t'=>'sent']) }}">
+      <a href="#" class="tab-box" data-tab="sent">
         <i class="fas fa-envelope"></i>
         {{-- <span class="mdi mdi-inbox-arrow-up"></span> --}}
         <span class="header">
@@ -61,8 +61,14 @@
   </div>
   <div class="row">
     <div id="moreSearch" class="explain-search">
-      <form action="{{ route('document.index')}}" method="get">
+      <form id="searchForm" action="{{ route('document.index')}}" method="get">
       <input id="textSearch" type="hidden" name="search[title]" @isset($old) value="{{ $old['title']}}" @endisset>
+      @isset($old['t'])  
+        <input type="hidden" name="t" value="{{$old['t']}}">
+      @else
+        <input type="hidden" name="t" value="all">
+
+      @endif
         <div class="body">
           <div class="row align-items-center mb-3 mt-3">
             <div class="col-2">
@@ -155,11 +161,11 @@
             <div class="col">
               @foreach ($document_types as $item)
                 <div class="form-check form-check-inline">
-                  @if( isset($old['document_type']) && in_array($item->id, $old['document_type']) )
-                    <input class="form-check-input" name="search[document_type][]" type="checkbox" value="{{$item->id}}" id="docType{{$item->id}}" checked>
+                  @if( isset($old['document_types']) && in_array($item->id, $old['document_types']) )
+                    <input class="form-check-input" name="search[document_types][]" type="checkbox" value="{{$item->id}}" id="docType{{$item->id}}" checked>
                   
                   @else
-                    <input class="form-check-input" name="search[document_type][]" type="checkbox" value="{{$item->id}}" id="docType{{$item->id}}">
+                    <input class="form-check-input" name="search[document_types][]" type="checkbox" value="{{$item->id}}" id="docType{{$item->id}}">
                   
                   @endif
                   <label class="form-check-label" for="docType{{$item->id}}">
@@ -196,7 +202,11 @@
           <div class="row">
             <div class="col text-right">
               <button id="closeMoreSearch" class="btn btn-secondary" type="button">ปิด</button>
+              {{-- <button id="closeMoreSearch" class="btn btn-secondary" type="button">ปิด</button> --}}
+
               <button class="btn btn-primary" type="submit">ค้นหา</button>
+              {{-- <button id="closeMoreSearch" class="btn btn-secondary" type="button">ปิด</button> --}}
+
             </div>
           </div>
         </div>
@@ -247,7 +257,8 @@
                           data-target="#examModal" 
                           data-doc-type="{{$document->type->name}}"
                           data-doc-id="{{$document->id}}"
-                          data-url="{{route("document.assign", $document->id)}}">
+                          {{-- data-url="{{route("document.assign", $document->id)}}" --}}
+                          >
                             {{-- <form action="{{ route('document.update', $document->id) }}" method="post">
                                 <input type="hidden" name="action" value="update_status">
                                 <input type="hidden" name="status_value" value="2">
@@ -404,6 +415,15 @@
 		e.preventDefault();
 		$(this).find('form').submit();
 	});
+
+  $(`a.tab-box`).click(function(e){
+    e.preventDefault()
+    var form = $(`#searchForm`);
+    data = $(this).data('tab');
+    form.append(`<input name="t" value="${data}" type="hidden">`);
+    form.submit();
+  })
+
 	$("#nameSearch").search({
 		url: "{{ route("ajax.search_user")}}"
 	});

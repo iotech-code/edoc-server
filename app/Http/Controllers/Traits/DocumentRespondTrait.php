@@ -27,11 +27,9 @@ trait DocumentRespondTrait {
 
     public function approve(Document $documentModel, Request $request) {
         $user = auth()->user();
-        // $user->accessibleDocuments()->updateExistingPivot($documentModel->id,[
-        //    'is_read' => 1 
-        // ]);
         $status = $request->is_approve == 1 ? 3 : 4;
         $documentModel->update(['status' => $status]);
+        // $documentModel->
         return redirect()->route('document.show', $documentModel->id);
     }
 

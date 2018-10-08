@@ -22,4 +22,8 @@ class DocumentComment extends Model
         $date = date("d/m/Y", strtotime($full_split[0]));
         return dateToFullDateThai($date)." ".$full_split[1];
     }
+
+    public function attachments(){
+        return $this->hasMany(DocumentCommentAttachment::class, 'comment_id');
+    }
 }

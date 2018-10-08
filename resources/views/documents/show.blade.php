@@ -9,8 +9,8 @@
 	<div class="row">
 		<div class="col">
 			<h2>
-					{{$document->title}}
-					<span class="badge badge-secondary" style="font-size: 0.5em">{{$document->type->name}}</span>
+				{{$document->title}}
+				<span class="badge badge-secondary" style="font-size: 0.5em">{{$document->type->name}}</span>
 			</h2>
 
 		</div>
@@ -59,11 +59,13 @@
 					<span class="badge badge-secondary" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
 				@endif
 			@endforeach
-				{{-- <span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
+				{{-- 
 				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
 				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
 				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
-				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span> --}}
+				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
+				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span> 
+				--}}
 
 		</div>
 	</div>
@@ -94,7 +96,7 @@
 			@endforeach
 		</div>
 	</div>
-
+	{{-- {{ dd($user->id)}} --}}
 	@if( !is_null($pivot) )
 		@if( $document->reply_type == 1 && $user->accessibleDocuments()->wherePivot('is_read', '!=', 0)->count())
 		<div class="row mt-3">
@@ -151,7 +153,7 @@
 			</span>
 		</div>
 		
-		@foreach ($document->comments as $comment)
+		@foreach ($document->comments()->orderBy('created_at', "desc")->get() as $comment)
 		<div class="col-12 mb-3">
 			<div class="card  bg-light">
 				<div class="card-body">
@@ -161,7 +163,7 @@
 					<p class="card-text font-weight-bold">
 						ไฟล์แนบ 
 					</p>
-					@foreach ($document->attachments as $file)
+					@foreach ($comment->attachments as $file)
 					{{-- <input> --}}
 					<div style="display: block" >
 						<a  href="{{ route('attachment.download', $file->id)}}"> {{ $file->name }}</a>
@@ -186,7 +188,7 @@
 		<span>
 		</span>
 		<div class="card">
-			<form action="{{ route('document.comment', $document->id) }}" method="post"> 
+			<form action="{{ route('document.comment', $document->id) }}" method="post" enctype="multipart/form-data"> 
 				@csrf
 				<div class="card-body">
 					<div class="from-group mb-2">
@@ -207,7 +209,7 @@
 					<div class="row mt-3">
 						<div class="col-12">
 							<label for="">ไฟล์แนบ:</label>
-							
+							<input type="file" name="files[]">
 						</div>
 						<div class="col-12"></div>
 					</div>

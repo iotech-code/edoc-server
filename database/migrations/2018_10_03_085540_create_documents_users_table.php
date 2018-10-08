@@ -21,9 +21,10 @@ class CreateDocumentsUsersTable extends Migration
                 $table->foreign('document_id')->references('id')->on('documents');
             // 1 => inbox
             // 2 => sentbox
-            $table->unsignedTinyInteger('document_user_status');
+            $table->unsignedTinyInteger('document_user_status')->default(1);
             $table->boolean('is_read')->default(0);
             $table->boolean('can_comment')
+                ->default(0)
                 ->comment('to check user can comment this document');
             $table->timestamps();
         });

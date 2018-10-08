@@ -40,36 +40,27 @@ class DocumentController extends Controller
         $old = null;
         $current_active_tab = $this->getActiveTabToId($tab_active);
 
+        
         if( !is_null($current_active_tab)) {
             $access_document = $user->accessibleDocuments()->wherePivot('document_user_status', $current_active_tab)->get()->pluck(['id']);
-            // return $current_active_tab;
             $documents->whereIn('id', $access_document);
         } else {
             $access_cabinet_list = $user->cabinetPermissions()->get()->pluck(['id']);
+            // if ($request->search['document'])
             $access_document = $user->accessibleDocuments()->get()->pluck(['id']);
             $documents->whereIn('cabinet_id', $access_cabinet_list);
             $documents->whereIn('send_to_cabinet_id', $access_cabinet_list, 'or');
             $documents->whereIn('id', $access_document, 'or');
-
         }
-
-        
-        // return $current_active_tab;
+        // return $request->search;
         if (isset($request->search)) {  
-            $documents = $documents->ofSearch($request->search) ;
-            // $old['title'] = $request->search['title'];
-            // $old['date_start'] = $request->search['date_start'];
-            // $old['date_end'] = $request->search['date_end'];
-            $old=$request->search;
+            $documents = $documents->ofSearch($request->search);
+            $old = array_merge($request->search, ['t' => $tab_active]);
         } else {
 
         }
 
-        // return $old;
-
-
-        
-        $documents = $documents->orderBy('created_at')->paginate(15);
+        $documents = $documents->orderBy('created_at', 'desc')->paginate(15);
         
         return view('documents.index')
             ->with(compact([
@@ -124,7 +115,6 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        // return dd($request->files) ;
 
         $origin = $request->except(['_token', 'refers', 'approved_user_id', 'reply_type']);
         $user = auth()->user();
@@ -137,8 +127,6 @@ class DocumentController extends Controller
         );
 
         if( $request->submit_type == 'send' ) {
-            // return "test";
-            // $document->update($request)
             $documentModel->update([
                 'approved_user_id' => $request->approved_user_id,
                 'reply_type' => $request->reply_type,
@@ -167,7 +155,6 @@ class DocumentController extends Controller
         return redirect()
             ->route("document.index")
             ->with(['status'=>'success']) ;
-        // return $request->all();
     }
 
     public function getReference(Request $request) {

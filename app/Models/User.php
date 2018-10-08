@@ -87,7 +87,7 @@ class User extends Authenticatable
     // }
 
     public function getLocalCabinets() {
-        return Cabinet::where('school_id', $this->school_id)->get();
+        return Cabinet::where('school_id', $this->school_id);
     }
 
     public function accessibleDocuments() {
@@ -98,6 +98,7 @@ class User extends Authenticatable
     // document assigment query
     public function assignmentAlert($document_id) {
         $query = $this->accessibleDocuments()
+            ->where('status', 2)
             ->wherePivot('document_id', $document_id)
             ->wherePivot('document_user_status', 1);
         return $query;

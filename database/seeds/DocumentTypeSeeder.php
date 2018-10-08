@@ -58,9 +58,9 @@ class DocumentTypeSeeder extends Seeder
                 'name' => "หนังสืออื่นๆ"
             ],
             // เอกสารตอบกลับ
-            [
-                'name' => "เอกสารตอบกลับ"
-            ],
+            // [
+            //     'name' => "เอกสารตอบกลับ"
+            // ],
 
         ];
         // DB::table("document_types")->saveMany($types);

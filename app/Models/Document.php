@@ -203,6 +203,13 @@ class Document extends Model
         }
         if( $data['date_end'] != null ) {
             $q->where('created_at', '<=', $data['date_end']);
+        } 
+        if( $data['cabinet_id'] != null) {
+            $q->orWhere('cabinet_id', $data['cabinet_id']);
+            $q->orWhere('send_to_cabinet_id', $data['cabinet_id']);
+        } 
+        if( isset($data['document_types']) && $data['document_types'] != null) {
+            $q->whereIn('type_id', $data['document_types']);
         }
         return $q ;
     }

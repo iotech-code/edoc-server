@@ -32,7 +32,7 @@
 						<label for="">ตู้จัดเก็บเอกสาร</label>
 						<select id="cabinetSelect" class="form-control" name="send_to_cabinet_id" required>
 								<option value="">เลือกตู้เอกสาร</option> 
-								@foreach ($user->getLocalCabinets() as $item)
+								@foreach ($user->getLocalCabinets()->get() as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
 								@endforeach
 						</select>
@@ -66,7 +66,7 @@
 						 <select class="form-control" name="cabinet_id" >
 								<option value="">เลือกที่มาเอกสาร</option> 
 							 
-								@foreach ( $user->getLocalCabinets() as $cabinet) 
+								@foreach ( $user->getLocalCabinets()->get() as $cabinet) 
 										<option value="{{$cabinet->id}}">{{$cabinet->name}}</option>
 								@endforeach
 						</select>
