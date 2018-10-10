@@ -110,7 +110,7 @@
 
 			</div>
 		</div>
-	@elseif( $document->reply_type == 2 && $document->approved_user_id == $user->id && $document->status == 2 )
+	@elseif( $document->reply_type == 2 && $document->approved_user_id == auth()->user()->id && $document->status == 2 )
 		<div class="row mt-3">
 			<div class="col-2">
 				<span class="font-weight-bold">

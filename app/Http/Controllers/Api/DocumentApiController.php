@@ -99,6 +99,13 @@ class DocumentApiController extends BaseApiController
                     ]);
                 }
                 return response()->json(["message" => "ดำเนินการสำเร็จ"]);
+            } else if( $document->reply_type == 2 && in_array($request->action, ["approve", "unapprove"])) {
+                $document->update([
+                    'status' => $request->action == "approve" ? 3: 4
+                ]);
+                return response()->json(["message" => "ดำเนินการสำเร็จ"]);
+            } else {
+                return reponse()->json(null, 404);
             }
         }
     }
