@@ -22,6 +22,25 @@ Route::name('api.')->middleware('auth:api')->group(function(){
         return $request->user();
         // return response()->json("test");
     });
+
+    Route::post('pass_verify', function(Request $request){
+        $user = auth()->user() ;
+        if ( !is_null( $user ) ) {
+            if( Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'ยืนยันตนสำเร็จ'
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'ยืนยันตนไม่สำเร็จ'
+                ]);
+            }
+        } else {
+            return response()->json(null, 404);
+        }
+    });
     Route::get('documents', 'DocumentApiController@getDocuments')
         ->name('document.list');
     Route::get('documents/{id}', 'DocumentApiController@getDocumentById')
