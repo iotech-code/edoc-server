@@ -71,7 +71,7 @@ $.fn.search = function(setting) {
           $child.click(function(e){ 
             $child = $(`<div class="col-12 mb-1">`) ;
 
-            $link = $(`<a href="">${ele.title}</a>`);
+            $link = $(`<a href="#">${ele.title}</a>`);
             $deleteBtn = $(`
             <button type="button" class="btn btn-danger btn-sm rounded-circle float-right" >
               <i class="fa fa-times"></i>

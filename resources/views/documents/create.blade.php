@@ -15,6 +15,10 @@
 			</ul>
 	
 		</div> --}}
+	@isset($errors)
+		@include('errors.validate', $errors->all())
+			
+	@endisset
 
 	<form id="createForm" class="" action="{{ route('document.store') }}" method="POST" enctype="multipart/form-data">
 		@csrf
@@ -53,7 +57,11 @@
 								<option value="">เลือกประเภทเอกสาร</option> 
 
 								@foreach (App\Models\DocumentType::all() as $item)
-										<option value="{{$item->id}}">{{$item->name}}</option>
+										<option value="{{$item->id}}"
+												@if (old('type_id') == $item->id)
+													selected
+												@endif
+											>{{$item->name}}</option>
 								@endforeach
 						</select>
 					</div>
@@ -67,14 +75,18 @@
 								<option value="">เลือกที่มาเอกสาร</option> 
 							 
 								@foreach ( $user->getLocalCabinets()->get() as $cabinet) 
-										<option value="{{$cabinet->id}}">{{$cabinet->name}}</option>
+										<option value="{{$cabinet->id}}"
+												@if (old('cabinet_id') == $cabinet->id)
+														selected
+												@endif
+											>{{$cabinet->name}}</option>
 								@endforeach
 						</select>
 					</div>
 
 					<div class="form-group col">
 						<label for="">เลขที่เอกสาร</label>
-						<input type="text" name="code" class="form-control">
+						<input type="text" name="code" class="form-control" value="{{old('code')}}">
 					</div>
 					<div class="form-group col">
 						<label for="">วันที่</label>
@@ -84,7 +96,7 @@
 									<i class="fa fa-calendar"></i>
 								</span>
 							</div>
-							<input type="text" name="date" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
+							<input value="{{ old('date')}}" type="text" name="date" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
 						</div>
 					</div>
 				</div>
@@ -121,7 +133,7 @@
 					</div>
 					<div class="form-group col">
 						<label for="">เรื่อง <span class="red-star"></span></label>
-						<input type="text" name="title" required class="form-control">
+						<input value="{{ old('title') }}" type="text" name="title" required class="form-control">
 					</div>
 	
 			  </div>
@@ -163,7 +175,7 @@
 									<i class="fa fa-calendar"></i>
 								</span>
 							</div>
-							<input name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+							<input value="{{ old('receive_date')}}" name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
 						</div>
 					</div>
 			  </div>     
@@ -212,6 +224,17 @@
 					<div class="card border-top-primary">
 						<div class="card-body" style="min-width: 320px">
 							<div class="row mb-2" id="referItem">
+								@if(old('refers'))
+									@foreach( old('refers') as $id )
+										<div class="col-12 mb-1"><a href="#">{{ App\Models\Document::find($id)->title }}</a>
+											<input type="hidden" name="refers[]" value="{{$id}}">
+											<button type="button" class="btn btn-danger btn-sm rounded-circle float-right">
+												<i class="fa fa-times"></i>
+											</button>
+										</div>
+									@endforeach
+								@endif
+
 								
 							</div>
 						</div>
@@ -261,7 +284,9 @@
 								<select id="selectReceiver" class="form-control">
 									<option value="null"></option>
 									@foreach ($users as $user)
-										<option value="{{$user->id}}">{{$user->full_name}}</option>
+										@if(auth()->user()->id != $user->id)
+											<option value="{{$user->id}}">{{$user->full_name}}</option>
+										@endif
 									@endforeach
 								</select>
 								<div id="tagged"></div>

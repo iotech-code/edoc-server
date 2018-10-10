@@ -142,7 +142,17 @@ return [
 
     'attributes' => [
         'new_password' => "รหัสผ่านใหม่",
-        'old_password' => "รหัสผ่านปัจจุบัน"
+        'old_password' => "รหัสผ่านปัจจุบัน",
+
+        'send_to_cabinet_id' => 'ตู้จัดเก็บเอกสาร',
+        'cabinet_id' => 'ที่มาเอกสาร',
+        'folder_id' => 'เลขแฟ้ม',
+        'type_id' => 'ประเภทเอกสาร',
+        'code' => 'เลขที่เอกสาร',
+        'receive_code' => 'เลขที่รับเอกสาร',
+        'date' => 'วันที่',
+        'title' => 'เรื่อง',
+        'receive_date' => 'วันที่รับ',
 
     ],
 ];

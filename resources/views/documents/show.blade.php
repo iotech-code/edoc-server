@@ -1,4 +1,4 @@
-@extends('layouts.app')
+	@extends('layouts.app')
 
 @section('nav-top')
 	@include('layouts.nav-top', ['active'=>1])
@@ -53,20 +53,15 @@
 		</div>
 		<div class="col">
 			@foreach ($document->accessibleUsers as $user)
-				@if ($user->pivot->is_read)
+				@if( $user->id == $document->user_id)
+
+				@elseif ($user->pivot->is_read)
 					<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
+
 				@else
 					<span class="badge badge-secondary" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
 				@endif
 			@endforeach
-				{{-- 
-				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
-				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
-				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
-				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span>
-				<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;">สมชาย ใจดำดี</span> 
-				--}}
-
 		</div>
 	</div>
 	<div class="row mt-3">
@@ -75,7 +70,7 @@
 				เอกสารอ้างอิง: 
 			</span>
 		</div>
-		<div class="col-2">
+		<div class="col">
 			@foreach ($document->references as $ref)
 				{{-- <input> --}}
 				<a  style="display: block" href="{{ route('document.show', $ref->id)}}"> {{ $ref->title }}</a>
@@ -98,7 +93,7 @@
 	</div>
 	{{-- {{ dd($user->id)}} --}}
 	@if( !is_null($pivot) )
-		@if( $document->reply_type == 1 && $user->accessibleDocuments()->wherePivot('is_read', '!=', 0)->count())
+		@if( $document->reply_type == 1 && $pivot->is_read == 0 )
 		<div class="row mt-3">
 			<div class="col-2">
 				<span class="font-weight-bold">

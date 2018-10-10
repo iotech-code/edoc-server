@@ -1905,7 +1905,7 @@ $.fn.search = function (setting) {
           $child.click(function (e) {
             $child = $('<div class="col-12 mb-1">');
 
-            $link = $('<a href="">' + ele.title + '</a>');
+            $link = $('<a href="#">' + ele.title + '</a>');
             $deleteBtn = $('\n            <button type="button" class="btn btn-danger btn-sm rounded-circle float-right" >\n              <i class="fa fa-times"></i>\n            </button>');
             $value = $('<input type="hidden" name="refers[]" value="' + ele.id + '" >');
             $child.append($link);
