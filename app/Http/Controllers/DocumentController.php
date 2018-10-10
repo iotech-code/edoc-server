@@ -130,13 +130,13 @@ class DocumentController extends Controller
             'receive_date' => 'required',
             'send_to_users' => 'required_if:submit_type,send',
             'comment' => 'required_if:submit_type,send',
-            'reply_type' => 'required_if:submit_type,send',
-            'approved_user_id' => 'required_if:reply_type,2',
+            'reply_type_id' => 'required_if:submit_type,send',
+            'approved_user_id' => 'required_if:reply_type_id,2',
 
             ],[
             'send_to_users.required_if' => "ข้อมูล ผู้รับ จำเป็นต้องกรอก หากต้องการส่งทันที",
             'comment.required_if' => "ข้อมูล ความคิดเห็น จำเป็นต้องกรอก หากต้องการส่งทันที",
-            'reply_type.required_if' => "ข้อมูล ประเภทการตอบกลับ จำเป็นต้องกรอก หากต้องการส่งทันที",
+            'reply_type_id.required_if' => "ข้อมูล ประเภทการตอบกลับ จำเป็นต้องกรอก หากต้องการส่งทันที",
             'approved_user_id.required_if' => "ข้อมูล ผู้อนุมัติเอกสาร จำเป็นต้องกรอก หากเอกสารเป็นประเภท แจ้งมาเพื่อทราบ และพิจารณา"
         ]);
 
@@ -148,7 +148,7 @@ class DocumentController extends Controller
             ->withInput(); 
         }
 
-        $origin = $request->except(['_token', 'refers', 'approved_user_id', 'reply_type']);
+        $origin = $request->except(['_token', 'refers', 'approved_user_id', 'reply_type_id']);
         $user = auth()->user();
         $additions = [
             'user_id' => auth()->user()->id,
@@ -161,7 +161,7 @@ class DocumentController extends Controller
         if( $request->submit_type == 'send' ) {
             $documentModel->update([
                 'approved_user_id' => $request->approved_user_id,
-                'reply_type' => $request->reply_type,
+                'reply_type_id' => $request->reply_type_id,
                 'status' => 2,
             ]);
             $documentModel->accessibleUsers()->attach($user->id,[

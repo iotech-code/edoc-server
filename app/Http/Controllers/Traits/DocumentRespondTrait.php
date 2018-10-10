@@ -39,6 +39,10 @@ trait DocumentRespondTrait {
         $user->accessibleDocuments()->updateExistingPivot($documentModel->id,[
            'is_read' => 1 
         ]);
+        $documentModel->comments()->create([
+            'author_id' => $user->id,
+            'comment' => $request->comment
+        ]);
         if ( $documentModel->accessibleUsers()->wherePivot('is_read', 0)->count() == 0 ) {
             $documentModel->update([
                 'status' => 3 

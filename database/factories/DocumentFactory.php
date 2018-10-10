@@ -4,12 +4,12 @@ use Faker\Generator as Faker;
 use App\Models\Document ;
 $factory->define(App\Models\Document::class, function (Faker $faker) {
     $user = App\Models\User::inRandomOrder()->first();
-    $reply_type = mt_rand(1,2);
+    $reply_type_id = mt_rand(1,2);
     return [
         'code' => $faker->randomNumber($nbDigits = NULL, $strict = false) ,
         // 'from' => $faker->name,
-        'reply_type' => $reply_type,
-        'approved_user_id' => $reply_type == 2? 3: null,
+        'reply_type_id' => $reply_type_id,
+        'approved_user_id' => $reply_type_id == 2? 3: null,
         'user_id' => $user->id,
         'school_id' => $user->school_id,
         'type_id' => App\Models\DocumentType::inRandomOrder()->first()->id,

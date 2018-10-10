@@ -39,16 +39,19 @@ class DocumentApiController extends BaseApiController
             $q->with(['attachments', 'author']);
         }])->find($id);
 
-        $user_access = $documentModel->accessibleUsers()
-        ->find($user->id);
+        // // user has in documents_users tables
+        // $user_access = $documentModel->accessibleUsers()
+        // ->find($user->id);
 
+        // // user 
 
-        if($user_access == null ) {
-            return response()->json(['message' => 'ไม่พบข้อมูลที่ท่านต้องการ'], 403);
-        }
+        // if($user_access == null ) {
+        //     return response()->json(['message' => 'ไม่พบข้อมูลที่ท่านต้องการ'], 403);
+        // }
 
         $addition = [
-            'accept_able' => $documentModel->reply_type == 1 && !$user_access->pivot->is_read,
+            'accept_able' => $documentModel->acceptAbleByUser($user->id),
+            'approve_able' => $documentModel->approvAbleByUser($user->id)
         ];
 
         if( $documentModel != null && $documentModel->school_id == $user->school_id ) {
@@ -56,7 +59,7 @@ class DocumentApiController extends BaseApiController
             return response()->json( array_merge($documentModel->toArray(), $addition) );
 
         } else {
-            return response()->json(['message' => 'ไม่พบข้อมูลที่ท่านต้องการ'], 403);
+            return response()->json(['message' => 'ไม่พบข้อมูลที่ท่านต้องการ'], 404);
         }
     }
 
@@ -117,7 +120,7 @@ class DocumentApiController extends BaseApiController
         if($validator->fails()) {
             return response()->json(['errors'=>$validator->errors()], 403);
         } else {
-            if ($document->reply_type == 1 && $request->action == 'accept') {
+            if ($document->reply_type_id == 1 && $request->action == 'accept') {
                 $user->accessibleDocuments()->updateExistingPivot($document->id, ["is_read" => 1]);
                 if ( $document->accessibleUsers()->wherePivot('is_read', 0)->count() == 0 ) {
                     $document->update([
@@ -125,7 +128,7 @@ class DocumentApiController extends BaseApiController
                     ]);
                 }
                 return response()->json(["message" => "ดำเนินการสำเร็จ"]);
-            } else if( $document->reply_type == 2 && in_array($request->action, ["approve", "unapprove"])) {
+            } else if( $document->reply_type_id == 2 && in_array($request->action, ["approve", "unapprove"])) {
                 $document->update([
                     'status' => $request->action == "approve" ? 3: 4
                 ]);

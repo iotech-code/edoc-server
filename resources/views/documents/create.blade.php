@@ -309,7 +309,7 @@
 							<div class="form-group">
 									<label for="">การตอบกลับ: </label>
 									{{-- <input type="text" class="form-control"> --}}
-									<select name="reply_type" id="" class="form-control">
+									<select name="reply_type_id" id="" class="form-control">
 										@foreach (App\Models\DocumentReplyType::all() as $item)
 											<option value="{{$item->id}}">{{$item->name}}</option>
 										@endforeach
@@ -389,7 +389,7 @@
 
 	})
 
-	$('select[name="reply_type"]').change(function(e){
+	$('select[name="reply_type_id"]').change(function(e){
 		value = $(this).find("option:selected").val();
 		console.log(value);
 

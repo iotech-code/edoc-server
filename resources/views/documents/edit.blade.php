@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('nav-top')
-	@include('layouts.nav-top', ['active'=>2])
+	@include('layouts.nav-top', ['active'=>1])
 @endsection
 
 @section('content')
@@ -202,7 +202,6 @@
 									<div class="row mb-1">
 										<div class="col-11">
 											<a href="{{$item->link}}">{{$item->name}}</a>
-
 										</div>
 										<div class="col-1">
 											<button type="button" class="btn btn-danger btn-sm rounded-circle float-right rm-file" data-file="{{ $item->id }}">
@@ -230,8 +229,11 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-						<button id="addFile" type="button" class="btn btn-success rounded-circle btn-sm">
+						<button id="addFile" type="button" class="btn btn-success btn-sm">
 							<i class="fa fa-plus"></i>
+							<span>
+									เพิ่มไฟล์
+							</span>
 						</button>
 						</div>   
 					</div>

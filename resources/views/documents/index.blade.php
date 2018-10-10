@@ -359,7 +359,7 @@
             <div class="form-group">
                 <label for="">การตอบกลับ: </label>
                 {{-- <input type="text" class="form-control"> --}}
-                <select name="reply_type" id="" class="form-control">
+                <select name="reply_type_id" id="" class="form-control">
                   @foreach (App\Models\DocumentReplyType::all() as $item)
                     <option value="{{$item->id}}">{{$item->name}}</option>
                   @endforeach

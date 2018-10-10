@@ -29,7 +29,7 @@ class CreateDocumentsTable extends Migration
                 ->nullable();
 
             // $table->text("remark")->nullable()->default("");
-            $table->unsignedInteger('reply_type')
+            $table->unsignedInteger('reply_type_id')
                 ->nullable()->default(null);
             $table->unsignedInteger('send_to_cabinet_id');
             $table->string('keywords');

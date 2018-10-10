@@ -16,4 +16,13 @@ class DocumentCommentAttachment extends Model
     protected $hidden = [
         'created_at', 'updated_at'
     ];
+
+    protected $appends = [
+        'link'
+    ];
+
+    public function getLinkAttribute() {
+        return route("attachment.download", ["comment",$this->comment_id]);
+    }
+
 }

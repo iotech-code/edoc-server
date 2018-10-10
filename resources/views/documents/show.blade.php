@@ -36,6 +36,17 @@
 	<div class="row mt-3">
 		<div class="col-2">
 			<span class="span font-weight-bold">
+				ผู้สร้างเอกสาร:
+			</span>
+		</div>
+		<div class="col">
+			{{ $document->creator->full_name}}
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-2">
+			<span class="span font-weight-bold">
 				สถานะของเอกสาร:
 			</span>
 		</div>
@@ -85,14 +96,14 @@
 			</span>
 		</div>
 		<div class="col">
-			{{-- @foreach ($document->attachments as $file)
-				<a  style="display: block" href="{{ route('attachment.download', "download",$file->id)}}"> {{ $file->name }}</a>
-			@endforeach --}}
+			@foreach ($document->attachments as $file)
+				<a  style="display: block" href="{{ route('attachment.download', ["download",$file->id])}}"> {{ $file->name }}</a>
+			@endforeach
 		</div>
 	</div>
 	{{-- {{ dd($user->id)}} --}}
 	@if( !is_null($pivot) )
-		@if( $document->reply_type == 1 && $pivot->is_read == 0 )
+		@if( $document->reply_type_id == 1 && $pivot->is_read == 0 )
 		<div class="row mt-3">
 			<div class="col-2">
 				<span class="font-weight-bold">
@@ -110,7 +121,7 @@
 
 			</div>
 		</div>
-	@elseif( $document->reply_type == 2 && $document->approved_user_id == auth()->user()->id && $document->status == 2 )
+	@elseif( $document->reply_type_id == 2 && $document->approved_user_id == auth()->user()->id && $document->status == 2 )
 		<div class="row mt-3">
 			<div class="col-2">
 				<span class="font-weight-bold">
@@ -121,14 +132,21 @@
 				<form class="d-inline-block" action="{{ route('document.respond', $document->id) }}" method="post">
 						@csrf
 						@method("PUT")
-					<button class="btn btn-success" name="is_approve" value="1">
+					<button class="btn btn-success approve" type="button" 
+						data-toggle="modal" 
+						data-target="#exampleModal" 
+						name="is_approve" 
+						data-approve="1"
+						value="1">
 					อนุมัติ
 					</button>
 				</form>
 				<form class="d-inline-block" action="{{ route('document.respond', $document->id) }}" method="post">
 					@csrf
 					@method("PUT")
-					<button class="btn btn-danger" name="is_approve" value="0">
+					<button class="btn btn-danger approve" type="button" 
+						data-approve="1"
+						name="is_approve" value="0" data-toggle="modal" data-target="#exampleModal">
 						ไม่อนุมัติ
 					</button>
 				</form>
@@ -154,14 +172,17 @@
 					<p class="card-text">
 						{{$comment->comment}}
 					</p>
-					<p class="card-text font-weight-bold">
-						ไฟล์แนบ 
-					</p>
-					@foreach ($comment->attachments as $file)
-					<div style="display: block" >
-						<a  href="{{ route('attachment.download', ["comment", $file->id])}}"> {{ $file->name }}</a>
-					</div>
-					@endforeach
+					@if ( $comment->attachments->count() > 0 )
+						<p class="card-text font-weight-bold">
+							ไฟล์แนบ 
+						</p>
+						@foreach ($comment->attachments as $file)
+						<div style="display: block" >
+							<a  href="{{ route('attachment.download', ["comment", $file->id])}}"> {{ $file->name }}</a>
+						</div>
+						@endforeach
+					@endif
+					
 				</div>
 				<div class="card-footer">
 					{{$comment->author->full_name}} | {{ $comment->created_thai_format}}
@@ -217,12 +238,43 @@
 	@endif
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">ยืนยันการอนุมัติ</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="approveForm" action="{{ route('document.respond', $document->id) }}" method="post">
+					@csrf
+					@method("PUT")
+					<div class="modal-body">
+							<div class="form-group">
+								<label for="recipient-name" class="col-form-label">ความคิดเห็น</label>
+								<textarea class="form-control" id="recipient-name" name="comment"></textarea>
+							</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+						<button type="submit" class="btn btn-primary">ยืนยัน</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 @endsection
 
 @section('script')
 <script src="{{asset('js/document/show.js')}}"></script>
 <script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script>
 <script>
+	$("button.approve").click(function(e){
+		is_approve = $(this).val();
+		$("#approveForm").find("input.is_approve").val(is_approve);
+	});
 
 
 

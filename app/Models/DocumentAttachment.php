@@ -20,7 +20,7 @@ class DocumentAttachment extends Model
     ];
 
     public function getLinkAttribute() {
-        return route("attachment.download", $this->id);
+        return route("attachment.download", ["document",$this->id]);
     }
 
 

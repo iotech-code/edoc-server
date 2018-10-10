@@ -28,13 +28,13 @@ class Document extends Model
         // 'heading',
         'status',
         'remark',
-        'reply_type',
+        'reply_type_id',
         'approved_user_id'
     ];
 
     protected $appends = [
         'thai_date',
-        'approve_able'
+        // 'approve_able'
         // 'document_type_text',
         // 'reply_type_text'
     ];
@@ -239,7 +239,7 @@ class Document extends Model
     }
 
     public function getLinkAttribute(){
-        return route("document.edit", $this->id) ;
+        return route("document.show", $this->id) ;
     }
 
     public function getThaiDateAttribute() {
@@ -252,11 +252,7 @@ class Document extends Model
     }
 
     public function replyType(){
-        return $this->belongsTo(DocumentReplyType::class, 'reply_type');
-    }
-
-    public function getApprovableAttribute() {
-        return $this->attributes['reply_type'] == 2;
+        return $this->belongsTo(DocumentReplyType::class, 'reply_type_id');
     }
 
 
@@ -281,13 +277,20 @@ class Document extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function getApproveAbleAttribute() {
-        return $this->attributes['reply_type'] == 2 && $this->attributes['status'] == 2? true : false ;
-    }
+    public function acceptAbleByUser($user_id) {
+        $user = $this->accessibleUsers()->find($user_id);
+        return $this->attributes['reply_type_id'] == 1 
+            && $this->attributes['status'] == 2 
+            && $user 
+            && !$user->pivot->is_read;
+    }   
 
-    // public function getAcceptAbleAttribute() {
-    //     return $this->attribute['reply_type'] == 1 && $this->attributes['status'] == 2? true : false ;
-    // }
+    public function approvAbleByUser($user_id) {
+        $approve_user = $this->attributes['approved_user_id'];
+        return $this->attributes['reply_type_id'] == 2
+            && $this->attributes['status'] == 2
+            && $user_id == $approve_user;
+    }
 
 
 }
