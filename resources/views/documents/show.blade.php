@@ -157,11 +157,11 @@
 					<p class="card-text font-weight-bold">
 						ไฟล์แนบ 
 					</p>
-					{{-- @foreach ($comment->attachments as $file)
+					@foreach ($comment->attachments as $file)
 					<div style="display: block" >
-						<a  href="{{ route('attachment.download', $file->id)}}"> {{ $file->name }}</a>
+						<a  href="{{ route('attachment.download', ["comment", $file->id])}}"> {{ $file->name }}</a>
 					</div>
-					@endforeach --}}
+					@endforeach
 				</div>
 				<div class="card-footer">
 					{{$comment->author->full_name}} | {{ $comment->created_thai_format}}

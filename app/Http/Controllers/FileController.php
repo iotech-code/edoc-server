@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Models\DocumentAttachment ; 
 
-class FileController extends Controller
+class FileController extends Controller 
 {
     public function downloadFile($prefix, $token){
         // if()
         $model = DocumentAttachment::find($token);
-        $path = "app/".$model->file_path ;
+        $path = "app/$prefix/$model->file_path" ;
         return response()->download(
             storage_path($path),
             $model->name

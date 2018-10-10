@@ -34,6 +34,7 @@ class Document extends Model
 
     protected $appends = [
         'thai_date',
+        'approve_able'
         // 'document_type_text',
         // 'reply_type_text'
     ];
@@ -279,6 +280,14 @@ class Document extends Model
     public function creator() {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getApproveAbleAttribute() {
+        return $this->attributes['reply_type'] == 2 && $this->attributes['status'] == 2? true : false ;
+    }
+
+    // public function getAcceptAbleAttribute() {
+    //     return $this->attribute['reply_type'] == 1 && $this->attributes['status'] == 2? true : false ;
+    // }
 
 
 }

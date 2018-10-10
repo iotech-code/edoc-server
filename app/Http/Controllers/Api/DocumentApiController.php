@@ -34,19 +34,34 @@ class DocumentApiController extends BaseApiController
 
     public function getDocumentById($id){
         $user = auth()->user();
+        
         $documentModel = Document::with(['type', 'attachments','replyType', 'creator', 'fromCabinet', 'comments'=> function($q){
             $q->with(['attachments', 'author']);
         }])->find($id);
-        // $documentModel = $
+
+        $user_access = $documentModel->accessibleUsers()
+        ->find($user->id);
+
+
+        if($user_access == null ) {
+            return response()->json(['message' => 'ไม่พบข้อมูลที่ท่านต้องการ'], 403);
+        }
+
+        $addition = [
+            'accept_able' => $documentModel->reply_type == 1 && !$user_access->pivot->is_read,
+        ];
 
         if( $documentModel != null && $documentModel->school_id == $user->school_id ) {
-            return response()->json($documentModel);
+            // return response()->json( $documentModel);
+            return response()->json( array_merge($documentModel->toArray(), $addition) );
+
         } else {
             return response()->json(['message' => 'ไม่พบข้อมูลที่ท่านต้องการ'], 403);
         }
     }
 
     public function comment($id, Request $request) {
+        // return $request->hasFile('files');
         $user = auth()->user();
         $documnet = Document::where('school_id', $user->school_id)->find($id);
 
@@ -63,10 +78,21 @@ class DocumentApiController extends BaseApiController
         if($validator->fails()) {
             return response()->json(['errors'=>$validator->errors()]);
         } else {
-            $documnet->comments()->create([
+            $commentModel = $documnet->comments()->create([
                 'author_id' => $user->id,
                 'comment' => $request->comment
             ]);
+
+            if ( $request->hasFile('files') ) {
+                foreach($request->file('files') as $file){
+                    // return $file;
+                    $commentModel->attachments()->create([
+                        'name' => $file->getClientOriginalName(),
+                        'file_path' => $file->store("comment/{$commentModel->id}")
+                    ]);
+                }
+            }
+
             return response()->json(["message" => "ดำเนินการสำเร็จ"]);
         }
 
@@ -105,7 +131,9 @@ class DocumentApiController extends BaseApiController
                 ]);
                 return response()->json(["message" => "ดำเนินการสำเร็จ"]);
             } else {
-                return reponse()->json(null, 404);
+                return reponse()->json([
+                    'status' => false
+                ], 404);
             }
         }
     }
