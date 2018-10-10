@@ -97,7 +97,7 @@
 		</div>
 		<div class="col">
 			@foreach ($document->attachments as $file)
-				<a  style="display: block" href="{{ route('attachment.download', ["download",$file->id])}}"> {{ $file->name }}</a>
+				<a  style="display: block" href="{{ route('attachment.download', ["document", $file->id])}}"> {{ $file->name }}</a>
 			@endforeach
 		</div>
 	</div>
