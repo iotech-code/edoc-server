@@ -29,10 +29,10 @@ Route::name('api.')->middleware('auth:api')->group(function(){
 
     Route::post('documents/{document}/comment', 'DocumentApiController@comment')
         ->name('document.comment');
-    Route::put('documents/{document}/approve', 'DocumentApiController@approve')
-        ->name('document.approve');
-    Route::put('documents/{document}/accept', 'DocumentApiController@accept')
-        ->name('document.accept');
+    Route::put('documents/{document}/respond', 'DocumentApiController@respond')
+        ->name('document.respond');
+    // Route::put('documents/{document}/accept', 'DocumentApiController@accept')
+    //     ->name('document.accept');
 
 
 });

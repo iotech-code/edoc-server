@@ -8,7 +8,8 @@ use App\Models\DocumentAttachment ;
 
 class FileController extends Controller
 {
-    public function downloadFile($token){
+    public function downloadFile($prefix, $token){
+        // if()
         $model = DocumentAttachment::find($token);
         $path = "app/".$model->file_path ;
         return response()->download(

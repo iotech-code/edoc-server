@@ -39,7 +39,7 @@ trait DocumentCommentTrait {
             foreach($request->file('files') as $file){
                 $commentModel->attachments()->create([
                     'name' => $file->getClientOriginalName(),
-                    'file_path' => $file->store("document/{$commentModel->id}")
+                    'file_path' => $file->store("comment/{$commentModel->id}")
                 ]);
             }
         }

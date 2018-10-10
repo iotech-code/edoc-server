@@ -85,7 +85,7 @@ Route::middleware(['web','auth'])->group(function(){
 });
 
 // donload file
-Route::get('file/{token}', 'FileController@downloadFile')
+Route::get('file/{prefix}/{id}', 'FileController@downloadFile')
     ->name('attachment.download');
 
 // Route::resource('cabinet', 'CabinetController');

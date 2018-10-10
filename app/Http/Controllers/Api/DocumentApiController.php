@@ -20,7 +20,7 @@ class DocumentApiController extends BaseApiController
      */
     public function getDocuments(Request $request) {
         $user = auth()->user();
-        $documents = Document::where('school_id', $user->school_id);
+        $documents = Document::with(['fromCabinet'])->where('school_id', $user->school_id);
         if (!is_null($request->text)) {
             $documents->where('title', 'like', "%{$request->text}%");
             $documents = $documents->paginate(10);
@@ -34,7 +34,7 @@ class DocumentApiController extends BaseApiController
 
     public function getDocumentById($id){
         $user = auth()->user();
-        $documentModel = Document::with(['type', 'replyType', 'creator', 'fromCabinet', 'comments'=> function($q){
+        $documentModel = Document::with(['type', 'attachments','replyType', 'creator', 'fromCabinet', 'comments'=> function($q){
             $q->with(['attachments', 'author']);
         }])->find($id);
         // $documentModel = $
@@ -46,8 +46,7 @@ class DocumentApiController extends BaseApiController
         }
     }
 
-    public function approve($id, Request $request) {
-        // return 
+    public function comment($id, Request $request) {
         $user = auth()->user();
         $documnet = Document::where('school_id', $user->school_id)->find($id);
 
@@ -58,6 +57,33 @@ class DocumentApiController extends BaseApiController
         }
         $validator = Validator::make($request->all(),[
             'comment' => 'required',
+            // 'action' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return response()->json(['errors'=>$validator->errors()]);
+        } else {
+            $documnet->comments()->create([
+                'author_id' => $user->id,
+                'comment' => $request->comment
+            ]);
+            return response()->json(["message" => "ดำเนินการสำเร็จ"]);
+        }
+
+    }
+
+    public function respond($id, Request $request) {
+        // return 
+        $user = auth()->user();
+        $documnet = Document::where('school_id', $user->school_id)->find($id);
+
+        if( !$documnet ) {
+            return response()->json([
+                'message' => 'มีบางอย่างไม่ถูกต้อง',
+            ], 404); 
+        }
+        $validator = Validator::make($request->all(),[
+            // 'comment' => 'required',
             'action' => 'required'
         ]);
 

@@ -186,7 +186,7 @@ class DocumentController extends Controller
                 $date = date("Y_m_d");
                 $documentModel->attachments()->create([
                     'name' => $file->getClientOriginalName(),
-                    'file_path' => $file->store("document/{$date}_{$documentModel->id}")
+                    'file_path' => $file->store("document/{$documentModel->id}")
                 ]);
             }
         }

@@ -19,8 +19,8 @@ trait DocumentRespondTrait {
         } elseif ( !$documentModel->approve_able ) {
             return $this->accept($documentModel, $request);
         } else {
-            abort(404);
-            // return redirect()->route('document')
+            // abort(404);
+            return redirect()->response("มีบางอย่างผิดพลาด", 404);
             // return redirect()->route('document.show', $documentModel->id);
         }
     }
