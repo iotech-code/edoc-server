@@ -24,6 +24,10 @@ class Cabinet extends Model
         'created_at', 'updated_at'
     ];
 
+    protected $appends = [
+        'first_char'
+    ];
+
     /** 
      * @return App\Models\Document
      */
@@ -43,5 +47,9 @@ class Cabinet extends Model
      */
     public function permissions() {
         return $this->belongsToMany(User::class, 'user_cabinet_permission', 'cabinet_id', 'user_id');
+    }
+
+    public function getFirstCharAttribute() {
+        return mb_substr($this->attributes['name'], 0, 1, 'UTF-8');
     }
 }

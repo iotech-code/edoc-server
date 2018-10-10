@@ -33,7 +33,7 @@ class Document extends Model
     ];
 
     protected $appends = [
-        'thai_date'
+        'thai_date',
         // 'document_type_text',
         // 'reply_type_text'
     ];
@@ -279,4 +279,6 @@ class Document extends Model
     public function creator() {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+
 }
