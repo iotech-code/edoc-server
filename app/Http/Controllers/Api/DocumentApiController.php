@@ -73,7 +73,7 @@ class DocumentApiController extends BaseApiController
     }
 
     public function respond($id, Request $request) {
-        // return 
+        // return $request->all();
         $user = auth()->user();
         $documnet = Document::where('school_id', $user->school_id)->find($id);
 
