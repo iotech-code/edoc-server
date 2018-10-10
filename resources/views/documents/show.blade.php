@@ -17,13 +17,13 @@
 	</div>
 	<div class="row mt-3">
 		<div class="col">
-			<span class="font-weight-bold">
+			<span class="font-weight-bold mr-2">
 				เอกสารจาก: 
 			</span>
 			{{ $document->sendFormCabinet->name }}
 			@if($document->replyType )
 				|
-				<span class="font-weight-bold">
+				<span class="font-weight-bold ml-2">
 					รูปแบบการตอบกลับ: 
 				</span>
 				{{ $document->replyType->name }}
@@ -84,7 +84,9 @@
 		<div class="col">
 			@foreach ($document->references as $ref)
 				{{-- <input> --}}
-				<a  style="display: block" href="{{ route('document.show', $ref->id)}}"> {{ $ref->title }}</a>
+				<div style="display: block" >
+					<a  href="{{ route('document.show', $ref->id)}}"> {{ $ref->title }}</a>
+				</div>
 			@endforeach
 		</div>
 	</div>
@@ -97,7 +99,9 @@
 		</div>
 		<div class="col">
 			@foreach ($document->attachments as $file)
-				<a  style="display: block" href="{{ route('attachment.download', ["document", $file->id])}}"> {{ $file->name }}</a>
+			<div style="display: block" >
+				<a href="{{ route('attachment.download', ["document", $file->id])}}"> {{ $file->name }}</a>
+			</div>
 			@endforeach
 		</div>
 	</div>
@@ -185,7 +189,9 @@
 					
 				</div>
 				<div class="card-footer">
-					{{$comment->author->full_name}} | {{ $comment->created_thai_format}}
+					<span>{{$comment->author->full_name}}</span>
+					 | 
+					 <span>{{ $comment->created_thai_format}}</span>
 				</div>
 			</div>
 		</div>

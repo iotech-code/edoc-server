@@ -22,7 +22,7 @@ class DocumentCommentAttachment extends Model
     ];
 
     public function getLinkAttribute() {
-        return route("attachment.download", ["comment",$this->comment_id]);
+        return route("attachment.download", ["comment",$this->id]);
     }
 
 }
