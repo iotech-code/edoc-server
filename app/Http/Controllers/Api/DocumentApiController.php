@@ -75,23 +75,31 @@ class DocumentApiController extends BaseApiController
     public function respond($id, Request $request) {
         // return $request->all();
         $user = auth()->user();
-        $documnet = Document::where('school_id', $user->school_id)->find($id);
+        $document = Document::where('school_id', $user->school_id)->find($id);
 
-        if( !$documnet ) {
+        if( !$document ) {
             return response()->json([
                 'message' => 'มีบางอย่างไม่ถูกต้อง',
             ], 404); 
         }
+
         $validator = Validator::make($request->all(),[
             // 'comment' => 'required',
             'action' => 'required'
         ]);
 
         if($validator->fails()) {
-            return response()->json(['errors'=>$validator->errors()]);
+            return response()->json(['errors'=>$validator->errors()], 403);
         } else {
-            
-            return response()->json(["message" => "ดำเนินการสำเร็จ"]);
+            if ($document->reply_type == 1 && $request->action == 'accept') {
+                $user->accessibleDocuments()->updateExistingPivot($document->id, ["is_read" => 1]);
+                if ( $document->accessibleUsers()->wherePivot('is_read', 0)->count() == 0 ) {
+                    $document->update([
+                        'status' => 3 
+                    ]);
+                }
+                return response()->json(["message" => "ดำเนินการสำเร็จ"]);
+            }
         }
     }
 }

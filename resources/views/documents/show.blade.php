@@ -85,10 +85,9 @@
 			</span>
 		</div>
 		<div class="col">
-			@foreach ($document->attachments as $file)
-			{{-- <input> --}}
-				<a  style="display: block" href="{{ route('attachment.download', $file->id)}}"> {{ $file->name }}</a>
-			@endforeach
+			{{-- @foreach ($document->attachments as $file)
+				<a  style="display: block" href="{{ route('attachment.download', "download",$file->id)}}"> {{ $file->name }}</a>
+			@endforeach --}}
 		</div>
 	</div>
 	{{-- {{ dd($user->id)}} --}}
