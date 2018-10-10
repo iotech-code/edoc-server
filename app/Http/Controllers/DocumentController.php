@@ -15,6 +15,8 @@ use App\Http\Controllers\Traits\DocumentRespondTrait ;
 
 use Illuminate\Http\Request;
 
+use Validator;
+
 class DocumentController extends Controller
 {
 
@@ -115,6 +117,36 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
+        // return old('folder_id');
+        $validator = Validator::make($request->all(), [
+            'send_to_cabinet_id' => 'required',
+            'folder_id' => 'required',
+            'type_id' => 'required',
+            'cabinet_id' => 'required',
+            'cabinet_id' => 'required',
+            'code' => 'required',
+            'receive_code' => 'required',
+            'date' => 'required',
+            'receive_date' => 'required',
+            'send_to_users' => 'required_if:submit_type,send',
+            'comment' => 'required_if:submit_type,send',
+            'reply_type' => 'required_if:submit_type,send',
+            'approved_user_id' => 'required_if:reply_type,2',
+
+            ],[
+            'send_to_users.required_if' => "ข้อมูล ผู้รับ จำเป็นต้องกรอก หากต้องการส่งทันที",
+            'comment.required_if' => "ข้อมูล ความคิดเห็น จำเป็นต้องกรอก หากต้องการส่งทันที",
+            'reply_type.required_if' => "ข้อมูล ประเภทการตอบกลับ จำเป็นต้องกรอก หากต้องการส่งทันที",
+            'approved_user_id.required_if' => "ข้อมูล ผู้อนุมัติเอกสาร จำเป็นต้องกรอก หากเอกสารเป็นประเภท แจ้งมาเพื่อทราบ และพิจารณา"
+        ]);
+
+        if($validator->fails()) {
+                
+            return redirect()
+            ->route("document.create")
+            ->withErrors($validator) 
+            ->withInput(); 
+        }
 
         $origin = $request->except(['_token', 'refers', 'approved_user_id', 'reply_type']);
         $user = auth()->user();
@@ -133,7 +165,8 @@ class DocumentController extends Controller
                 'status' => 2,
             ]);
             $documentModel->accessibleUsers()->attach($user->id,[
-                'document_user_status' => 2
+                'document_user_status' => 2,
+                'is_read' => 1
             ]);
 
             $documentModel->comments()->create([
@@ -150,9 +183,10 @@ class DocumentController extends Controller
 
         if ( $request->file('files') ) {
             foreach($request->file('files') as $file){
+                $date = date("Y_m_d");
                 $documentModel->attachments()->create([
                     'name' => $file->getClientOriginalName(),
-                    'file_path' => $file->store("document/{$documentModel->id}")
+                    'file_path' => $file->store("document/{$date}_{$documentModel->id}")
                 ]);
             }
         }
@@ -182,7 +216,7 @@ class DocumentController extends Controller
         $users_in_school = User::where('school_id', $user->school_id)->get();
         // $document->accessibleUsers()->attach($user->id, ['document_user_status' => 1]);
         $accessible = $user->accessibleDocuments->where('id', $document->id);
-        $pivot = null;
+        $pivot = null; 
         if( $accessible->count() ) {
             $pivot = $accessible->first()->pivot ;
         } 

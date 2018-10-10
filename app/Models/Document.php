@@ -217,6 +217,9 @@ class Document extends Model
         if( isset($data['document_types']) && $data['document_types'] != null) {
             $q->whereIn('type_id', $data['document_types']);
         }
+        if( isset($data['statuses']) && $data['statuses'] != null) {
+            $q->whereIn('status', $data['statuses']);
+        }
         return $q ;
     }
 
@@ -271,5 +274,9 @@ class Document extends Model
 
     public function fromCabinet() {
         return $this->belongsTo(Cabinet::class, 'cabinet_id');
+    }
+
+    public function creator() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

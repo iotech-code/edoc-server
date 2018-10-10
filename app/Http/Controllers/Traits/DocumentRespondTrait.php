@@ -17,7 +17,7 @@ trait DocumentRespondTrait {
         if( $documentModel->approve_able && $documentModel->approved_user_id == $user->id ) {
             return $this->approve($documentModel, $request);
         } elseif ( !$documentModel->approve_able ) {
-            return $this->approve($documentModel, $request);
+            return $this->accept($documentModel, $request);
         } else {
             abort(404);
             // return redirect()->route('document')
@@ -39,6 +39,11 @@ trait DocumentRespondTrait {
         $user->accessibleDocuments()->updateExistingPivot($documentModel->id,[
            'is_read' => 1 
         ]);
+        if ( $documentModel->accessibleUsers()->wherePivot('is_read', 0)->count() == 0 ) {
+            $documentModel->update([
+                'status' => 3 
+            ]);
+        }
         return redirect()->route('document.show', $documentModel->id);
     }
     

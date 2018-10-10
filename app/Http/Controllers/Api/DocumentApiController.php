@@ -34,7 +34,7 @@ class DocumentApiController extends BaseApiController
 
     public function getDocumentById($id){
         $user = auth()->user();
-        $documentModel = Document::with(['type', 'replyType', 'fromCabinet', 'comments'=> function($q){
+        $documentModel = Document::with(['type', 'replyType', 'creator', 'fromCabinet', 'comments'=> function($q){
             $q->with(['attachments', 'author']);
         }])->find($id);
         // $documentModel = $
