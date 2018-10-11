@@ -17,7 +17,9 @@
                 <div class="form-group row">
                   <div class="col-6">
                     <label for="">ชื่อตู้เอกสาร</label><span class="red-star"></span>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="name" required>
+                    <small class="text-danger">ระบุชื่อตู้เอกสาร</small>
+
                   </div>
                   <div class="col-6">
                     
@@ -30,8 +32,8 @@
                 <div class="form-group row">
                     <div class="col-6">
                         <label for="">ชื่อแฟ้ม</label><span class="red-star"></span>
-                        <input type="text" class="form-control" name="folder[name]">
-                        <small class="text-danger">ระ</small>
+                        <input type="text" class="form-control" name="folder[name]" required>
+                        <small class="text-danger">ระบุชื่อแฟ้ม</small>
                     </div>
                     <div class="col-6">
     

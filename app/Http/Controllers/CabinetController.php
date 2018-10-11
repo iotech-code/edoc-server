@@ -80,12 +80,12 @@ class CabinetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cabinet $cabinet)
+    public function edit($id)
     {
-        $cabinets = Cabinet::where('school_id', auth()->user()->school_id)->get();
+        $cabinet = Cabinet::where('school_id', auth()->user()->school_id)->find($id);
 
         return view("cabinets.edit", compact([
-            'cabinets'
+            'cabinet'
         ]));
     }
 
