@@ -41,6 +41,9 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAjaxRoutes();
 
+        $this->mapSellerRoutes();
+
+
 
         //
     }
@@ -87,5 +90,20 @@ class RouteServiceProvider extends ServiceProvider
             //  ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/ajax.php'));
+    }
+
+    /**
+     * Define the "sellter" routes for seller with multiple login.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapSellerRoutes()
+    {
+        Route::prefix('back-office')
+            ->middleware('web')
+             ->namespace($this->namespace."\BackOffice")
+             ->group(base_path('routes/back-office.php'));
     }
 }

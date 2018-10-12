@@ -17,6 +17,9 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        // if ($guard == 'seller' && Auth::guard($guard)->check()) {
+        //     return redirect()->route('back-office.school.index');
+        // }
         if (Auth::guard($guard)->check()) {
             return redirect('/document');
         }
