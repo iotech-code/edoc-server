@@ -30,6 +30,7 @@
   <div class="container">
     <div class="row" style="margin-top: 8em">
       <div class="col-lg-8 col-md-12 offset-lg-2">
+        @include('errors.validate')
 
         <div class="card">
           <div class="card-body">

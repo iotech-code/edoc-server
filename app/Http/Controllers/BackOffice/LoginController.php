@@ -40,7 +40,9 @@ class LoginController extends Controller
             // return $request->all();
             return redirect()->route('back-office.school.index');
         } else {
-            return redirect()->back();
+            return redirect()->back()->withErrors([
+                'user' => 'เข้าสู่ระบบไม่สำเร็จ โปรดตรวจสอบข้อมูลของท่าน'
+            ]);
         }
         
     }
