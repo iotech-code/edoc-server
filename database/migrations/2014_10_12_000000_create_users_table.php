@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->nullable();
             $table->string('first_name');
             $table->string('last_name');
-            $table->unsignedTinyInteger('role_id')->nullable()->default(null);
+            $table->unsignedTinyInteger('role_id')->default(2);
             $table->unsignedInteger('school_id');
             $table->string('password');
             $table->rememberToken();

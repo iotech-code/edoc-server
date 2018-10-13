@@ -59,7 +59,8 @@ class OfficerController extends Controller
 
     public function store(Request $request) {
         $addition = [
-            'password' => bcrypt($request->user_id) ,
+            'password' => bcrypt($request->user_id),
+            'role_id' => 2
         ];
         User::create( array_merge($request->all(), $addition));
         return redirect()->back();

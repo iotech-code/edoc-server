@@ -20,9 +20,16 @@ class DashBoardController extends Controller
         $local_cabinets_count = $local_cabinets_object->pluck(['documents_count']);
 
         $document_type_list = DocumentType::orderBy('id')->get()->pluck(['name']);
-        $document_type_count = DocumentType::with(['documents'=>function($query) use($user) {
-            $query->where('school_id', $user->school_id);
-        }])->withCount('documents')->get()->pluck(['documents_count']);
+        // $document_type_count = DocumentType::with(['documents'=>function($query) use($user) {
+        //     $query->where('school_id', $user->school_id);
+        // }])->withCount('documents')->get()->pluck(['documents_count']);
+        $document_type_query = $document_type_count = DocumentType::with(['documents'=>function($query) use($user) {
+                $query->where('school_id', $user->school_id);
+            }])->get();
+        $document_type_count = collect();
+        foreach ($document_type_query as $type) {
+            $document_type_count->push($type->documents->count());
+        }
         // return $document_type_count;
         $documents = Document::where('school_id', $user->school_id)
             ->orderBy('created_at')->take(5)->get();
