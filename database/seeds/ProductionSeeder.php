@@ -18,6 +18,7 @@ class ProductionSeeder extends Seeder
         $this->call(CabinetSeeder::class);
         $this->call(DocumentTypeSeeder::class);
         $this->call(DocumentStatusSeeder::class);
+        $this->call(BackOfficeUserSeeder::class);
         // $this->call(DocumentSeeder::class);
         
     }

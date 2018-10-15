@@ -8,9 +8,16 @@
 
 @section('content')
 <div class="container">
-  @isset($errors)
-		@include('errors.validate', $errors->all())
-			
+	@isset($errors)
+		@if ($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $key => $error)
+							<li>{{ __("$error") }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
 	@endisset
   <div class="row text-right mb-3">
     <div class="col-8 offset-2">
@@ -77,9 +84,12 @@
               <input type="text" class="form-control" id="" name="code">
             </div>
             <div class="form-group">
+              <label for="recipient-name" class="col-form-label">key</label>
+              <input type="text" class="form-control" id="" name="key">
+            </div>
+            <div class="form-group">
               <label for="message-text" class="col-form-label">ชื่อโรงเรียน</label>
               <input type="text" class="form-control" id="recipient-name" name="name">
-
             </div>
           </div>
           <div class="modal-footer">

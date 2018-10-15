@@ -15,7 +15,7 @@ class BackOfficeUserSeeder extends Seeder
     {
         $user = [
             'user_id' => 'officer01',
-            'password' => bcrypt('edoc-password'),
+            'password' => bcrypt('!password'),
             'email' => '',
             'first_name' => 'Default1',
             'last_name' => '',

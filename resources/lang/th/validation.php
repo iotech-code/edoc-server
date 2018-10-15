@@ -139,8 +139,10 @@ return [
     | of "email". This simply helps us make messages a little cleaner.
     |
     */
-
+    
     'attributes' => [
+        'school.code' => 'รหัสโรงเรียน',
+
         'new_password' => "รหัสผ่านใหม่",
         'old_password' => "รหัสผ่านปัจจุบัน",
 
