@@ -33,6 +33,9 @@ Route::middleware(['web','auth'])->group(function(){
     Route::put('document/{document}/respond', 'DocumentController@respond')
         ->name('document.respond');
 
+    Route::put('document/{document}/send', 'DocumentController@send')
+        ->name('document.send');
+
 
     // Route::put('document/{docuemnt}/reply', 'DocumentController@reply')
     //     ->name('document.reply');

@@ -242,10 +242,14 @@ class DocumentController extends Controller
     public function edit($id)
     {
         // $data = collect() ;
+        $user = auth()->user();
         $document = Document::findOrFail($id);
         $cabinets = Cabinet::where('school_id', auth()->user()->school_id)->get();
+        $users = User::where('school_id', $user->school_id)->get();
+
         return view('documents.edit', compact([
             'document',
+            'users',
             'cabinets'
             ]));
     }
@@ -261,6 +265,7 @@ class DocumentController extends Controller
     {
         // return $request->all() ;
         $documentModel = Document::findOrFail($id);
+
         switch ($request->action) {
             case 'update_status':
                 return $this->updateStatus($documentModel, $request);
@@ -318,6 +323,66 @@ class DocumentController extends Controller
             ->route('document.index')
             ->with(['status'=>'success']) ;
     }
+
+    /**
+     * 
+     */
+    public function send($id, Request $request) {
+
+        // return $request->all();
+        $documentModel = Document::findOrFail($id);
+        $user = auth()->user();
+        $validator = Validator::make($request->all(), [
+            // 'send_to_cabinet_id' => 'required',
+            // 'folder_id' => 'required',
+            // 'type_id' => 'required',
+            // 'cabinet_id' => 'required',
+            // 'cabinet_id' => 'required',
+            // 'code' => 'required',
+            // 'receive_code' => 'required',
+            // 'date' => 'required',
+            // 'receive_date' => 'required',
+            'send_to_users' => 'required',
+            'comment' => 'required',
+            'reply_type_id' => 'required_if:submit_type,send',
+            'approved_user_id' => 'required_if:reply_type_id,2',
+
+            ],[
+            'send_to_users.required' => "ข้อมูล ผู้รับ จำเป็นต้องกรอก",
+            'comment.required' => "ข้อมูล ความคิดเห็น จำเป็นต้องกรอก",
+            'reply_type_id.required_if' => "ข้อมูล ประเภทการตอบกลับ จำเป็นต้องกรอก",
+            'approved_user_id.required_if' => "ข้อมูล ผู้อนุมัติเอกสาร จำเป็นต้องกรอก หากเอกสารเป็นประเภท แจ้งมาเพื่อทราบ และพิจารณา"
+        ]);
+
+        if($validator->fails()) {
+            return redirect()
+            ->route("document.edit", $documentModel->id)
+            ->withErrors($validator) 
+            ->withInput(); 
+        }
+        $documentModel->update([
+            'approved_user_id' => $request->approved_user_id,
+            'reply_type_id' => $request->reply_type_id,
+            'status' => 2,
+        ]);
+        $documentModel->accessibleUsers()->attach($user->id,[
+            'document_user_status' => 2,
+            'is_read' => 1
+        ]);
+
+        $documentModel->comments()->create([
+            'author_id' => $user->id,
+            'comment' => $request->comment 
+        ]);
+        foreach($request->send_to_users as $user_id) {
+            $documentModel->accessibleUsers()->attach($user_id,[
+                'document_user_status' => 1
+            ]);
+        }
+
+        return redirect()->route('document.index');
+        
+    }   
 
     /**
      * Remove the specified resource from storage.

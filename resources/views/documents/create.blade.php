@@ -247,7 +247,7 @@
 	@csrf
 	<div class="text-center">
 		{{-- <a class="btn btn-secondary mx-auto mt-3"  href="{{ route('document.index') }}">หน้าแรก</a> --}}
-		{{-- <button class="btn btn-outline-primary mx-auto mt-3" style="" type="submit" name="save">บันทึก</button> --}}
+		<button class="btn btn-outline-primary mx-auto mt-3" style="" type="submit" name="save">บันทึก</button>
 		<button id="sendBtn" class="btn btn-primary mx-auto mt-3" style="" type="button"
 			data-toggle="modal"
 			data-target="#submitModal" >ส่ง</button>
