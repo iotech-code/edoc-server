@@ -22,16 +22,20 @@
       <a href="#" class="tab-box" data-tab="inbox">
         <i class="fas fa-envelope-open-text"></i>
         {{-- <span class="mdi mdi-inbox-arrow-down"></span> --}}
-        <span class="header">
+        <span class="header" >
             เอกสารขาเข้า
         </span>
+        @if ($user->hasInbox())
+            
+          <span class="badge big" style="padding: 0.5rem 0.75rem;background:#2A730B; color: #fff">ใหม่</span>
+        @endif
       </a>
     </div>
     <div class="col t-sentbox item @if($tab_active == 'sent') active @endif">
       <a href="#" class="tab-box" data-tab="sent">
         <i class="fas fa-envelope"></i>
         {{-- <span class="mdi mdi-inbox-arrow-up"></span> --}}
-        <span class="header">
+        <span class="header"> 
           เอกสารขาออก
               
         </span>
@@ -487,7 +491,6 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.css">
     <link rel="stylesheet" href="{{ asset("css/document/index.css") }}">
 

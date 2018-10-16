@@ -75,17 +75,6 @@ class User extends Authenticatable
             ->orWhere("last_name", "like", "%{$text}%");
     }
 
-    // public function documentAssigns() {
-    //     return $this->belongsToMany(Document::class, 'documents_users', 'user_id', 'document_id');
-    //         // ->withPivot(["status"]);
-    // }
-
-    // public function accessibleCabinets() {
-    //     return $this->belongsTomany(Cabinet::class, 'user_cabinet_permission', 'user_id', 'cabinet_id');
-    //     // return date("d/m/Y")
-    //     // return date("d/m/Y", strtotime("{$this->attributes['date']} +543 years")) ;
-    // }
-
     public function getLocalCabinets() {
         return Cabinet::where('school_id', $this->school_id);
     }
@@ -108,10 +97,12 @@ class User extends Authenticatable
         return $this->accessibleDocuments->pluck(['id'])->toArray();
     }
 
-    // public function acceptDocument($document_id) {
-    //     $this->
-    //     // $document = Document::find($document_id);
-        
-    // }
+    public function unreadDocuments() {
+        return $this->accessibleDocuments()->wherePivot('is_read',0) ;
+    }
+
+    public function hasInbox() {
+        return $this->accessibleDocuments()->wherePivot('is_read',0)->count() > 0;
+    }
     
 }

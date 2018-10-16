@@ -1,3 +1,7 @@
+@php
+  $unreadDocuments = auth()->user()->unreadDocuments ;
+@endphp
+
 <div class="nav-wrapper">
     <div class="container">
         <div class="row mt-3">
@@ -10,8 +14,14 @@
               </div>
             </div>
             <div class="col">
-              <div class="dropdown float-right ">
-                <button class="btn btn-primary dropdown-toggle border-primary bg-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+              <div class="dropdown float-right">
+
+                {{-- <button class="btn btn-primary dropdown-toggle border-primary bg-white ml-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> --}}
+                  
+                {{-- </button> --}}
+
+                <button class="btn btn-primary dropdown-toggle border-primary bg-white ml-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="color-primary">
                       {{-- สวัสดี อธิกร บดินทรา --}}
                     {{\Auth::user()->full_name}}
@@ -27,6 +37,26 @@
                   <a class="dropdown-item" href="#" onclick="document.getElementById('formLogout').submit()">ออกจากระบบ</a>
                 </div>
                 
+              </div>
+              <div class="dropdown float-right mt-2">
+                <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                  <i class="fas fa-bell text-secondary" style="font-size:1.5em;"></i>
+                  @if ($unreadDocuments->count() > 0)
+                  <div class="badge badge-danger rounded" style="position:absolute;bottom:-0.25rem;right:-0.45rem;font-size:0.8em">
+                    {{ $unreadDocuments->count() }}
+                  </div>
+                  @endif
+                </a>
+                @if ($unreadDocuments->count() > 0)
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @foreach ($unreadDocuments as $item)
+                      <a class="dropdown-item" href="{{ route('document.show', $item->id) }}">{{$item->title}}</a>
+                    @endforeach
+                  </div>
+                @endif
+
+  
               </div>
             </div>
           </div>

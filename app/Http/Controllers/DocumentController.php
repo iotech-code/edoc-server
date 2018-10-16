@@ -42,7 +42,8 @@ class DocumentController extends Controller
         $old = null;
         $current_active_tab = $this->getActiveTabToId($tab_active);
 
-        
+        $unreadDocuments = $user->unreadDocuments ;
+
         if( !is_null($current_active_tab)) {
             $access_document = $user->accessibleDocuments()->wherePivot('document_user_status', $current_active_tab)->get()->pluck(['id']);
             $documents->whereIn('id', $access_document);
@@ -75,7 +76,8 @@ class DocumentController extends Controller
                 'folders',
                 'tab_active',
                 'document_types',
-                'old'
+                'old',
+                // 'unreadDocuments'
             ]));
     }
 

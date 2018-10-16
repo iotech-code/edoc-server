@@ -149,8 +149,11 @@
 					@csrf
 					@method("PUT")
 					<button class="btn btn-danger approve" type="button" 
-						data-approve="1"
-						name="is_approve" value="0" data-toggle="modal" data-target="#exampleModal">
+						data-approve="0"
+						name="is_approve" 
+						value="0" 
+						data-toggle="modal" 
+						data-target="#exampleModal">
 						ไม่อนุมัติ
 					</button>
 				</form>
