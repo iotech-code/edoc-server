@@ -21,7 +21,7 @@ class KeyValidator {
         $url = 'http://key-activate.iotech.co.th/activate';
         $data = [
             'key' => $secret_key,
-            'sw' => 'logbook',
+            'sw' => 'edoc',
             'client' => $school_id
         ];
         $client = new \GuzzleHttp\Client();

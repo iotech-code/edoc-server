@@ -221,6 +221,10 @@
           <thead>
               <tr class=" text-center">
                   <th class="color-secondary" width="110">สถานะ</th>
+                  @if ($tab_active == 'all')
+                  <th class="color-secondary" width="120">ชนิดเอกสาร</th>
+                      
+                  @endif
                   <th class="color-secondary" width="120">ตู้จัดเก็บเอกสาร</th>
                   <th class="color-secondary" width="100">เลขที่เอกสาร</th>
                   <th class="color-secondary" width="300">ชื่อเอกสาร</th>
@@ -233,6 +237,28 @@
             @foreach ($documents as $document)
               <tr data-id="{{ $document->id }}" data-user-id="{{ $document->cabinet->id }}">
                   <td style="padding: 0.75rem 0"> {!!$document->render_status_tag !!}</td>
+                  @if ($tab_active == 'all')
+                  <td class="color-secondary">
+                    @if ( in_array($document->id, $access_document->toArray()))
+                        {{-- test --}}
+                        @php
+                          $access = $user->accessibleDocuments()->where('document_id', $document->id)
+                        @endphp
+                        @if ( $access->count() )
+                            @if ($access->first()->pivot->docuent_user_status == 1 )
+                              <span class="badge big" style="padding: 0.5rem 0.75rem;background:#2A730B; color: #fff">
+                                กล่องขาเข้า
+                              </span>
+                            @else
+                              <span class="badge big" style="padding: 0.5rem 0.75rem;background:#F49F14; color: #fff">
+                                กล่องขาออก
+                              </span>
+                                
+                            @endif
+                        @endif
+                    @endif
+                  </td>                      
+                  @endif
                   <td class=" text-center"> {{ $document->cabinet->name }} </td>
 
                   <td class=" text-center"> {{ $document->code }} </td>
