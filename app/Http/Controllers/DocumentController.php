@@ -320,8 +320,6 @@ class DocumentController extends Controller
     public function updateStatus(Document $model, Request $request) {
         $model->status = $request->status_value;
         $model->save();
-        // return $model;
-        // return $request->status_value;
         return redirect()
             ->route('document.index')
             ->with(['status'=>'success']) ;

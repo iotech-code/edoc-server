@@ -31,6 +31,9 @@ class KeyValidator {
                 'form_params' => $data
             ]
         );
+
+        echo $res->getStatusCode() ;
+        exit();
         if ($res->getStatusCode() == 200 ) {
             return true;
         } else {

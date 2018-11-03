@@ -23,16 +23,10 @@ class UserController extends Controller
 
     public function update(Request $request) {
         // return dd(auth()->user()->first_name);
-        auth()->user()->update($request->only(['first_name', 'last_name']));
-        if( !is_null($request->new_password) ) {
-            return $this->updatePassword($request);
-        }
-        return redirect()->route("user.profile");
-    }
-
-    public function updatePassword(Request $request) {
+        // auth()->user()->update($request->only(['first_name', 'last_name']));
+        $update_data = $request->only(['first_name', 'last_name']);
         $validatedData = \Validator::make($request->all(), [
-            'new_password' => 'confirmed',
+            'new_password' => 'confirmed|min:6',
             'old_password' => [
                 'required_with:new_password',
                 function($attribute, $value, $fail) {
@@ -44,12 +38,18 @@ class UserController extends Controller
         ]);
         if( $validatedData->fails() ) {
             return redirect()->route("user.profile")
-                ->withErrors($validatedData);
+                ->withErrors($validatedData->errors());
         } else {
+            if (isset($request->new_password)) {
+                $update_data['password'] = bcrypt($request->new_password);
+            }
+            auth()->user()->update($update_data);
+
             return redirect()->route("user.profile");
             
         }
     }
+
 
     public function getAjaxUserByName(Request $request) {
         // return auth()->user();

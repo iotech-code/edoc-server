@@ -39,16 +39,6 @@ class DocumentApiController extends BaseApiController
             $q->with(['attachments', 'author']);
         }])->find($id);
 
-        // // user has in documents_users tables
-        // $user_access = $documentModel->accessibleUsers()
-        // ->find($user->id);
-
-        // // user 
-
-        // if($user_access == null ) {
-        //     return response()->json(['message' => 'ไม่พบข้อมูลที่ท่านต้องการ'], 403);
-        // }
-
         $addition = [
             'accept_able' => $documentModel->acceptAbleByUser($user->id),
             'approve_able' => $documentModel->approvAbleByUser($user->id)
