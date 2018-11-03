@@ -33,16 +33,16 @@
 			  
 			  <div class="form-row">
 					<div class="form-group col-4">
-						<label for="">ตู้จัดเก็บเอกสาร</label>
+						<label for="">ตู้เอกสารปลายทาง</label>
 						<select id="cabinetSelect" class="form-control" name="send_to_cabinet_id" required>
-								<option value="">เลือกตู้เอกสาร</option> 
+								<option value="">เลือกตู้เอกสารปลายทาง</option> 
 								@foreach ($user->getLocalCabinets()->get() as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
 								@endforeach
 						</select>
 					</div>
 					<div class="form-group col-4">
-						<label for="">เลขแฟ้ม</label>
+						<label for="">เลขแฟ้มปลายทาง</label>
 						<select id="folderSelect" class="form-control" name="folder_id" disabled required>
 								<option value="">เลือกแฟ้มเก็บเอกสาร</option> 
 
@@ -68,11 +68,11 @@
 			  </div>
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">ที่มาเอกสาร</label>
+						<label for="">ตู้เอกสารต้นทาง</label>
 						{{-- <input type="text" name="from" class="form-control">
 						 --}}
 						 <select class="form-control" name="cabinet_id" >
-								<option value="">เลือกที่มาเอกสาร</option> 
+								<option value="">เลือกตู้เอกสารต้นทาง</option> 
 							 
 								@foreach ( $user->getLocalCabinets()->get() as $cabinet) 
 										<option value="{{$cabinet->id}}"
