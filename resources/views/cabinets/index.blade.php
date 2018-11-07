@@ -14,6 +14,7 @@
           <i class="fa fa-plus"></i>
           สร้างตู้ใหม่
         </a>
+
       </div>
     </div>
     <div class="row">
@@ -57,6 +58,10 @@
                       <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
                           <i class="fa fa-edit"></i>
                       </a>
+                      <a href="{{route('cabinet.folder.create', $cabinet->id)}}" class="text-secondary icon-link">
+                          <i class="fa fa-folder"></i>
+                          
+                        </a>
 
                       @endif
     

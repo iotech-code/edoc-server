@@ -34,6 +34,7 @@
                     {{-- <button class="dropdown-item" href="#">ออกจากระบบ</button> --}}
                   </form>
                   <a class="dropdown-item" href="{{ route("user.profile") }}">แก้ไขข้อมูลส่วนตัว</a>
+                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#feedbackForm"">ข้อเสนอแนะ</a>
                   <a class="dropdown-item" href="#" onclick="document.getElementById('formLogout').submit()">ออกจากระบบ</a>
                 </div>
                 

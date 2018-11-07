@@ -11,6 +11,8 @@ Route::middleware(["web", "auth"])->group(function(){
     
     Route::get("cabinets/{id}/folders", "CabinetController@getAjaxFolderByCabinetId");
 
+    Route::post("feedback", "FeedBackController@sendFeedback");
+
     // Route::get('folder', 'CabinetController@getAjaxFolder')
     //     ->name('ajax.cabinet.folder');
 
