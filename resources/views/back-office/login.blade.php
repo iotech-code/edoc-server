@@ -42,7 +42,7 @@
                   <input name="user_id" type="text" class="form-control mt-3" placeholder="User">
                   <input name="password" type="password" class="form-control mt-3" placeholder="Password">
                   <button class="btn btn-primary rounded mt-3">Login</button>
-                  <a href="/" class="btn btn-info rounded mt-3">หน้าแรก</a>
+                  {{-- <a href="/" class="btn btn-info rounded mt-3">หน้าแรก</a> --}}
                 </form>
               </div>
               <div class="col-8">
