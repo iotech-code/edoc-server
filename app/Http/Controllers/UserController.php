@@ -45,7 +45,8 @@ class UserController extends Controller
             }
             auth()->user()->update($update_data);
 
-            return redirect()->route("user.profile");
+            return redirect()->route("user.profile")
+            ->withSuccess("ทำรายการสำเร็จ");
             
         }
     }

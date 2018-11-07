@@ -36,7 +36,7 @@ class DocumentApiController extends BaseApiController
         $user = auth()->user();
         
         $documentModel = Document::with(['type', 'attachments','replyType', 'creator', 'fromCabinet', 'comments'=> function($q){
-            $q->with(['attachments', 'author']);
+            $q->with(['attachments', 'author'])->orderBy('created_at', 'desc');
         }])->find($id);
 
         $addition = [

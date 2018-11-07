@@ -30,28 +30,37 @@
 		<div class="card border-top-primary ">
 	
 		  <div class="card-body">
-			  
+			  	
 			  <div class="form-row">
-					<div class="form-group col-4">
-						<label for="">ตู้เอกสารปลายทาง</label>
-						<select id="cabinetSelect" class="form-control" name="send_to_cabinet_id" required>
-								<option value="">เลือกตู้เอกสารปลายทาง</option> 
-								@foreach ($user->getLocalCabinets()->get() as $item)
-										<option value="{{$item->id}}">{{$item->name}}</option>
-								@endforeach
-						</select>
+					
+					<div class="form-group col">
+						<label for="">เรื่อง <span class="red-star"></span></label>
+						<input value="{{ old('title') }}" type="text" name="title" required class="form-control">
 					</div>
-					<div class="form-group col-4">
-						<label for="">เลขแฟ้มปลายทาง</label>
-						<select id="folderSelect" class="form-control" name="folder_id" disabled required>
-								<option value="">เลือกแฟ้มเก็บเอกสาร</option> 
-
-								{{-- @foreach (App\Models\Cabinet::first()->folders as $item)
-										<option value="{{$item->id}}">{{$item->name}}</option>
-								@endforeach --}}
-						</select>					
-					</div>
-					<div class="form-group col-4">
+	
+				</div>
+				<div class="form-row">
+					<div class="form-group col">
+							<label for="">เอกสารอ้างอิง</label>
+							<div class="input-search-group" id="refer">
+								<div class="input-group">
+									<input class="form-control" type="text" placeholder="ค้นหาเอกสารอ้างอิง">
+									<div class="input-group-append">
+										<span class="input-group-text">
+											<i class="fa fa-search"></i>
+										</span>
+									</div>
+								</div>
+								<div class="results">
+	
+								</div>
+							</div>
+							<div id="taged">
+	
+							</div>
+	
+						</div>
+					<div class="form-group col">
 						<label for="">ประเภทเอกสาร</label>
 						<select class="form-control" name="type_id" required>
 								<option value="">เลือกประเภทเอกสาร</option> 
@@ -65,15 +74,13 @@
 								@endforeach
 						</select>
 					</div>
-			  </div>
+				</div>
 			  <div class="form-row">
 					<div class="form-group col">
 						<label for="">ตู้เอกสารต้นทาง</label>
-						{{-- <input type="text" name="from" class="form-control">
-						 --}}
-						 <select class="form-control" name="cabinet_id" >
+							<select id="cabinetSelect" class="form-control" name="cabinet_id" >
 								<option value="">เลือกตู้เอกสารต้นทาง</option> 
-							 
+								
 								@foreach ( $user->getLocalCabinets()->get() as $cabinet) 
 										<option value="{{$cabinet->id}}"
 												@if (old('cabinet_id') == $cabinet->id)
@@ -83,13 +90,12 @@
 								@endforeach
 						</select>
 					</div>
-
 					<div class="form-group col">
 						<label for="">เลขที่เอกสาร</label>
 						<input type="text" name="code" class="form-control" value="{{old('code')}}">
 					</div>
 					<div class="form-group col">
-						<label for="">วันที่</label>
+						<label for="">ลงวันที่</label>
 						<div class="input-group ">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">
@@ -99,70 +105,27 @@
 							<input value="{{ old('date')}}" type="text" name="date" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
 						</div>
 					</div>
+
+			  </div>
+			  <div class="form-row">
+					<div class="form-group col">
+						<label for="">เลขแฟ้มต้นทาง</label>
+						<select id="folderSelect" class="form-control" name="folder_id" disabled required>
+							<option value="">เลือกแฟ้มเก็บเอกสาร</option> 
+						</select>					
+					</div>
+					<div class="form-group col">
+						<label for="">ตู้เอกสารปลายทาง</label>
+						<select  class="form-control" name="send_to_cabinet_id" required>
+							<option value="">เลือกตู้เอกสารปลายทาง</option> 
+							@foreach ($user->getLocalCabinets()->get() as $item)
+									<option value="{{$item->id}}">{{$item->name}}</option>
+							@endforeach
+						</select>
+					</div>
 				</div>
 				
-
-			  {{-- <div class="form-row"> --}}
-	
 			  <div class="form-row">
-					<div class="form-group col">
-						<label for="">เอกสารอ้างอิง</label>
-						<div class="input-search-group" id="refer">
-							<div class="input-group">
-								<input class="form-control" type="text" placeholder="ค้นหาเอกสารอ้างอิง">
-								<div class="input-group-append">
-									<span class="input-group-text">
-										<i class="fa fa-search"></i>
-									</span>
-								</div>
-							</div>
-							<div class="results">
-								{{-- <div class="result">test</div>
-								<div class="result">test</div>
-								<div class="result">test</div> --}}
-							</div>
-						</div>
-						<div id="taged">
-							{{-- <span class="badge badge-info">Info ฟ</span>
-							<span class="badge badge-info">Info</span>
-							<span class="badge badge-info">Info</span>
-							<span class="badge badge-info">Info</span> --}}
-
-						</div>
-
-					</div>
-					<div class="form-group col">
-						<label for="">เรื่อง <span class="red-star"></span></label>
-						<input value="{{ old('title') }}" type="text" name="title" required class="form-control">
-					</div>
-	
-			  </div>
-			  {{-- </div> --}}
-			  {{-- <div class="form-row"> --}}
-				{{-- <div class="form-row">
-				  <div class="col">
-					<label for="">คำสำคัญ</label>
-				  </div>
-				</div>
-				<div class="form-row">
-	
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				</div> --}}
-			  {{-- </div>      --}}
-			  <div class="form-row">
-
-					<div class="form-group col">
-						<label for="">คำสำคัญ</label>
-						<input type="text" name="keywords" class="form-control">
-					</div>
 					<div class="form-group col">
 						<label for="">เลขที่รับ</label>
 						<input type="text" name="receive_code" class="form-control">
@@ -177,6 +140,10 @@
 							</div>
 							<input value="{{ old('receive_date')}}" name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
 						</div>
+					</div>
+					<div class="form-group col">
+						<label for="">คำค้น</label>
+						<input type="text" name="keywords" class="form-control">
 					</div>
 			  </div>     
 	

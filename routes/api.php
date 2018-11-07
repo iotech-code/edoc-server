@@ -16,7 +16,13 @@ use Illuminate\Http\Request;
 Route::post('login', 'UserApiController@login');
 Route::any('logout', 'UserApiController@logout');
 
-Route::name('api.')->middleware('auth:api')->group(function(){
+Route::group(
+    [
+        'name' => 'api.',
+        'middleware' => 'auth:api'
+        // name('api.')->middleware('auth:api')->group(
+    ],
+    function(){
     
     Route::get('/user', function (Request $request) {
         return $request->user();

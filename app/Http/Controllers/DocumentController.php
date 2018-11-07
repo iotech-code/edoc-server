@@ -42,8 +42,6 @@ class DocumentController extends Controller
         $old = null;
         $current_active_tab = $this->getActiveTabToId($tab_active);
 
-        // $unreadDocuments = $user->unreadDocuments ;
-
         if( !is_null($current_active_tab)) {
             $access_document = $user->accessibleDocuments()->wherePivot('document_user_status', $current_active_tab)->get()->pluck(['id']);
             $documents->whereIn('id', $access_document);
@@ -59,8 +57,6 @@ class DocumentController extends Controller
         if (isset($request->search)) {  
             $documents = $documents->ofSearch($request->search);
             $old = array_merge($request->search, ['t' => $tab_active]);
-        } else {
-
         }
 
         $documents = $documents->orderBy('created_at', 'desc')->paginate(15);
@@ -196,7 +192,7 @@ class DocumentController extends Controller
 
         return redirect()
             ->route("document.index")
-            ->with(['status'=>'success']) ;
+            ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
     public function getReference(Request $request) {
@@ -253,7 +249,8 @@ class DocumentController extends Controller
         return view('documents.edit', compact([
             'document',
             'users',
-            'cabinets'
+            'cabinets',
+            'user'
             ]));
     }
 
@@ -306,7 +303,8 @@ class DocumentController extends Controller
         }
         $model->update($request->except(['files', 'file_delete']));
         return redirect()->
-            route('document.edit', $model->id);
+            route('document.edit', $model->id)
+            ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
     /**
@@ -322,7 +320,7 @@ class DocumentController extends Controller
         $model->save();
         return redirect()
             ->route('document.index')
-            ->with(['status'=>'success']) ;
+            ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
     /**
@@ -381,7 +379,8 @@ class DocumentController extends Controller
             ]);
         }
 
-        return redirect()->route('document.index');
+        return redirect()->route('document.index')
+            ->withSuccess("ทำรายการสำเร็จ") ;
         
     }   
 
@@ -396,7 +395,7 @@ class DocumentController extends Controller
         Document::findOrFail($id)->delete();
         return redirect()
             ->route('document.index')
-            ->with(['status'=>'success']) ;
+            ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
     /**
@@ -407,7 +406,8 @@ class DocumentController extends Controller
         $document->accessibleDocuments()->sync($request->users);
         $info = array_merge( ["status"=>2], $request->except(["_token", "users"]));
         $document->update($info);
-        return redirect()->back() ;
+        return redirect()->back() 
+            ->withSuccess("ทำรายการสำเร็จ") ;
         // return 
     }
     
@@ -417,7 +417,8 @@ class DocumentController extends Controller
             ->where("document_id", $document->id)
             ->where("user_id", $user->id)
             ->update(["status" => 2]);
-        return redirect()->route('document.index') ;
+        return redirect()->route('document.index') 
+        ->withSuccess("ทำรายการสำเร็จ") ;
 
     }
 }

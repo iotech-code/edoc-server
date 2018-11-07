@@ -22,7 +22,8 @@ trait CabinetFolderTrait {
     public function storeFolder(Cabinet $cabinet, Request $request) {
         // return $request->all();
         $cabinet->folders()->create($request->except(['_token']));
-        return redirect()->route("cabinet.folder.index", $cabinet->id);
+        return redirect()->route("cabinet.folder.index", $cabinet->id)
+            ->withSuccess("ทำรายการสำเร็จ");
     }
 
     public function createFolder($cabinet_id) {
@@ -42,6 +43,7 @@ trait CabinetFolderTrait {
     public function updateFolder($folder_id, Request $request) {
         $folder = Folder::findOrfail($folder_id);
         $folder->update($request->except(['_token']));
-        return redirect()->route("cabinet.folder.index", $folder->cabinet_id);
+        return redirect()->route("cabinet.folder.index", $folder->cabinet_id)
+            ->withSuccess("ทำรายการสำเร็จ");
     }
 }

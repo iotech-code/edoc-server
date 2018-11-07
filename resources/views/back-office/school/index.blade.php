@@ -100,6 +100,8 @@
       </div>
     </div>
   </div>
+@include('alert.alert')
+
 @endsection 
 
 @push('css')

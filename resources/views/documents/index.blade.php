@@ -513,6 +513,8 @@
 	});
 
 </script>
+@include('alert.alert')
+
 @endsection
 
 @push('css')

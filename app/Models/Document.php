@@ -39,6 +39,10 @@ class Document extends Model
         // 'reply_type_text'
     ];
 
+    protected $with = [
+        'fromCabinet'
+    ];
+
     /**
      * relation
      * 

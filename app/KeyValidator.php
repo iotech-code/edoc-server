@@ -32,8 +32,8 @@ class KeyValidator {
             ]
         );
 
-        echo $res->getStatusCode() ;
-        exit();
+            // echo $res->getStatusCode() ;
+            // exit();
         if ($res->getStatusCode() == 200 ) {
             return true;
         } else {
