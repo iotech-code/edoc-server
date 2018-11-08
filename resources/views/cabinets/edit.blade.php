@@ -6,7 +6,7 @@
 @endsection
 @section('content')
   <div class="container">
-    <form action="{{ route('cabinet.edit', $cabinet->id)}}" method="post">
+    <form action="{{ route('cabinet.update', $cabinet->id)}}" method="post">
       @csrf
       @method("PUT")
         <div class="row">
@@ -37,7 +37,7 @@
 
             <div class="button-group text-center">
               <a class="btn edoc-btn-primary inverse">ย้อนกลับ</a>
-              <button class="btn edoc-btn-primary">สร้าง</button>
+              <button class="btn edoc-btn-primary">บันทึก</button>
   
             </div>
           </div>
