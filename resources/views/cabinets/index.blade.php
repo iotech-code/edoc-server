@@ -8,6 +8,8 @@
 
 @section('content')
   <div class="container">
+    @if (auth()->user()->role_id == 1)
+        
     <div class="text-right mb-3">
       <div class="col-8 offset-2">
         <a href="{{route('cabinet.create')}}" class="btn edoc-btn-primary ">
@@ -17,6 +19,7 @@
 
       </div>
     </div>
+    @endif
     <div class="row">
       <div class="col-8 offset-2">
         <div class="card">
@@ -38,11 +41,24 @@
 
                           {{$cabinet->name}} 
                         </span>
+                        @if( auth()->user()->cabinetPermissions->where("id", $cabinet->id)->count() )
+          
+
+                        @endif
+                        @if( auth()->user()->role_id == 1 ) 
                         (
                         <a href=" {{ route("cabinet.folder.index", $cabinet->id) }}">
                           {{ $cabinet->folders->count()." แฟ้ม"}}
                         </a>
                         )
+                        @elseif( auth()->user()->cabinetPermissions->where("id", $cabinet->id)->count() )
+                        (
+                        <a href=" {{ route("cabinet.folder.index", $cabinet->id) }}">
+                          {{ $cabinet->folders->count()." แฟ้ม"}}
+                        </a>
+                        )
+                        @endif
+
                       </div>
                     </div>
                     <div >
@@ -62,8 +78,16 @@
                           <i class="fa fa-folder"></i>
                           
                         </a>
-
+                      @elseif( auth()->user()->cabinetPermissions->where("id", $cabinet->id)->count() )
+                      {{-- <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
+                          <i class="fa fa-edit"></i>
+                      </a> --}}
+                      <a href="{{route('cabinet.folder.create', $cabinet->id)}}" class="text-secondary icon-link">
+                          <i class="fa fa-folder"></i>
+                          
+                        </a>
                       @endif
+                      
     
                   </td>
                 </tr>

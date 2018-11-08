@@ -53,7 +53,7 @@
           <div class="col-7 offset-2 ">
 
             <div class="button-group text-center">
-              <a class="btn edoc-btn-primary inverse">ย้อนกลับ</a>
+              <a href="{{route('cabinet.index')}}" class="btn edoc-btn-primary inverse">ย้อนกลับ</a>
               <button class="btn edoc-btn-primary">สร้าง</button>
   
             </div>
