@@ -225,10 +225,10 @@
                   <th class="color-secondary" width="120">ชนิดเอกสาร</th>
                       
                   @endif
-                  <th class="color-secondary" width="120">ตู้จัดเก็บเอกสาร</th>
+                  <th class="color-secondary" width="120">ตู้เอกสารปลายทาง</th>
                   <th class="color-secondary" width="100">เลขที่เอกสาร</th>
                   <th class="color-secondary" width="300">ชื่อเอกสาร</th>
-                  <th class="color-secondary" width="100">ที่มาเอกสาร</th>
+                  <th class="color-secondary" width="100">ตู้เอกสารต้นทาง</th>
                   <th class="color-secondary" width="150">วันที่เอกสาร</th>
                   <th class="color-secondary" width="100">จัดการเอกสาร</th>
               </tr>
