@@ -15,7 +15,7 @@ class OfficerController extends Controller
 
     public function index(){
         $user = Auth::user() ;
-        $officers = User::where("school_id", $user->school_id)->paginate(10);
+        $officers = User::where("school_id", $user->school_id)->get();
 
         return view('officers.index', compact([
             'officers'
