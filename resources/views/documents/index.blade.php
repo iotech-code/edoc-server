@@ -236,6 +236,9 @@
           <tbody>
             @foreach ($documents as $document)
               <tr data-id="{{ $document->id }}" data-user-id="{{ $document->cabinet->id }}">
+                  @if ($document->status == 1 && $user->id != $document->user_id) 
+                    @continue
+                  @endif
                   <td style="padding: 0.75rem 0"> {!!$document->render_status_tag !!}</td>
                   @if ($tab_active == 'all')
                   <td class="color-secondary">
