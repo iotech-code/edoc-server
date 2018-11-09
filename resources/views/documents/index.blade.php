@@ -329,7 +329,7 @@
         <span class="status-circle status-green"></span> อนุมัติ
       </div> --}}
       <div class="col">
-        รวมเอกสารทั้งหมด {{$documents->total()}} รายการ
+        ผลการค้นหาทั้งหมด {{$documents->total()}} รายการ
       </div>
       @if( !is_array($documents ))
       <div class="col">
