@@ -248,7 +248,7 @@
                           $access = $user->accessibleDocuments()->where('document_id', $document->id)
                         @endphp
                         @if ( $access->count() )
-                            @if ($access->first()->pivot->docuent_user_status == 1 )
+                            @if ($access->first()->pivot->document_user_status == 1 )
                               <span class="badge big" style="padding: 0.5rem 0.75rem;background:#2A730B; color: #fff">
                                 กล่องขาเข้า
                               </span>
