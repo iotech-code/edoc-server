@@ -47,7 +47,7 @@
 						</div>
 					</div>
 					<div class="form-group col">
-							<label for="">ประเภทเอกสาร</label>
+							<label for="">ประเภทเอกสาร<span class="red-star"></span></label>
 							<select class="form-control" name="type_id" id="exampleFormControlSelect1">
 									@foreach (App\Models\DocumentType::all() as $item)
 										@if ($document->type_id == $item->id)
@@ -62,7 +62,7 @@
 				</div>
 			  <div class="form-row">
 					<div class="form-group col-4">
-						<label for="">ตู้เอกสารต้นทาง</label>
+						<label for="">ตู้เอกสารต้นทาง<span class="red-star"></span></label>
 						<select id="cabinetSelect" class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
 								@foreach ($cabinets as $item)
 									@if ($document->cabinet_id == $item->id)
@@ -77,11 +77,11 @@
 					</div>
 
 					<div class="form-group col">
-						<label for="">เลขที่เอกสาร</label>
+						<label for="">เลขที่เอกสาร<span class="red-star"></span></label>
 						<input type="text" name="code" class="form-control" value="{{$document->code}}">
 					</div>
 					<div class="form-group col">
-						<label for="">ลงวันที่</label>
+						<label for="">ลงวันที่<span class="red-star"></span></label>
 						<div class="input-group ">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">
@@ -94,7 +94,7 @@
 			  </div>
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">เลขแฟ้มต้นทาง</label>
+						<label for="">เลขแฟ้มต้นทาง<span class="red-star"></span></label>
 						<select id="folderSelect" class="form-control" name="folder_id" id="exampleFormControlSelect1" disabled>
 								{{-- @foreach (App\Models\Cabinet::first()->folders as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
@@ -104,7 +104,7 @@
 						</select>					
 					</div>
 					<div class="form-group col">
-						<label for="">ตู้เอกสารปลายทาง</label>
+						<label for="">ตู้เอกสารปลายทาง<span class="red-star"></span></label>
 						<select class="form-control" name="send_to_cabinet_id" id="exampleFormControlSelect1">
 
 							@foreach ($cabinets as $item)
