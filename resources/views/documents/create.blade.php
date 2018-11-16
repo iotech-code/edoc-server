@@ -61,7 +61,7 @@
 	
 						</div>
 					<div class="form-group col">
-						<label for="">ประเภทเอกสาร</label>
+						<label for="">ประเภทเอกสาร<span class="red-star"></span></label>
 						<select class="form-control" name="type_id" required>
 								<option value="">เลือกประเภทเอกสาร</option> 
 
@@ -77,7 +77,7 @@
 				</div>
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">ตู้เอกสารต้นทาง</label>
+						<label for="">ตู้เอกสารต้นทาง<span class="red-star"></span></label>
 							<select id="cabinetSelect" class="form-control" name="cabinet_id" >
 								<option value="">เลือกตู้เอกสารต้นทาง</option> 
 								
@@ -91,11 +91,11 @@
 						</select>
 					</div>
 					<div class="form-group col">
-						<label for="">เลขที่เอกสาร</label>
+						<label for="">เลขที่เอกสาร<span class="red-star"></span></label>
 						<input type="text" name="code" class="form-control" value="{{old('code')}}">
 					</div>
 					<div class="form-group col">
-						<label for="">ลงวันที่</label>
+						<label for="">ลงวันที่<span class="red-star"></span></label>
 						<div class="input-group ">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">
@@ -109,13 +109,13 @@
 			  </div>
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">เลขแฟ้มต้นทาง</label>
+						<label for="">เลขแฟ้มต้นทาง<span class="red-star"></span></label>
 						<select id="folderSelect" class="form-control" name="folder_id" disabled required>
 							<option value="">เลือกแฟ้มเก็บเอกสาร</option> 
 						</select>					
 					</div>
 					<div class="form-group col">
-						<label for="">ตู้เอกสารปลายทาง</label>
+						<label for="">ตู้เอกสารปลายทาง<span class="red-star"></span></label>
 						<select  class="form-control" name="send_to_cabinet_id" required>
 							<option value="">เลือกตู้เอกสารปลายทาง</option> 
 							@foreach ($user->getLocalCabinets()->get() as $item)
@@ -131,7 +131,7 @@
 						<input type="text" name="receive_code" class="form-control">
 					</div>
 					<div class="form-group col">
-						<label for="">วันที่รับ</label>
+						<label for="">วันที่รับ<span class="red-star"></span></label>
 						<div class="input-group ">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">
