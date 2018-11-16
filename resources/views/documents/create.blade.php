@@ -81,7 +81,7 @@
 							<select id="cabinetSelect" class="form-control" name="cabinet_id" >
 								<option value="">เลือกตู้เอกสารต้นทาง</option> 
 								
-								@foreach ( $user->getLocalCabinets()->get() as $cabinet) 
+								@foreach ( $user->cabinetPermissions as $cabinet) 
 										<option value="{{$cabinet->id}}"
 												@if (old('cabinet_id') == $cabinet->id)
 														selected
