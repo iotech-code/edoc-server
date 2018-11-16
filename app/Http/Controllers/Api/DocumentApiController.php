@@ -54,7 +54,7 @@ class DocumentApiController extends BaseApiController
     }
 
     public function comment($id, Request $request) {
-        return $request->files;
+        return $request->file('files');
         $user = auth()->user();
         $documnet = Document::where('school_id', $user->school_id)->find($id);
 
