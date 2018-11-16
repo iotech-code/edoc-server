@@ -87,9 +87,6 @@
 														selected
 												@endif
 											>{{$cabinet->name}}</option>
-								@endforeach
-						</select>
-					</div>
 					<div class="form-group col">
 						<label for="">เลขที่เอกสาร</label>
 						<input type="text" name="code" class="form-control" value="{{old('code')}}">

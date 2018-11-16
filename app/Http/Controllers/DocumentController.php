@@ -124,7 +124,7 @@ class DocumentController extends Controller
             'cabinet_id' => 'required',
             'cabinet_id' => 'required',
             'code' => 'required',
-            'receive_code' => 'required',
+            // 'receive_code' => 'required',
             'date' => 'required',
             'receive_date' => 'required',
             'send_to_users' => 'required_if:submit_type,send',
@@ -245,7 +245,7 @@ class DocumentController extends Controller
         // $data = collect() ;
         $user = auth()->user();
         $document = Document::findOrFail($id);
-        $cabinets = Cabinet::where('school_id', auth()->user()->school_id)->get();
+        $cabinets = $user->cabinetPermissions;
         $users = User::where('school_id', $user->school_id)->get();
 
         return view('documents.edit', compact([
