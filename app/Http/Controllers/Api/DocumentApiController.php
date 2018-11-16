@@ -54,7 +54,6 @@ class DocumentApiController extends BaseApiController
     }
 
     public function comment($id, Request $request) {
-        return $_FILES['files'];
         $user = auth()->user();
         $documnet = Document::where('school_id', $user->school_id)->find($id);
 
@@ -85,6 +84,7 @@ class DocumentApiController extends BaseApiController
                     ]);
                 }
             }
+            return $_FILES['files'];
 
             return response()->json(["message" => "ดำเนินการสำเร็จ"]);
         }
