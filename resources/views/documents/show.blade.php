@@ -221,7 +221,7 @@
 							<option value="">ไม่มีผู้รับ</option>
 
 							@foreach ( $users_in_school as $user_school)
-								@if( auth()->user()->id != $user_school->id )
+								@if( auth()->user()->id != $user_school->id && $user_school->role_id != 1)
 									<option value="{{ $user_school->id}}">{{$user_school->full_name}}</option>
 								@endif
 							@endforeach
