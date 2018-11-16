@@ -84,8 +84,6 @@ class DocumentApiController extends BaseApiController
                     ]);
                 }
             }
-            return $_FILES['files'];
-
             return response()->json(["message" => "ดำเนินการสำเร็จ"]);
         }
 
