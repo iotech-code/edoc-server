@@ -198,7 +198,8 @@ class DocumentController extends Controller
     public function getReference(Request $request) {
         $status = 200;
         $user = auth()->user();
-        $data['data'] = Document::where('school_id', $user->school_id)->where("title", "like", "%{$request['query']}%")->take(5)->get();
+        $data['data'] = Document::where('school_id', $user->school_id)
+            ->where("title", "like", "%{$request['query']}%")->take(5)->get();
         // return $request;
         return response()->json($data, $status) ;
     }
