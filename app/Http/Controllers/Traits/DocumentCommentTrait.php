@@ -17,22 +17,22 @@ trait DocumentCommentTrait {
             'author_id' => $user->id,
             'comment' => $request->comment,
         ]);
-
+ 
         $user->accessibleDocuments()->updateExistingPivot($document->id, [
             'is_read' => 1,
             'document_user_status' => 2
         ]);
         // update to inbox 
-        
-        if ($document->accessibleUsers->where('id', $request->receivers)->count()) {
-            $document->accessibleUsers()->updateExistingPivot($request->receivers, [
+        if ( $request->has('receivers') ) {
+            if ($document->accessibleUsers->where('id', $request->receivers)->count()) {
+                $document->accessibleUsers()->updateExistingPivot($request->receivers, [
                 'document_user_status' => 1,
             ]);
-                
             } else {
-            $document->accessibleUsers()->attach($request->receivers, [
+                $document->accessibleUsers()->attach($request->receivers, [
                 'document_user_status' => 1,
             ]);
+            }
         }
 
         if ( $request->file('files') ) {

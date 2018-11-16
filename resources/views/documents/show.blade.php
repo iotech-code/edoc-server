@@ -218,6 +218,8 @@
 						<label for="">ผู้รับ:</label>
 						{{-- <input type="text" class="form-control" name="user"> --}}
 						<select class="form-control" name="receivers" id="">
+							<option value="">ไม่มีผู้รับ</option>
+
 							@foreach ( $users_in_school as $user_school)
 								@if( auth()->user()->id != $user_school->id )
 									<option value="{{ $user_school->id}}">{{$user_school->full_name}}</option>
