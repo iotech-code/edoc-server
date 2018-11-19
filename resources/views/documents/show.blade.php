@@ -267,6 +267,7 @@
 								<textarea class="form-control" id="recipient-name" name="comment"></textarea>
 							</div>
 					</div>
+					<input type="hidden" name="is_approve">
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
 						<button type="submit" class="btn btn-primary">ยืนยัน</button>
@@ -284,7 +285,7 @@
 <script>
 	$("button.approve").click(function(e){
 		is_approve = $(this).val();
-		$("#approveForm").find("input.is_approve").val(is_approve);
+		$("#approveForm").find("input[name='is_approve']").val(is_approve);
 	});
 
 

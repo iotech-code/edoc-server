@@ -14,13 +14,13 @@ trait DocumentRespondTrait {
         // return $request->all();
         $documentModel = Document::findOrFail($id);
         $user = auth()->user();
-        if( $documentModel->approve_able && $documentModel->approved_user_id == $user->id ) {
+        if( $documentModel->approvAbleByUser($user->id) ) {
             return $this->approve($documentModel, $request);
-        } elseif ( !$documentModel->approve_able ) {
+        } elseif ( !$documentModel->acceptAbleByUser($user->id) ) {
             return $this->accept($documentModel, $request);
         } else {
-            // abort(404);
-            return redirect()->response("มีบางอย่างผิดพลาด", 404);
+            abort(404);
+            // return redirect()->response("มีบางอย่างผิดพลาด", 404);
             // return redirect()->route('document.show', $documentModel->id);
         }
     }

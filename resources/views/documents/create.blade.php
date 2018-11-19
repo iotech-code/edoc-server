@@ -127,7 +127,8 @@
 				
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">เลขที่รับ<span class="red-star"></span></label>
+						{{-- <label for="">เลขที่รับ<span class="red-star"></span></label> --}}
+						<label for="">เลขที่รับ</label>
 						<input type="text" name="receive_code" class="form-control" required>
 					</div>
 					<div class="form-group col">
@@ -142,7 +143,8 @@
 						</div>
 					</div>
 					<div class="form-group col">
-						<label for="">คำค้น<span class="red-star"></span></label>
+						{{-- <label for="">คำค้น<span class="red-star"></span></label> --}}
+						<label for="">คำค้น</label>
 						<input type="text" name="keywords" class="form-control" required>
 					</div>
 			  </div>     
