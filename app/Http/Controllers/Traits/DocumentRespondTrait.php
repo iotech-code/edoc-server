@@ -29,7 +29,6 @@ trait DocumentRespondTrait {
         $user = auth()->user();
         $status = $request->is_approve == 1 ? 3 : 4;
         $documentModel->update(['status' => $status]);
-        // $documentModel->
         return redirect()->route('document.show', $documentModel->id);
     }
 
