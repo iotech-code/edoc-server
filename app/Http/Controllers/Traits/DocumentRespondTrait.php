@@ -16,7 +16,7 @@ trait DocumentRespondTrait {
         $user = auth()->user();
         if( $documentModel->approvAbleByUser($user->id) ) {
             return $this->approve($documentModel, $request);
-        } elseif ( !$documentModel->acceptAbleByUser($user->id) ) {
+        } elseif ( $documentModel->acceptAbleByUser($user->id) ) {
             return $this->accept($documentModel, $request);
         } else {
             abort(404);
