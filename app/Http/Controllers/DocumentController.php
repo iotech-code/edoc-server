@@ -265,7 +265,6 @@ class DocumentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request->all() ;
         $documentModel = Document::findOrFail($id);
 
         switch ($request->action) {

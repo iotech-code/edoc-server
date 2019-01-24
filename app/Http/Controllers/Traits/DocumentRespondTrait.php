@@ -11,7 +11,6 @@ trait DocumentRespondTrait {
 
     public function respond($id, Request $request) {
         // if not approve able 
-        // return $request->all();
         $documentModel = Document::findOrFail($id);
         $user = auth()->user();
         if( $documentModel->approvAbleByUser($user->id) ) {
@@ -20,8 +19,6 @@ trait DocumentRespondTrait {
             return $this->accept($documentModel, $request);
         } else {
             abort(404);
-            // return redirect()->response("มีบางอย่างผิดพลาด", 404);
-            // return redirect()->route('document.show', $documentModel->id);
         }
     }
 
@@ -29,6 +26,12 @@ trait DocumentRespondTrait {
         $user = auth()->user();
         $status = $request->is_approve == 1 ? 3 : 4;
         $documentModel->update(['status' => $status]);
+        if (!is_null($request->comment)) {
+            $documentModel->comments()->create([
+                'author_id' => $user->id,
+                'comment' => $request->comment
+            ]);
+        }
         return redirect()->route('document.show', $documentModel->id);
     }
 
