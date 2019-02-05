@@ -296,5 +296,20 @@ class Document extends Model
             && $user_id == $approve_user;
     }
 
+    public function link() {
+        return $this->hasOne(SharingDocument::class, 'document_id');
+    }
+
+    public function shareLink() {
+        return $this->link();
+    }
+
+    // public function publishUrl() {
+    //     if ($this->link()->count()) {
+    //         return null;    
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
 }

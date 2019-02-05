@@ -17,15 +17,18 @@ Route::get('/', function () {
     return redirect("/document");
 });
 
+Route::get('document/sharing/{token}', 'SharingDocumentController@show')
+    ->name('document.sharing');
+
 Route::middleware(['web','auth'])->group(function(){
 
     // document
     Route::resource('document', 'DocumentController');
     Route::get('document/inbox', 'DocumentController@inbox');
     Route::get('document/sentbox', 'DocumentController@sentbox');
-    Route::get('doc/test', function(){
-        return Request::all();
-    });
+    // Route::get('doc/test', function(){
+    //     return Request::all();
+    // });
     
     Route::post('document/{document}/comment', 'DocumentController@comment')
         ->name('document.comment');
@@ -36,6 +39,10 @@ Route::middleware(['web','auth'])->group(function(){
     Route::put('document/{document}/send', 'DocumentController@send')
         ->name('document.send');
 
+    Route::post('document/{id}/publish', 'DocumentController@createPublishLink')
+        ->name('document.publish');
+
+        
 
     // Route::put('document/{docuemnt}/reply', 'DocumentController@reply')
     //     ->name('document.reply');

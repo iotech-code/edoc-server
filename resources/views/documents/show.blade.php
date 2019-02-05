@@ -162,9 +162,6 @@
 		@endif
 	@endif
 	
-
-
-
 	<div class="row mt-3">
 		<div class="col-12">
 			<span class="font-weight-bold">
@@ -247,6 +244,49 @@
 	</div>
 			
 	@endif
+
+	@if ( $document->user_id == auth()->user()->id)
+	
+		<div class="row mt-3">
+			<div class="col">
+				<h2>แผยแพร่</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+			@if ( $document->link()->count() )
+			<div class="card">
+				<div class="card-body">
+								
+						{{-- <button class="btn" onclick="copyLink()">คัดลอก</button> --}}
+						<div class="input-group mb-3">
+								<input class="form-control" id="shareLink" 
+									disabled
+									value="{{route('document.sharing', $document->shareLink->token)}}" 
+									type="text">
+
+								<div class="input-group-append">
+									<button class="btn" onclick="copyLink()">คัดลอก</button>
+
+									{{-- <button class="btn btn-outline-secondary" type="button">Button</button> --}}
+								</div>
+						</div>
+				</div>
+			</div>
+				
+					{{-- <a href="{{route('document.sharing', $document->link->token)}}">Link</a> --}}
+			@else
+					<form action="{{ route('document.publish', $document->id) }}" method="post" enctype="multipart/form-data"> 
+						@csrf
+							<button class="btn btn-primary" style="padding-left:1em;padding-right:1em;">สร้างลิ้งเพื่อเผยแพร่</button>
+					</form>
+			@endif
+			</div>
+			
+
+
+		</div>
+	@endif
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -283,6 +323,13 @@
 <script src="{{asset('js/document/show.js')}}"></script>
 <script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script>
 <script>
+
+	function copyLink() {
+		var copyText = document.getElementById("shareLink");
+		copyText.select();
+		document.execCommand("copy");
+
+	}
 	$("button.approve").click(function(e){
 		is_approve = $(this).val();
 		$("#approveForm").find("input[name='is_approve']").val(is_approve);

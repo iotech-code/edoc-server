@@ -422,4 +422,12 @@ class DocumentController extends Controller
         ->withSuccess("ทำรายการสำเร็จ") ;
 
     }
+
+    public function createPublishLink($id, Request $request) {
+        $documentModel = Document::find($id);
+        $documentModel->link()->create([
+            'token' => md5(uniqid(rand(), true))
+        ]);
+        return redirect()->route('document.show', $id);
+    }
 }
