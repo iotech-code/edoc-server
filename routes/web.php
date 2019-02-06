@@ -42,6 +42,8 @@ Route::middleware(['web','auth'])->group(function(){
     Route::post('document/{id}/publish', 'DocumentController@createPublishLink')
         ->name('document.publish');
 
+    Route::post('document/{id}/sendmail', 'DocumentController@sendMail')
+        ->name('document.sendmail');
         
 
     // Route::put('document/{docuemnt}/reply', 'DocumentController@reply')

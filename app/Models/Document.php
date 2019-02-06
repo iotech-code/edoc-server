@@ -81,6 +81,15 @@ class Document extends Model
     /**
      * relation 
      * 
+     * @return App\Models\School
+     */
+    public function school() {
+        return $this->belongsTo(School::class, 'school_id');
+    }
+
+    /**
+     * relation 
+     * 
      * @return App\Models\Cabinet
      */
     public function type() {

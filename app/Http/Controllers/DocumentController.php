@@ -15,6 +15,10 @@ use App\Http\Controllers\Traits\DocumentRespondTrait ;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\PublishDocument;
+
 use Validator;
 
 class DocumentController extends Controller
@@ -429,5 +433,21 @@ class DocumentController extends Controller
             'token' => md5(uniqid(rand(), true))
         ]);
         return redirect()->route('document.show', $id);
+    }
+
+    public function sendMail($id, Request $request) {
+        $documentModel = Document::find($id);
+        // return $request->all();
+        $receivers = [
+            [
+                'email'=>$request->emails,
+                'name'=> "test"
+            ]
+        ];
+        Mail::to($receivers)
+            ->send(new PublishDocument($documentModel));
+
+        return redirect()->route('document.show', $id);
+
     }
 }

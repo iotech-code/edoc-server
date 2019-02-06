@@ -257,29 +257,49 @@
 			@if ( $document->link()->count() )
 			<div class="card">
 				<div class="card-body">
-								
 						{{-- <button class="btn" onclick="copyLink()">คัดลอก</button> --}}
-						<div class="input-group mb-3">
-								<input class="form-control" id="shareLink" 
-									disabled
-									value="{{route('document.sharing', $document->shareLink->token)}}" 
-									type="text">
-
-								<div class="input-group-append">
-									<button class="btn" onclick="copyLink()">คัดลอก</button>
-
-									{{-- <button class="btn btn-outline-secondary" type="button">Button</button> --}}
+						<div class="row">
+							<div class="col">
+								<div class="input-group mb-3">
+									<input class="form-control" id="shareLink" 
+										disabled
+										value="{{route('document.sharing', $document->shareLink->token)}}" 
+										type="text">
+	
+									<div class="input-group-append">
+										<button class="btn btn-secondary" onclick="copyLink()">คัดลอก</button>
+	
+										{{-- <button class="btn btn-outline-secondary" type="button">Button</button> --}}
+									</div>
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<form method="POST" action="{{ route('document.sendmail', $document->id)}}">
+									@csrf
+									<div class="input-group mb-3">
+
+										<input 
+											placeholder="ตัวอย่าง: email1@mail.com"
+											class="form-control" type="text" name="emails">
+
+										<div class="input-group-append">
+											<button class="btn btn-success">ส่งเมล</button>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
 				</div>
 			</div>
 				
 					{{-- <a href="{{route('document.sharing', $document->link->token)}}">Link</a> --}}
 			@else
-					<form action="{{ route('document.publish', $document->id) }}" method="post" enctype="multipart/form-data"> 
-						@csrf
-							<button class="btn btn-primary" style="padding-left:1em;padding-right:1em;">สร้างลิ้งเพื่อเผยแพร่</button>
-					</form>
+				<form action="{{ route('document.publish', $document->id) }}" method="post" enctype="multipart/form-data"> 
+					@csrf
+						<button class="btn btn-primary" style="padding-left:1em;padding-right:1em;">สร้างลิ้งเพื่อเผยแพร่</button>
+				</form>
 			@endif
 			</div>
 			
