@@ -438,13 +438,8 @@ class DocumentController extends Controller
     public function sendMail($id, Request $request) {
         $documentModel = Document::find($id);
         // return $request->all();
-        $receivers = [
-            [
-                'email'=>$request->emails,
-                'name'=> "test"
-            ]
-        ];
-        Mail::to($receivers)
+        $receivers = explode(" ", $request->emails);
+        Mail::to( $receivers )
             ->send(new PublishDocument($documentModel));
 
         return redirect()->route('document.show', $id);
