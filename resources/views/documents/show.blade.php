@@ -349,7 +349,7 @@
 		copyText.select();
 		document.execCommand("copy");
 
-		console.log(copyText.value);
+		console.log(copyText.value, document.execCommand("copy") );
 		
 
 	}
