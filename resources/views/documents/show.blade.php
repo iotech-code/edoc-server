@@ -340,7 +340,7 @@
 @endsection
 
 @section('script')
-<script src="{{asset('js/document/show.js')}}"></script>
+{{-- <script src="{{asset('js/document/show.js')}}"></script> --}}
 <script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script>
 <script>
 
