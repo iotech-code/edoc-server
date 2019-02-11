@@ -349,6 +349,9 @@
 		copyText.select();
 		document.execCommand("copy");
 
+		console.log(copyText.value);
+		
+
 	}
 	$("button.approve").click(function(e){
 		is_approve = $(this).val();
