@@ -32,6 +32,9 @@ trait DocumentRespondTrait {
                 'comment' => $request->comment
             ]);
         }
+        $user->accessibleDocuments()->updateExistingPivot($documentModel->id,[
+            'is_read' => 1 
+         ]);
         return redirect()->route('document.show', $documentModel->id);
     }
 

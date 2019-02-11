@@ -249,7 +249,7 @@
 	
 		<div class="row mt-3">
 			<div class="col">
-				<h2>แผยแพร่</h2>
+				<h2>เผยแพร่</h2>
 			</div>
 		</div>
 		<div class="row">
