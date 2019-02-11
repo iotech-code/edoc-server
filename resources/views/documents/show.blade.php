@@ -262,7 +262,7 @@
 							<div class="col">
 								<div class="input-group mb-3">
 									<input class="form-control" id="shareLink" 
-										disabled
+										readonly
 										value="{{route('document.sharing', $document->shareLink->token)}}" 
 										type="text">
 	
@@ -346,10 +346,11 @@
 
 	function copyLink() {
 		var copyText = document.getElementById("shareLink");
+		copyText.focus();
 		copyText.select();
 		document.execCommand("copy");
 
-		console.log(copyText.value, document.execCommand("copy") );
+		// console.log(copyText.value, document.execCommand("copy") );
 		
 
 	}
