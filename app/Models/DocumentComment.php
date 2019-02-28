@@ -25,10 +25,12 @@ class DocumentComment extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    // return thai date format 
     public function getThaiDateAttribute() {
         return dateToFullDateThai(date("d/m/Y", strtotime("{$this->attributes['created_at']}"))) ;
     }
 
+    // return thai date format 
     public function getCreatedThaiFormatAttribute() {
         $full_split = explode(" ", $this->attributes['created_at']);
         $date = date("d/m/Y", strtotime($full_split[0]));

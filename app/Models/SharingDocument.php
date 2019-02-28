@@ -8,7 +8,6 @@ class SharingDocument extends Model
 {
 
     protected $fillable = [
-
         'token'
     ];
     

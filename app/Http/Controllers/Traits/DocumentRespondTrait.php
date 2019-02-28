@@ -13,15 +13,18 @@ trait DocumentRespondTrait {
         // if not approve able 
         $documentModel = Document::findOrFail($id);
         $user = auth()->user();
-        if( $documentModel->approvAbleByUser($user->id) ) {
+        if( $documentModel->approvAbleByUser($user->id) ) {             // ตรวจสอบว่า อนุมัติ ได้ไหม
             return $this->approve($documentModel, $request);
-        } elseif ( $documentModel->acceptAbleByUser($user->id) ) {
+        } elseif ( $documentModel->acceptAbleByUser($user->id) ) {      // ตรวจสอบว่า รับทราบ ได้ไหม
             return $this->accept($documentModel, $request);
         } else {
             abort(404);
         }
     }
 
+    /**
+     * Approve Document
+     */
     public function approve(Document $documentModel, Request $request) {
         $user = auth()->user();
         $status = $request->is_approve == 1 ? 3 : 4;
@@ -38,8 +41,10 @@ trait DocumentRespondTrait {
         return redirect()->route('document.show', $documentModel->id);
     }
 
+    /** 
+     * Accept Document  
+     */    
     public function accept(Document $documentModel, Request $request) {
-        // $documentModel->user
         $user = auth()->user();
         $user->accessibleDocuments()->updateExistingPivot($documentModel->id,[
            'is_read' => 1 

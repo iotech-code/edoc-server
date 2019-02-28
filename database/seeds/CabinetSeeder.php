@@ -11,8 +11,6 @@ class CabinetSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('cabinets')->truncate();
-        // DB::table('folders')->truncate();
         $a = [
             [
                 'name' => "วิชาการ",
@@ -29,11 +27,6 @@ class CabinetSeeder extends Seeder
                 "school_id"=> 1,
                 "description" => ""
             ],
-            // [
-            //     'name' => "การศึกษา",
-            //     "school_id"=> 1,
-            //     "description" => ""
-            // ],
             [
                 'name' => "การเงิน",
                 "school_id"=> 1,
@@ -48,10 +41,6 @@ class CabinetSeeder extends Seeder
             $cabinet->permissions()->sync($users->pluck(['id']));
 
         }
-
-        // factory(App\Models\Cabinet::class, 10)->create()->each(function($cabinet){
-        //     $cabinet->folders()->saveMany(factory(App\Models\Folder::class, mt_rand(1,4))->make());
-        // });
 
     }
 }

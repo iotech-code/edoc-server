@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Convert Datetime to Thai Text
+ */
 function dateToFullDateThai($date) {
 
     $thaimonth=array("มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"); 

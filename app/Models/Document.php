@@ -116,12 +116,10 @@ class Document extends Model
                 break;
             case 2:
                 //waiting
-                // $text = 'กำลังดำเนินการ';
                 $text = 'ดำเนินการ';
                 break; 
             case 3:
                 //approve
-                // $text = 'อนุมัติ/รับทราบ';
                 $text = 'สำเร็จ';
                 break; 
             case 4:

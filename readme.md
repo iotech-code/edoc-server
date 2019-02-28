@@ -1,4 +1,7 @@
-# Install
+# Edocument Server
+Powered by Laravel 
+
+## Install
 
 ``` sh
 cp env-example .env
@@ -27,13 +30,8 @@ php artisan db:seed
 php artisan migrate:refresh [--seed]
 ```
 
-## To work with docker
-
-see [iodock](https://git.iotech.co.th/peelz/iodock)
-
 ## Flow
 
-Create doc -> sent_to -> User -> comment back to sender -> get it ;
-                            -> forward to other;
+Create doc -> sent_to -> User -> comment back to sender -> get it -> forward to other;
 
 in this flow if receiver is who can approval doc, it can be approved or cancel ;

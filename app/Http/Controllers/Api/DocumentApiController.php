@@ -16,7 +16,7 @@ class DocumentApiController extends BaseApiController
     }
 
     /**
-     * get document my auth user
+     * get document by auth user
      */
     public function getDocuments(Request $request) {
         $user = auth()->user();
