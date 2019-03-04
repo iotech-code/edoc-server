@@ -235,30 +235,35 @@
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
-								<label for="">ถึง: </label>
-								{{-- <input type="text" class="form-control"> --}}
-								{{-- <div class="input-search-group-name" id="nameSearch">
-									<div class="input-group">
-										<input  class="form-control" type="text" placeholder="ค้นหารายชื่อ">
-										<div class="input-group-append">
-											<span class="input-group-text">
-												<i class="fa fa-search"></i>
-											</span>
-										</div>
+								<div class="row">
+									<div class="col-8">
+										<label for="">ถึง: </label>
+										<select id="selectReceiver" class="form-control" @change="addUser(userModel)" v-model="userModel">
+											<option v-for="user in users" :value="user.id">@{{user.full_name}}</option>
+										</select>
 									</div>
-									<div class="results">
-	
+									<div class="col-4">
+										<label for="">เลือกทั้งหมด</label>
+										<input class="form-control" type="checkbox" :checked="users.length == 0" v-model="isSelectAll" @onchange="selectAll">
 									</div>
-								</div> --}}
-								<select id="selectReceiver" class="form-control">
-									<option value="null"></option>
-									@foreach ($users as $user)
-										@if(auth()->user()->id != $user->id)
-											<option value="{{$user->id}}">{{$user->full_name}}</option>
-										@endif
-									@endforeach
-								</select>
-								<div id="tagged"></div>
+								</div>
+
+							</div>
+							<div class="form-group">
+
+								<div class="row">
+									<div class="col">
+											<div id="tagged">
+													<div v-for="selected in selected_users">
+														<span class="badge badge-info mr-1" > 
+															<input type="hidden" name="send_to_users[]" :value="selected.id" >
+																@{{selected.full_name}}
+															<a class="rm-tag" href="#" v-on:click.prevent="removeSelectedUser(selected)" > <i class="fa fa-times"> </i></a>
+														</span>
+													</div>
+												</div>
+									</div>
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-6">
@@ -317,11 +322,49 @@
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.8/vue.min.js"></script>
+
 <script src="{{asset('js/document/create.js')}}"></script>
 {{-- <script src="{{asset('js/nameSearch.js')}}"></script> --}}
 {{-- <script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script> --}}
 <script>
 
+	vueContainer = new Vue({
+		el:'#submitModal',
+		data: {
+			userModel: null,
+			isSelectAll: false,
+			users: {!! $users->toJson() !!},
+			selected_users: []
+		},
+		mounted() {
+			// console.log(this.users);
+			
+		},
+		methods: {
+			addUser: function(user) {
+				this.userModel = null
+				index = this.users.findIndex( (item) => {return item.id == user} )
+				this.selected_users.push(this.users[index])
+				this.users.splice(index, 1)
+			},
+			removeSelectedUser(user) {
+				this.userModel = null
+				index = this.selected_users.findIndex( (item) => {return item.id == user.id} )
+				this.users.push(user)
+				this.selected_users.splice(index, 1)
+			},
+			selectAll() {
+				if (this.users.length) {
+					for(i=0; i<this.users.length;i++) {
+						this.selected_users.push(this.users)
+					}
+					this.users.splice(0, this.users.length)
+				}
+
+			}
+		},
+	})
 	function getFolderurl(id) {
 		host = "{{ url("") }}";
 		uri = host+"/ajax/cabinets/"+id+"/folders" ;
@@ -335,28 +378,28 @@
 		$('button[type="submit"]').trigger('click');
 	});
 
-	$("#selectReceiver").change(function(e){
-		// console.log(e);
-		value = $(this).val();
-		text = $(this).find('option:selected').text();
-		if( $(`input[name="send_to_users[]"][value="${value}"]`).length == 0 ){
-			$link = $(`<a href="">${text}</a>`);
-			$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${value}" > <i class="fa fa-times"> </i></a>`) ;
-			$value = $(`<input type="hidden" name="send_to_users[]" value="${value}" >`);
-			$tag = $(`<span class="badge badge-info mr-1" > ${text}</span>`) ;
+	// $("#selectReceiver").change(function(e){
+	// 	// console.log(e);
+	// 	value = $(this).val();
+	// 	text = $(this).find('option:selected').text();
+	// 	if( $(`input[name="send_to_users[]"][value="${value}"]`).length == 0 ){
+	// 		$link = $(`<a href="">${text}</a>`);
+	// 		$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${value}" > <i class="fa fa-times"> </i></a>`) ;
+	// 		$value = $(`<input type="hidden" name="send_to_users[]" value="${value}" >`);
+	// 		$tag = $(`<span class="badge badge-info mr-1" > ${text}</span>`) ;
 			
-			// $('input[name="send_to_users"]').val(text);
-			$tag.append($deleteBtn);
-			$tag.append($value);
-			$deleteBtn.click(function(e){
-				e.preventDefault();
-				$(this).parent().remove();
-			});
-			$("#tagged").append($tag);
-		} 
-		$(this).find('option:selected').prop('selected', false);
+	// 		// $('input[name="send_to_users"]').val(text);
+	// 		$tag.append($deleteBtn);
+	// 		$tag.append($value);
+	// 		$deleteBtn.click(function(e){
+	// 			e.preventDefault();
+	// 			$(this).parent().remove();
+	// 		});
+	// 		$("#tagged").append($tag);
+	// 	} 
+	// 	$(this).find('option:selected').prop('selected', false);
 
-	})
+	// })
 
 	$('select[name="reply_type_id"]').change(function(e){
 		value = $(this).find("option:selected").val();
