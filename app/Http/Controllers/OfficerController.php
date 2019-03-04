@@ -16,11 +16,18 @@ class OfficerController extends Controller
     public function index(){
         $user = Auth::user() ;
         $officers = User::where("school_id", $user->school_id)->get();
-
         return view('officers.index', compact([
             'officers'
         ]));
     }
+
+    public function edit($id) {
+        $officer = User::findOrFail($id);
+        return view('officers.index', compact(
+            'officer'
+        ));
+    }
+
     /**
      * Import User In school by use CSV file
      */
@@ -58,6 +65,11 @@ class OfficerController extends Controller
             'role_id' => 2
         ];
         User::create( array_merge($request->all(), $addition));
+        return redirect()->back();
+    }
+
+    public function destroy($id){
+        User::findOrFail($id)->delete();
         return redirect()->back();
     }
 }

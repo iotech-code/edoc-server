@@ -34,10 +34,10 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-
                   <th class="">ID</th>
-                  <th class="w-75">ชื่อ นามสกุล</th>
-                  <th class="w-75">ตำแหน่ง</th>
+                  <th class="w-50">ชื่อ นามสกุล</th>
+                  <th class="w-25">ตำแหน่ง</th>
+                  <th class="w-25">การจัดการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -52,6 +52,18 @@
                   <td class="">
                       {{ __('role.'.$officer->role->name)}}
                   </td>
+                  <td class="">
+                      @if ($officer->id != 1)
+                      <form method="POST" action="{{ route('officer.destroy', $officer->id)}}"  class="form-delete">
+                        @method("DELETE")
+                        @csrf
+                        <button class="btn btn-danger" >
+                          ลบ
+                        </button>
+                      </form>
+                      @endif
+                  </td>
+                      
 
                 </tr>
                     
@@ -111,6 +123,15 @@
 
 @section("script")
 <script>
+
+$('.form-delete').on('submit', function(e){
+if(confirm("คุณต้องการจะลบข้อมูลอย่างถาวรใช่ไหม ?")) {
+  return true;
+} else {
+  e.preventDefault()
+}
+})
+
 $("#importFile").click(function(e){
   e.preventDefault();
   $('input[name="import_file"]').trigger("click");
