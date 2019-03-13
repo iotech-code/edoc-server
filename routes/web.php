@@ -26,55 +26,50 @@ Route::middleware(['web','auth'])->group(function(){
     Route::resource('document', 'DocumentController');
     Route::get('document/inbox', 'DocumentController@inbox');
     Route::get('document/sentbox', 'DocumentController@sentbox');
-    // Route::get('doc/test', function(){
-    //     return Request::all();
-    // });
-    
+
+    // Create comment for docuemnt
     Route::post('document/{document}/comment', 'DocumentController@comment')
         ->name('document.comment');
 
+    // Respond document (approve / read)
     Route::put('document/{document}/respond', 'DocumentController@respond')
         ->name('document.respond');
 
+    // Update Docuemnt Status (from draft to pending)
     Route::put('document/{document}/send', 'DocumentController@send')
         ->name('document.send');
 
+    // Create link for docuemnt to publish other
     Route::post('document/{id}/publish', 'DocumentController@createPublishLink')
         ->name('document.publish');
 
+    // Send Link to user by email
     Route::post('document/{id}/sendmail', 'DocumentController@sendMail')
         ->name('document.sendmail');
-        
 
-    // Route::put('document/{docuemnt}/reply', 'DocumentController@reply')
-    //     ->name('document.reply');
-    // Route::get('document/{docuemnt}/reply/create', 'DocumentController@createReply')
-    //     ->name('document.reply.crate');
-    // Route::post('document/{docuemnt}/reply', 'DocumentController@createReply')
-    //     ->name('document.reply.store');
-    // Route::put('document/{document}/assign', 'DocumentController@assign')
-    //     ->name('document.assign');
-    // Route::put('document/{document}/acknowledge', 'DocumentController@acknowledge')
-    //     ->name('document.acknowledge');
-
-    // cabinet
+    // Resourse Cabinet 
     Route::resource('cabinet', 'CabinetController');
 
-    // cabinet
+    // Get user who can access cabinet
     Route::get('cabinet/{cabinet}/permission', 'CabinetController@permission')
         ->name('cabinet.permission.index');
+    // Update user who can access
     Route::put('cabinet/{cabinet}/permission', 'CabinetController@updatePermission')
         ->name('cabinet.permission.update');
 
-    // folder
+    // Get folders by cabinet id
     Route::get('cabinet/{cabinet_id}/folder', 'CabinetController@indexFolder')
         ->name('cabinet.folder.index');
+    // Create folder binding with cabinet id
     Route::post('cabinet/{cabinet}/folder', 'CabinetController@storeFolder')
         ->name('cabinet.folder.store');
+    // Create folder Form
     Route::get('cabinet/{cabinet_id}/folder/create', 'CabinetController@createFolder')
         ->name('cabinet.folder.create');
+    // Update folder
     Route::put('cabinet/folder/{folder_id}', 'CabinetController@updateFolder')
         ->name('cabinet.folder.update');
+    // Update folder form
     Route::get('cabinet/folder/{folder}/edit', 'CabinetController@editFolder')
         ->name('cabinet.folder.edit');
 

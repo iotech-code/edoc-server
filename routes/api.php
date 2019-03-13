@@ -20,15 +20,14 @@ Route::group(
     [
         'name' => 'api.',
         'middleware' => 'auth:api'
-        // name('api.')->middleware('auth:api')->group(
     ],
     function(){
     
     Route::get('/user', function (Request $request) {
         return $request->user();
-        // return response()->json("test");
     });
 
+    // use for verify pass user
     Route::post('pass_verify', function(Request $request){
         $user = auth()->user() ;
         if ( !is_null( $user ) ) {
@@ -47,8 +46,11 @@ Route::group(
             return response()->json(null, 404);
         }
     });
+    // Get documents list
     Route::get('documents', 'DocumentApiController@getDocuments')
         ->name('document.list');
+
+    // Get documents by id
     Route::get('documents/{id}', 'DocumentApiController@getDocumentById')
         ->name('document.show');
 
@@ -56,8 +58,5 @@ Route::group(
         ->name('document.comment');
     Route::put('documents/{document}/respond', 'DocumentApiController@respond')
         ->name('document.respond');
-    // Route::put('documents/{document}/accept', 'DocumentApiController@accept')
-    //     ->name('document.accept');
-
 
 });
