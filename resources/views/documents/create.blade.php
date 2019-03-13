@@ -243,8 +243,8 @@
 										</select>
 									</div>
 									<div class="col-4">
-										<label for="">เลือกทั้งหมด</label>
-										<input class="form-control" type="checkbox" :checked="users.length == 0" v-model="isSelectAll" @onchange="selectAll">
+										<label for="selectAll">เลือกทั้งหมด</label>
+										<input id="selectAll" class="form-control" type="checkbox" :checked="users.length == 0" v-model="isSelectAll">
 									</div>
 								</div>
 
@@ -254,13 +254,11 @@
 								<div class="row">
 									<div class="col">
 											<div id="tagged">
-													<div v-for="selected in selected_users">
-														<span class="badge badge-info mr-1" > 
+														<span div v-for="selected in selected_users" class="badge badge-info mr-1" > 
 															<input type="hidden" name="send_to_users[]" :value="selected.id" >
 																@{{selected.full_name}}
 															<a class="rm-tag" href="#" v-on:click.prevent="removeSelectedUser(selected)" > <i class="fa fa-times"> </i></a>
 														</span>
-													</div>
 												</div>
 									</div>
 								</div>
@@ -337,6 +335,23 @@
 			users: {!! $users->toJson() !!},
 			selected_users: []
 		},
+		watch: {
+			isSelectAll(newValue) {
+
+				if (newValue) {
+					for(i=0; i<this.users.length;i++) {
+						this.selected_users.push(this.users[i])
+					}
+					this.users.splice(0, this.users.length)
+				} else {
+					for(i=0; i<this.selected_users.length;i++) {
+						this.users.push(this.selected_users[i])
+					}
+					this.selected_users.splice(0, this.selected_users.length)
+				}
+			}
+
+		},
 		mounted() {
 			// console.log(this.users);
 			
@@ -355,6 +370,8 @@
 				this.selected_users.splice(index, 1)
 			},
 			selectAll() {
+				console.log(this.users.length);
+				
 				if (this.users.length) {
 					for(i=0; i<this.users.length;i++) {
 						this.selected_users.push(this.users)
