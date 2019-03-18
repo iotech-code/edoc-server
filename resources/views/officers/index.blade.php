@@ -53,7 +53,7 @@
                       {{ __('role.'.$officer->role->name)}}
                   </td>
                   <td class="">
-                      @if ($officer->id != 1)
+                      @if ($officer->role_id != 1)
                       <form method="POST" action="{{ route('officer.destroy', $officer->id)}}"  class="form-delete">
                         @method("DELETE")
                         @csrf
