@@ -101,7 +101,9 @@ class DocumentController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $users = User::where('school_id', $user->school_id)->get();
+        $users = User::where('school_id', $user->school_id)
+            ->where('id', '!=', $user->id)
+            ->get();
         $cabinets = Cabinet::where('school_id', $user->school_id)->get();
         $statuses = DocumentStatus::all();
         return view('documents.create')
