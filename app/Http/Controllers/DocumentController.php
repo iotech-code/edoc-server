@@ -9,7 +9,6 @@ use App\Models\Cabinet;
 use App\Models\User;
 use App\Models\DocumentType;
 
-use App\Http\Controllers\Traits\DocumentReply ;
 use App\Http\Controllers\Traits\DocumentCommentTrait ;
 use App\Http\Controllers\Traits\DocumentRespondTrait ;
 
@@ -24,8 +23,7 @@ use Validator;
 class DocumentController extends Controller
 {
 
-    use DocumentReply,
-        DocumentRespondTrait,
+    use DocumentRespondTrait,
         DocumentCommentTrait;
     /**
      * Display a listing of the resource.

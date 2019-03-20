@@ -22,8 +22,6 @@ class UserController extends Controller
     }
 
     public function update(Request $request) {
-        // return dd(auth()->user()->first_name);
-        // auth()->user()->update($request->only(['first_name', 'last_name']));
         $update_data = $request->only(['first_name', 'last_name']);
         $validatedData = \Validator::make($request->all(), [
             'new_password' => 'confirmed|min:6',
@@ -53,11 +51,9 @@ class UserController extends Controller
 
 
     public function getAjaxUserByName(Request $request) {
-        // return auth()->user();
         $user = auth()->user() ;
         return User::where('school_id', $user->school_id)
             ->ofSearchByName($request->search)
-            // ->appends(['full_name'])
             ->paginate(5);
     }
 }
