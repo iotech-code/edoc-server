@@ -119,7 +119,10 @@ class CabinetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cabinet::destroy($id);
+
+        return redirect()->route("cabinet.index")
+            ->withSuccess('ทำรายการสำเร็จ');
     }
 
     public function getAjaxFolderByCabinetId($id) {
