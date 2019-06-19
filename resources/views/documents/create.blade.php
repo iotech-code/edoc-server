@@ -127,8 +127,8 @@
 				
 			  <div class="form-row">
 					<div class="form-group col">
-						{{-- <label for="">เลขที่รับ<span class="red-star"></span></label> --}}
-						<label for="">เลขที่รับ</label>
+						<label for="">เลขที่รับ<span class="red-star"></span></label>
+						
 						<input type="text" name="receive_code" class="form-control" required>
 					</div>
 					<div class="form-group col">
