@@ -74,6 +74,9 @@
                       <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
                           <i class="fa fa-edit"></i>
                       </a>
+                      <a class="text-secondary icon-link" href="{{ route('cabinet.destroy', $cabinet->id) }}">
+                          <i class="fa fa-trash"></i>
+                      </a>
                       <a href="{{route('cabinet.folder.create', $cabinet->id)}}" class="text-secondary icon-link">
                           <i class="fa fa-folder"></i>
                           
