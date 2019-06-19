@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group">
                   <label for="">คำอธิบาย ตู้เอกสาร</label>
-                  <textarea name="" id="" cols="30" rows="5" class="form-control" name="cabinet_desc">{{$cabinet->description}}</textarea>
+                  <textarea id="" cols="30" rows="5" class="form-control" name="cabinet_desc">{{$cabinet->description}}</textarea>
                 </div>
               </div>
             </div>
