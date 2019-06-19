@@ -18,7 +18,7 @@
                 <div class="form-group row">
                   <div class="col-6">
                     <label for="">ชื่อตู้เอกสาร</label><span class="red-star"></span>
-                  <input type="text" class="form-control" value="{{ $cabinet->name}}">
+                  <input type="text" class="form-control" value="{{ $cabinet->name}}" name="cabinet_name">
                   </div>
                   <div class="col-6">
                     
@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group">
                   <label for="">คำอธิบาย ตู้เอกสาร</label>
-                  <textarea name="" id="" cols="30" rows="5" class="form-control">{{$cabinet->description}}</textarea>
+                  <textarea name="" id="" cols="30" rows="5" class="form-control" name="cabinet_desc">{{$cabinet->description}}</textarea>
                 </div>
               </div>
             </div>
