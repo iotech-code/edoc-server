@@ -104,7 +104,7 @@ class CabinetController extends Controller
         
         $cabinet = Cabinet::find($id);
         $cabinet->name = $request->cabinet_name;
-        $cabinet->description = $request->cabinet_description;
+        $cabinet->description = $request->cabinet_desc;
         $cabinet->save();
 
         return redirect()->route("cabinet.index")
