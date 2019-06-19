@@ -101,8 +101,14 @@ class CabinetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        return $request->all();
+        
+        $cabinet = Cabinet::find($id);
+        $cabinet->name = $request->cabinet_name;
+        $cabinet->description = $request->cabinet_description;
+        $cabinet->save();
+
+        return redirect()->route("cabinet.index")
+            ->withSuccess('ทำรายการสำเร็จ');
     }
 
     /**
