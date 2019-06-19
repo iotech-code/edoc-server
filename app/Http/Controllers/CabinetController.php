@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cabinet;
 use App\Models\User;
 
-use \App\Http\Controllers\Traits\CabinetFolderTrait;
+use App\Http\Controllers\Traits\CabinetFolderTrait;
 
 class CabinetController extends Controller
 {
