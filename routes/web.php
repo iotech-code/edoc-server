@@ -49,7 +49,7 @@ Route::middleware(['web','auth'])->group(function(){
 
     // Resourse Cabinet 
     Route::resource('cabinet', 'CabinetController');
-
+    Route::get('cabinet/{id}/destroy', 'CabinetController@destroy')->name('cabinet.destroy');
     // Get user who can access cabinet
     Route::get('cabinet/{cabinet}/permission', 'CabinetController@permission')
         ->name('cabinet.permission.index');
