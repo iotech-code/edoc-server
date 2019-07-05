@@ -127,12 +127,12 @@
 				
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">เลขที่รับ<span class="red-star"></span></label>
+						<label for="">เลขที่รับ</label>
 						
-						<input type="text" name="receive_code" class="form-control" required>
+						<input type="text" name="receive_code" class="form-control">
 					</div>
 					<div class="form-group col">
-						<label for="">วันที่รับ<span class="red-star"></span></label>
+						<label for="">วันที่รับ</label>
 						<div class="input-group ">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">
@@ -145,7 +145,7 @@
 					<div class="form-group col">
 						{{-- <label for="">คำค้น<span class="red-star"></span></label> --}}
 						<label for="">คำค้น</label>
-						<input type="text" name="keywords" class="form-control" required>
+						<input type="text" name="keywords" class="form-control">
 					</div>
 			  </div>     
 	
