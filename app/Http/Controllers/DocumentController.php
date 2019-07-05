@@ -130,7 +130,6 @@ class DocumentController extends Controller
             'code' => 'required',
             // 'receive_code' => 'required',
             'date' => 'required',
-            'receive_date' => 'required',
             'send_to_users' => 'required_if:submit_type,send',
             'comment' => 'required_if:submit_type,send',
             'reply_type_id' => 'required_if:submit_type,send',
