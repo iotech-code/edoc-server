@@ -61,6 +61,14 @@
                           ลบ
                         </button>
                       </form>
+                      <form method="POST" action="{{ route('password_reset', $officer->id)}}"  class="form-password-reset">
+                        @method("POST")
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $officer->user_id}}">
+                        <button class="btn btn-warning" >
+                          รีเซ็นรหัสผ่าน
+                        </button>
+                      </form>
                       @endif
                   </td>
                       

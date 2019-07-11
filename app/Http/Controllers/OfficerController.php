@@ -68,6 +68,15 @@ class OfficerController extends Controller
         return redirect()->back();
     }
 
+    public function password_reset(Request $request) {
+        $new_password = [
+            'password' => bcrypt($request->user_id)
+        ];
+        $user = User::where('user_id', $request->user_id)->update($new_password);
+
+        return redirect()->back()->withSuccess('ทำรายการสำเร็จ');
+    }
+
     public function destroy($id){
         User::findOrFail($id)->delete();
         return redirect()->back();
