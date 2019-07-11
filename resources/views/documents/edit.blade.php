@@ -337,7 +337,7 @@
 									@endif
 								@endforeach
 		*/
-		if($value === 'all') {
+		if(value === 'all') {
 			@foreach ($users as $user)
 				@if(auth()->user()->id != $user->id)
 
