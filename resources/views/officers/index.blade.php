@@ -66,7 +66,7 @@
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $officer->user_id}}">
                         <button class="btn btn-warning" >
-                          รีเซ็นรหัสผ่าน
+                          รีเซ็ตรหัสผ่าน
                         </button>
                       </form>
                       @endif
