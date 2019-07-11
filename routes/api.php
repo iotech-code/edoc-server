@@ -49,7 +49,6 @@ Route::group(
     // Get documents list
     Route::get('documents', 'DocumentApiController@getDocuments')
         ->name('document.list');
-    Route::post('reset_password', 'OfficerController@password_reset')->name('password_reset');
 
     // Get documents by id
     Route::get('documents/{id}', 'DocumentApiController@getDocumentById')
