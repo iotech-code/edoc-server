@@ -391,7 +391,7 @@
 			.catch(function(err){
 			});
 		} else {
-			$folderEle.prop("disabled", true);
+			// $folderEle.prop("disabled", true);
 			$folderEle.val(null);
 		}
 	});
