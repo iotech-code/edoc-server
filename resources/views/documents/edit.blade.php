@@ -252,6 +252,7 @@
 							<label for="">ถึง: </label>
 							<select id="selectReceiver" class="form-control">
 								<option value="null"></option>
+								<option value="all">ทั้งหมด</option>
 								@foreach ($users as $user)
 									@if(auth()->user()->id != $user->id)
 										<option value="{{$user->id}}">{{$user->full_name}}</option>
@@ -329,21 +330,52 @@
 		// console.log(e);
 		value = $(this).val();
 		text = $(this).find('option:selected').text();
-		if( $(`input[name="send_to_users[]"][value="${value}"]`).length == 0 ){
-			$link = $(`<a href="">${text}</a>`);
-			$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${value}" > <i class="fa fa-times"> </i></a>`) ;
-			$value = $(`<input type="hidden" name="send_to_users[]" value="${value}" >`);
-			$tag = $(`<span class="badge badge-info mr-1" > ${text}</span>`) ;
-			
-			// $('input[name="send_to_users"]').val(text);
-			$tag.append($deleteBtn);
-			$tag.append($value);
-			$deleteBtn.click(function(e){
-				e.preventDefault();
-				$(this).parent().remove();
-			});
-			$("#tagged").append($tag);
-		} 
+		/*
+		@foreach ($users as $user)
+									@if(auth()->user()->id != $user->id)
+										<option value="{{$user->id}}">{{$user->full_name}}</option>
+									@endif
+								@endforeach
+		*/
+		if($value === 'all') {
+			@foreach ($users as $user)
+				@if(auth()->user()->id != $user->id)
+
+			if( $(`input[name="send_to_users[]"][value="{{$user->id}}"]`).length == 0 ) {
+				$link = $(`<a href="">{{$user->full_name}}</a>`);
+				$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="{{$user->id}}" > <i class="fa fa-times"> </i></a>`) ;
+				$value = $(`<input type="hidden" name="send_to_users[]" value="{{$user->id}}" >`);
+				$tag = $(`<span class="badge badge-info mr-1" > {{$user->full_name}}</span>`);
+				$tag.append($deleteBtn);
+				$tag.append({{$user->id}});
+				$deleteBtn.click(function(e){
+					e.preventDefault();
+					$(this).parent().remove();
+				});
+				$("#tagged").append($tag);
+
+			}
+
+				@endif
+			@endforeach
+		} else {
+			if( $(`input[name="send_to_users[]"][value="${value}"]`).length == 0 ){
+				$link = $(`<a href="">${text}</a>`);
+				$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${value}" > <i class="fa fa-times"> </i></a>`) ;
+				$value = $(`<input type="hidden" name="send_to_users[]" value="${value}" >`);
+				$tag = $(`<span class="badge badge-info mr-1" > ${text}</span>`) ;
+				
+				// $('input[name="send_to_users"]').val(text);
+				$tag.append($deleteBtn);
+				$tag.append($value);
+				$deleteBtn.click(function(e){
+					e.preventDefault();
+					$(this).parent().remove();
+				});
+				$("#tagged").append($tag);
+			} 
+		}
+
 		$(this).find('option:selected').prop('selected', false);
 
 	})
