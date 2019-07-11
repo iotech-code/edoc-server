@@ -54,14 +54,14 @@
                   </td>
                   <td class="">
                       @if ($officer->role_id != 1)
-                      <form method="POST" action="{{ route('officer.destroy', $officer->id)}}"  class="form-delete">
+                      <form method="POST" action="{{ route('officer.destroy', $officer->id)}}"  class="form-delete" style="display: inline-block;">
                         @method("DELETE")
                         @csrf
                         <button class="btn btn-danger" >
                           ลบ
                         </button>
                       </form>
-                      <form method="POST" action="{{ route('password_reset') }}"  class="form-password-reset">
+                      <form method="POST" action="{{ route('password_reset') }}"  class="form-password-reset" style="display: inline-block;">
                         @method("POST")
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $officer->user_id}}">
