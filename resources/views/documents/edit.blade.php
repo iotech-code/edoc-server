@@ -95,7 +95,7 @@
 			  <div class="form-row">
 					<div class="form-group col">
 						<label for="">เลขแฟ้มต้นทาง<span class="red-star"></span></label>
-						<select id="folderSelect" class="form-control" name="folder_id" id="exampleFormControlSelect1" disabled>
+						<select id="folderSelect" class="form-control" name="folder_id" id="exampleFormControlSelect1">
 								{{-- @foreach (App\Models\Cabinet::first()->folders as $item)
 										<option value="{{$item->id}}">{{$item->name}}</option>
 								@endforeach --}}
