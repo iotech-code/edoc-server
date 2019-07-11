@@ -330,24 +330,18 @@
 		// console.log(e);
 		value = $(this).val();
 		text = $(this).find('option:selected').text();
-		/*
-		@foreach ($users as $user)
-									@if(auth()->user()->id != $user->id)
-										<option value="{{$user->id}}">{{$user->full_name}}</option>
-									@endif
-								@endforeach
-		*/
+
 		if(value === 'all') {
 			@foreach ($users as $user)
 				@if(auth()->user()->id != $user->id)
 
 			if( $(`input[name="send_to_users[]"][value="{{$user->id}}"]`).length == 0 ) {
-				$link = $(`<a href="">{{$user->full_name}}</a>`);
+				// $link = $(`<a href="">{{$user->full_name}}</a>`);
 				$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="{{$user->id}}" > <i class="fa fa-times"> </i></a>`) ;
 				$value = $(`<input type="hidden" name="send_to_users[]" value="{{$user->id}}" >`);
 				$tag = $(`<span class="badge badge-info mr-1" > {{$user->full_name}}</span>`);
 				$tag.append($deleteBtn);
-				$tag.append({{$user->id}});
+				$tag.append($value);
 				$deleteBtn.click(function(e){
 					e.preventDefault();
 					$(this).parent().remove();
