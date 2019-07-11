@@ -127,6 +127,7 @@
       </div>
     </div>
   </div>  
+  @include('alert.alert')
 @endsection 
 
 @section("script")

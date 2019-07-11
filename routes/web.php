@@ -82,6 +82,7 @@ Route::middleware(['web','auth'])->group(function(){
             storage_path("import-template.csv")
         );
     });
+    //$2y$10$DKkINgIhh1VgViD9sEEyRuGVtmL1sUV98KlTELZqalnvETt1KN5Hu
     Route::post('reset_password', 'OfficerController@password_reset')->name('password_reset');
     // user profile
     Route::get('profile', 'UserController@edit')
