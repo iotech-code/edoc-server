@@ -61,7 +61,7 @@
                           ลบ
                         </button>
                       </form>
-                      <form method="POST" action="{{ route('password_reset', $officer->id)}}"  class="form-password-reset">
+                      <form method="POST" action="{{ route('password_reset') }}"  class="form-password-reset">
                         @method("POST")
                         @csrf
                         <input type="hidden" name="user_id" value="{{ $officer->user_id}}">
