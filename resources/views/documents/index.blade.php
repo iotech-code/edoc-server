@@ -445,8 +445,13 @@
 <script src="{{asset('js/document/index.js')}}"></script>
 <script>
 	$(`a.btn-delete`).click(function(e){
-		e.preventDefault();
-		$(this).find('form').submit();
+    e.preventDefault();
+    if(!confirm('แน่ใจแล้วหรือ?')){
+      return false;
+    } else {
+      $(this).find('form').submit();
+    }
+		
 	});
 
   $(`a.tab-box`).click(function(e){
