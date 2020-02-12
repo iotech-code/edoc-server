@@ -306,7 +306,7 @@
                             <i class="fa fa-edit"></i>
                         </a>
                       @endif
-                      {{-- @if (($document->status == 1 && $document->user_id == $user->id) || $user->role_id == 1) 
+                      @if (($document->status == 1 && $document->user_id == $user->id) || $user->role_id == 1) 
                         <a class="text-secondary edoc-link-form icon-link btn-delete" href="#">
                             <i class="fa fa-trash"></i>
                             <form action="{{ route('document.update', $document->id) }}" method="post">
@@ -314,7 +314,7 @@
                                 @csrf
                             </form>
                         </a>
-                      @endif --}}
+                      @endif
                     @endif
                   </td>
                 </tr>
