@@ -82,7 +82,7 @@ Route::middleware(['web','auth'])->group(function(){
         );
     });
     //$2y$10$DKkINgIhh1VgViD9sEEyRuGVtmL1sUV98KlTELZqalnvETt1KN5Hu
-    Route::post('reset_password', 'OfficerController@password_reset')->name('password_reset');
+    
     // user profile
     Route::get('profile', 'UserController@edit')
         ->name('user.profile');
@@ -91,6 +91,8 @@ Route::middleware(['web','auth'])->group(function(){
 
     Route::get('dashboard', 'DashBoardController@index');
 });
+
+Route::post('reset_password', 'OfficerController@password_reset')->name('password_reset');
 
 // donload file
 Route::get('file/{prefix}/{id}', 'FileController@downloadFile')
