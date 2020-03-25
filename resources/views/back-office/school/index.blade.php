@@ -51,7 +51,7 @@
                   <form method="POST" action="/reset_password"  class="form-password-reset" style="display: inline-block;">
                     @method("POST")
                     @csrf
-                    <input type="hidden" name="user_id" value="admin@{{$school->code}}">
+                    <input type="hidden" name="user_id" value=admin@{{$school->code}}>
                     <button class="btn btn-warning" >
                       <i class="fa fa-key"></i> รีเซ็ตรหัสผ่าน
                     </button>
