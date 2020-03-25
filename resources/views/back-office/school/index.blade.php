@@ -48,7 +48,7 @@
                   {{$school->name}} 
                 </td>
                 <td class="">
-                  <form method="POST" action="{{ route('reset_password') }}"  class="form-password-reset" style="display: inline-block;">
+                  <form method="POST" action="/reset_password"  class="form-password-reset" style="display: inline-block;">
                     @method("POST")
                     @csrf
                     <input type="hidden" name="user_id" value="admin@{{ $school->code }}">
