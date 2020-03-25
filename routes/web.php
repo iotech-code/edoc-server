@@ -16,7 +16,6 @@ Route::get('/', function () {
     // return redirect('/document');
     return redirect("/document");
 });
-Route::get('user_id/{s}', 'SchoolController@getUserID');
 Route::get('document/sharing/{token}', 'SharingDocumentController@show')
     ->name('document.sharing');
 
