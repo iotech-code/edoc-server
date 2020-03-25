@@ -37,7 +37,7 @@
               <tr>
                 <th class="">รหัสโรงเรียน</th>
                 <th class="">ชื่อโรงเรียน</th>
-                {{-- <th>จัดการ</th> --}}
+                <th>จัดการ</th>
               </tr>
             </thead>
             <tbody>
@@ -47,7 +47,16 @@
                 <td class="">
                   {{$school->name}} 
                 </td>
-                {{-- <td class=""></td> --}}
+                <td class="">
+                  <form method="POST" action="{{ route('password_reset') }}"  class="form-password-reset" style="display: inline-block;">
+                    @method("POST")
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ $school->code}}">
+                    <button class="btn btn-warning" >
+                      <i class="fa fa-key"></i> รีเซ็ตรหัสผ่าน
+                    </button>
+                  </form>
+                </td>
               </tr>
                   
               @endforeach
@@ -65,6 +74,7 @@
     </div>
   </div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="createForm" tabindex="-1" role="dialog" aria-labelledby="createFormLabel" aria-hidden="true">
@@ -103,6 +113,20 @@
 @include('alert.alert')
 
 @endsection 
+
+@section("script")
+<script>
+
+$('.form-delete').on('submit', function(e){
+if(confirm("คุณต้องการจะลบข้อมูลอย่างถาวรใช่ไหม ?")) {
+  return true;
+} else {
+  e.preventDefault()
+}
+})
+
+</script>
+@endsection
 
 @push('css')
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"> --}}

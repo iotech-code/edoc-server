@@ -22,6 +22,11 @@ class SchoolController extends Controller
         ]));
     }
 
+    public function getUserID(Request $request) {
+        $data = User::where("user_id", 'admin@'.$request->s)->get();
+        return json_encode($data);
+    }
+
     public function create() {
         return view('back-office.school.create');
     }
