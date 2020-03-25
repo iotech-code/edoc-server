@@ -111,7 +111,7 @@
     </div>
   </div>
 @include('alert.alert')
-
+@endsection
 
 @push('css')
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"> --}}
