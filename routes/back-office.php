@@ -17,5 +17,4 @@ Route::group([
 ],
 function(){
     Route::resource('school', 'SchoolController');
-    Route::get('user/{s}', 'SchoolController@getUserID');
 });

@@ -48,10 +48,10 @@
                   {{$school->name}} 
                 </td>
                 <td class="">
-                  <form method="POST" action="{{ route('password_reset') }}"  class="form-password-reset" style="display: inline-block;">
+                  <form method="POST" action="{{ route('reset_password') }}"  class="form-password-reset" style="display: inline-block;">
                     @method("POST")
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ $school->code}}">
+                    <input type="hidden" name="user_id" value="admin@{{ $school->code }}">
                     <button class="btn btn-warning" >
                       <i class="fa fa-key"></i> รีเซ็ตรหัสผ่าน
                     </button>
@@ -112,21 +112,6 @@
   </div>
 @include('alert.alert')
 
-@endsection 
-
-@section("script")
-<script>
-
-$('.form-delete').on('submit', function(e){
-if(confirm("คุณต้องการจะลบข้อมูลอย่างถาวรใช่ไหม ?")) {
-  return true;
-} else {
-  e.preventDefault()
-}
-})
-
-</script>
-@endsection
 
 @push('css')
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"> --}}
