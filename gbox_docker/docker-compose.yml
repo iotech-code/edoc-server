@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+    gbox_node:
+        build: nodejs
+        volumes: 
+            - ../:/home/node/app
+        ports: 
+            - "3000:3000"
+
+
+        # image: node:8.12.0-alpine
+
+    # mariadb:
+    #     image: mariadb
+        # restart: always
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: root
+    #     networks: 
+    #         - backend
+
+networks: 
+    default:
+        external: 
+            name: backend
+

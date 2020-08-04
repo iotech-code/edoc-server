@@ -1,0 +1,98 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var path = require('path')
+var parse = require('csv-parser');
+var filePath = require.main.filename;
+
+const util = require('util');
+const {exec} = require('child_process');
+const rootPath = path.join(filePath, '../..');
+
+var csvPath = path.join(filePath,'../..','data_dict.csv');
+var models = {};
+
+var pattern = "sequelize --name $class --attributes $attributes"
+/**
+ * read csv as Object
+ */
+fs.createReadStream(csvPath)
+    .pipe(parse())
+    .on('data', function(data){
+        if (data['Shape Library'] === 'UML') {
+            let attributes = data['Text Area 2'];
+            if ( attributes != '' ) {
+
+                // remove space class name
+                originalClassName = data['Text Area 1'].replace(/\s/g,"");
+                let className = originalClassName;
+                // split text to array
+                att_arr = data['Text Area 2'].split("\n");
+                attributes = "";
+                for( let i=0;i<att_arr.length;i++){
+                    if (att_arr[i].match(/\s+id/) == null){
+                        // console.log(att_arr[i], att_arr.length, i);
+                        // console.log(att_arr[i]);
+                        // remove protection class diagram
+                        attributes+=att_arr[i].replace(/[/+/-]+\s|\s|=.*/g, "");
+                        if ( att_arr.length-1 != i) 
+                            attributes+=","
+                    }
+                }
+                    
+                // set value
+                models[className] = {}
+                models[className]['attributes'] = attributes.replace(/\,$/, "");
+            }
+                        
+        }
+    })
+    .on('end', function(data){
+        readData()
+    });
+
+
+function handle(className, model, stdout){
+    console.log('stdout:', stdout);
+    console.log('model:', className, model);
+}
+
+async function readData() {
+    Object.keys(models).forEach(async element => {
+        let model = models[element]
+
+        if ( model != null && model['attributes'] !== 'undefined' ) {
+            try {
+                let cmd = pattern.replace(/\$class/g,element);
+                cmd = cmd.replace(/\$attributes/g, model['attributes']);
+                exec(`sequelize model:create ${cmd} --underscored --force`, (err, stdout, stderr)=>{
+                    if (err) {
+                        console.log("cmd: ",cmd, err);
+                        return err;  
+                    } else {
+                        console.log("done");
+                    }
+                })
+                
+            } catch (error) {
+                console.log("exec error", error)
+            }
+        }
+                    
+    });
+    return true;
+} 
+
+var directory = `${rootPath}/db/migrations`;
+fs.readdir(directory, (err, files) => {
+    if (err) throw err;
+    console.log('removing old migration file...')
+    for (const file of files) {
+      fs.unlink(path.join(directory, file), err => {
+        if (err) throw err;
+      });
+    }
+  });
+readData()
+
+

@@ -1,0 +1,179 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Text Area 1,Text Area 2,Text Area 3,yrdy
+1,Page,,,,,,,,,Page 1,,,
+2,Package,UML,1,,,,,,,Gpoint (Wallet),,,
+3,Package,UML,1,,,,,,,User,,,
+4,Class,UML,1,,,,,,,User,"+ id: integer
++ role_id: integer
++ email: string
+- password: string
++ first_name: string
++ last_name: string
++ birth_date: date
++ school_id: integer
++ grade_id: integer
++ phone: string=null",,
+5,Class,UML,1,,,,,,,Address,"+ id: integer
++ user_id: integer
++ address_1: string
++ address_2: string
++ city: string
++ state: string
++ country: string
++ postal_code: string",,
+6,Class,UML,1,,,,,,,Role,"+ id: integer
++ name: string",,
+7,Class,UML,1,,,,,,,Wallet Transaction,"+ id: integer
++ wallet_id: integer
++ before_value: decimal
++ after_value: decimal
++ action_id: integer
++ refer_id: integer=null",,
+8,Class,UML,1,,,,,,,Wallet,"+ id: integer
++ user_id: integer
++ point: decimal",,
+9,Class,UML,1,,,,,,,Wallet Transaction Action,"+ id: integer
++ name: integer",,
+10,Package,UML,1,,,,,,,eCommerce,,,
+11,Class,UML,1,,,,,,,Order,"+ id: integer
++ user_id: integer
++ total_price: decimal
++ status_id: integer",,
+12,Class,UML,1,,,,,,,Order Item,"+ id: integer
++ order_id: integer
++ course_id: integer
++ course_name: string
++ price_per_unit: decimal
++ quantity: integer",,
+13,Class,UML,1,,,,,,,Payment,"+ id: integer
++ order_id: integer
++ user_id: integer
++ payment_type_id: integer
++ have_tax_invoice: boolean",,
+14,Class,UML,1,,,,,,,Tax Invoice,"+ id: integer
++ payment_id: integer
++ order_id: integer
++ address_1: string
++ address_2: string
++ city: string
++ state: string
++ country: string
++ postal_code: string",,
+15,Class,UML,1,,,,,,,Order Status,"+ id: integer
++ name: string",,
+16,Class,UML,1,,,,,,,Payment Type,"+ id: integer
++ name: string",,sd
+17,Class,UML,1,,,,,,,Transaction,"+ id: integer
++ payment_id: integer
++ provider: integer=[omise, gpoint]
++ name: string",,
+18,Package,UML,1,,,,,,,Tag,,,
+19,Class,UML,1,,,,,,,Tag,"+ id: integer
++ name: string",,
+20,Class,UML,1,,,,,,,User Interesting,"+ user_id: integer
++ tag_id: integer",,
+21,Class,UML,1,,,,,,,Course Tag,"+ course_id: integer
++ tag_id: integer",,
+22,Package,UML,1,,,,,,,Course,,,
+23,Class,UML,1,,,,,,,Course,"+ id: integer
++ name: string
++ price: decimal=0
++ description: string
++ category_id: integer
++ creator_id: integer
++ study_grade_id: integer
++ is_sugguestion: boolean
++ like_total: integer",,
+24,Class,UML,1,,,,,,,Like,"+ user_id: integer
++ course_id: integer",,
+25,Class,UML,1,,,,,,,Course Content,"+ course_id: integer
++ name: string
++ type: string
++ position: integer",,
+26,Class,UML,1,,,,,,,Course Video,"+ content_id: integer
++ url_path: string",,
+27,Class,UML,1,,,,,,,Course Document,"+ content_id: integer
++ url_path: string",,
+28,Package,UML,1,,,,,,,Course Exam,,,
+29,Class,UML,1,,,,,,,Course Exam,"+ id: integer
++ course_id: integer
++ content_id: string
++ is_random: boolean
++ type: string",,
+30,Class,UML,1,,,,,,,Course Exam Question,"+ id: integer
++ exam_id: integer
++ question_type_id: integer
++ question: string
++ anwser_id: integer
++ anwser_text: text=null
++ max_point: integer=null",,
+31,Class,UML,1,,,,,,,Course Exam Choice,"+ id: integer
++ question_id: integer
++ position: integer
++ choice_text: string",,
+32,Class,UML,1,,,,,,,Question Type,"+ id: integer
++ name: string",,
+33,Package,UML,1,,,,,,,User Exam,,,
+34,Class,UML,1,,,,,,,Log User Question,"+ user_id: integer
++ exam_id: integer
++ question_id: integer
++ answer_text: string
++ answer_id: integer
++ point: integer",,
+35,Package,UML,1,,,,,,,User Exam,,,
+36,Package,UML,1,,,,,,,Wishlist,,,
+37,Class,UML,1,,,,,,,Wishlist,"+ user_id: integer
++ course_id: integer",,
+38,Class,UML,1,,,,,,,Log User Exam,"+ user_id: integer
++ exam_id: integer
++ status: integer
++ total_point: integer
++ question_total: integer
++ checked_total: integer",,
+39,Class,UML,1,,,,,,,Api Token,"+ user_id: integer
++ token: string",,
+40,Package,UML,1,,,,,,,School,,,
+41,Class,UML,1,,,,,,,School,"+ id: integer
++ name: string",,
+42,Class,UML,1,,,,,,,Class Room,"+ id: integer
++ grade_id: integer
++ school_id: integer
++ room_no: integer",,
+43,Class,UML,1,,,,,,,User Class Room,"+ user_id: integer
++ school_id: integer
++ role_id: integer",,
+44,Line,,1,,,4,5,None,Arrow,1..*,0..*,,
+45,Line,,1,,,4,6,None,Arrow,,,,
+46,Line,,1,,,7,8,None,Arrow,,,,
+47,Line,,1,,,7,9,None,Arrow,,,,
+48,Line,,1,,,13,16,None,Arrow,,,,
+49,Line,,1,,,11,15,None,Arrow,,,,
+50,Line,,1,,,13,11,None,Arrow,,,,
+51,Line,,1,,,12,11,None,Arrow,,,,
+52,Line,,1,,,14,13,None,Arrow,,,,
+53,Line,,1,,,4,20,None,Arrow,,,,
+54,Line,,1,,,26,25,None,Arrow,,,,
+55,Line,,1,,,27,25,None,Arrow,,,,
+56,Line,,1,,,26,25,None,Arrow,,,,
+57,Line,,1,,,30,29,None,Arrow,,,,
+58,Line,,1,,,32,30,None,Arrow,,,,
+59,Line,,1,,,31,30,None,Arrow,,,,
+60,Line,,1,,,21,23,None,Arrow,,,,
+61,Line,,1,,,21,19,None,Arrow,,,,
+62,Line,,1,,,20,19,None,Arrow,,,,
+63,Line,,1,,,29,25,None,Arrow,,,,
+64,Line,,1,,,25,23,None,Arrow,,,,
+65,Line,,1,,,24,23,None,Arrow,,,,
+66,Line,,1,,,11,23,None,Arrow,,,,
+67,Line,,1,,,8,4,None,Arrow,,,,
+68,Line,,1,,,12,23,None,Arrow,,,,
+69,Line,,1,,,37,4,None,Arrow,,,,
+70,Line,,1,,,24,4,None,Arrow,,,,
+71,Line,,1,,,34,30,None,Arrow,,,,
+72,Line,,1,,,38,29,None,Arrow,,,,
+73,Line,,1,,,38,34,None,Arrow,,,,
+74,Line,,1,,,17,13,None,Arrow,,,,
+75,Line,,1,,,17,16,None,Arrow,,,,
+76,Line,,1,,,39,4,None,Arrow,,,,
+77,Line,,1,,,43,42,None,Arrow,,,,
+78,Line,,1,,,42,41,None,Arrow,,,,
+79,Line,,1,,,43,4,None,Arrow,,,,
