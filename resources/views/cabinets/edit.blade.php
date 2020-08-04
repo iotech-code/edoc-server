@@ -6,7 +6,7 @@
 @endsection
 @section('content')
   <div class="container">
-    <form action="{{ route('cabinet.edit', $cabinet->id)}}" method="post">
+    <form action="{{ route('cabinet.update', $cabinet->id)}}" method="post">
       @csrf
       @method("PUT")
         <div class="row">
@@ -18,7 +18,7 @@
                 <div class="form-group row">
                   <div class="col-6">
                     <label for="">ชื่อตู้เอกสาร</label><span class="red-star"></span>
-                  <input type="text" class="form-control" value="{{ $cabinet->name}}">
+                  <input type="text" class="form-control" value="{{ $cabinet->name}}" name="cabinet_name">
                   </div>
                   <div class="col-6">
                     
@@ -26,7 +26,7 @@
                 </div>
                 <div class="form-group">
                   <label for="">คำอธิบาย ตู้เอกสาร</label>
-                  <textarea name="" id="" cols="30" rows="5" class="form-control">{{$cabinet->description}}</textarea>
+                  <textarea id="" cols="30" rows="5" class="form-control" name="cabinet_desc">{{$cabinet->description}}</textarea>
                 </div>
               </div>
             </div>
@@ -37,7 +37,7 @@
 
             <div class="button-group text-center">
               <a class="btn edoc-btn-primary inverse">ย้อนกลับ</a>
-              <button class="btn edoc-btn-primary">สร้าง</button>
+              <button class="btn edoc-btn-primary">บันทึก</button>
   
             </div>
           </div>

@@ -88,6 +88,7 @@ class SchoolController extends Controller
         $school->cabinets()->createMany(
             $cabinets
         );
-        return redirect('/back-office');
+        return redirect('/back-office/school')
+            ->withSuccess("ทำรายการสำเร็จ");
     }
 }

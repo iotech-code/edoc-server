@@ -8,14 +8,18 @@
 
 @section('content')
   <div class="container">
+    @if (auth()->user()->role_id == 1)
+        
     <div class="text-right mb-3">
       <div class="col-8 offset-2">
         <a href="{{route('cabinet.create')}}" class="btn edoc-btn-primary ">
           <i class="fa fa-plus"></i>
           สร้างตู้ใหม่
         </a>
+
       </div>
     </div>
+    @endif
     <div class="row">
       <div class="col-8 offset-2">
         <div class="card">
@@ -37,11 +41,24 @@
 
                           {{$cabinet->name}} 
                         </span>
+                        @if( auth()->user()->cabinetPermissions->where("id", $cabinet->id)->count() )
+          
+
+                        @endif
+                        @if( auth()->user()->role_id == 1 ) 
                         (
                         <a href=" {{ route("cabinet.folder.index", $cabinet->id) }}">
                           {{ $cabinet->folders->count()." แฟ้ม"}}
                         </a>
                         )
+                        @elseif( auth()->user()->cabinetPermissions->where("id", $cabinet->id)->count() )
+                        (
+                        <a href=" {{ route("cabinet.folder.index", $cabinet->id) }}">
+                          {{ $cabinet->folders->count()." แฟ้ม"}}
+                        </a>
+                        )
+                        @endif
+
                       </div>
                     </div>
                     <div >
@@ -57,8 +74,23 @@
                       <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
                           <i class="fa fa-edit"></i>
                       </a>
-
+                      <a class="text-secondary icon-link" href="{{ route('cabinet.destroy', $cabinet->id) }}" onclick="if(confirm('Are you sure?')==false) return false">
+                          <i class="fa fa-trash"></i>
+                      </a>
+                      <a href="{{route('cabinet.folder.create', $cabinet->id)}}" class="text-secondary icon-link">
+                          <i class="fa fa-folder"></i>
+                          
+                        </a>
+                      @elseif( auth()->user()->cabinetPermissions->where("id", $cabinet->id)->count() )
+                      {{-- <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
+                          <i class="fa fa-edit"></i>
+                      </a> --}}
+                      <a href="{{route('cabinet.folder.create', $cabinet->id)}}" class="text-secondary icon-link">
+                          <i class="fa fa-folder"></i>
+                          
+                        </a>
                       @endif
+                      
     
                   </td>
                 </tr>
@@ -78,7 +110,10 @@
       </div>
     </div>
   </div>
+
+  @include('alert.alert')
 @endsection 
+
 
 @push('css')
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css"> --}}

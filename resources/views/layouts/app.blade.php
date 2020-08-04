@@ -15,6 +15,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script> --}}
+    
+
     @stack('js')
 
     <!-- Fonts -->
@@ -37,5 +42,54 @@
         </main>
     </div>
     @yield('script')
+    @if ( auth()->check() )
+    <div class="modal" tabindex="-1" role="dialog" id="feedbackForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ข้อเสนอแนะ / คำแนะนำ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="fededbackMessage">ข้อความ</label>
+                    <textarea class="form-control" id="feedbackMessage" name="" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnFeedback" onclick="submit()" type="button" class="btn btn-primary">ส่ง</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+            </div>
+            </div>
+        </div>
+    </div>
+          
+    <script>
+        function submit() {
+            $("#btnFeedback").prop('disabled', true);
+            let data = {
+                _token: "{{csrf_token()}}",
+                msg: $('#feedbackMessage').val()
+                }
+            console.log(data);
+            $.ajax({
+                method: "POST",
+                url: "{{url('ajax/feedback')}}", 
+                data: data,
+                dataType: "json"
+            })
+            .then(function() {
+                // console.log("test");
+                $('#feedbackMessage').val("")
+                $('#feedbackForm').modal('hide')
+                swal("ทำรายการสำเร็จ", "ขอบคุณสำหรับความคิดเห็น", "success");
+                
+            })
+        }
+ 
+    </script>
+    @endif
 </body>
 </html>

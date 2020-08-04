@@ -11,30 +11,40 @@ trait DocumentRespondTrait {
 
     public function respond($id, Request $request) {
         // if not approve able 
-        // return $request->all();
         $documentModel = Document::findOrFail($id);
         $user = auth()->user();
-        if( $documentModel->approve_able && $documentModel->approved_user_id == $user->id ) {
+        if( $documentModel->approvAbleByUser($user->id) ) {             // ตรวจสอบว่า อนุมัติ ได้ไหม
             return $this->approve($documentModel, $request);
-        } elseif ( !$documentModel->approve_able ) {
+        } elseif ( $documentModel->acceptAbleByUser($user->id) ) {      // ตรวจสอบว่า รับทราบ ได้ไหม
             return $this->accept($documentModel, $request);
         } else {
-            // abort(404);
-            return redirect()->response("มีบางอย่างผิดพลาด", 404);
-            // return redirect()->route('document.show', $documentModel->id);
+            abort(404);
         }
     }
 
+    /**
+     * Approve Document
+     */
     public function approve(Document $documentModel, Request $request) {
         $user = auth()->user();
         $status = $request->is_approve == 1 ? 3 : 4;
         $documentModel->update(['status' => $status]);
-        // $documentModel->
+        if (!is_null($request->comment)) {
+            $documentModel->comments()->create([
+                'author_id' => $user->id,
+                'comment' => $request->comment
+            ]);
+        }
+        $user->accessibleDocuments()->updateExistingPivot($documentModel->id,[
+            'is_read' => 1 
+         ]);
         return redirect()->route('document.show', $documentModel->id);
     }
 
+    /** 
+     * Accept Document  
+     */    
     public function accept(Document $documentModel, Request $request) {
-        // $documentModel->user
         $user = auth()->user();
         $user->accessibleDocuments()->updateExistingPivot($documentModel->id,[
            'is_read' => 1 

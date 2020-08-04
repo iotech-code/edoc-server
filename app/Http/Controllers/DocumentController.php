@@ -9,19 +9,21 @@ use App\Models\Cabinet;
 use App\Models\User;
 use App\Models\DocumentType;
 
-use App\Http\Controllers\Traits\DocumentReply ;
 use App\Http\Controllers\Traits\DocumentCommentTrait ;
 use App\Http\Controllers\Traits\DocumentRespondTrait ;
 
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\PublishDocument;
 
 use Validator;
 
 class DocumentController extends Controller
 {
 
-    use DocumentReply,
-        DocumentRespondTrait,
+    use DocumentRespondTrait,
         DocumentCommentTrait;
     /**
      * Display a listing of the resource.
@@ -42,8 +44,6 @@ class DocumentController extends Controller
         $old = null;
         $current_active_tab = $this->getActiveTabToId($tab_active);
 
-        $unreadDocuments = $user->unreadDocuments ;
-
         if( !is_null($current_active_tab)) {
             $access_document = $user->accessibleDocuments()->wherePivot('document_user_status', $current_active_tab)->get()->pluck(['id']);
             $documents->whereIn('id', $access_document);
@@ -59,8 +59,6 @@ class DocumentController extends Controller
         if (isset($request->search)) {  
             $documents = $documents->ofSearch($request->search);
             $old = array_merge($request->search, ['t' => $tab_active]);
-        } else {
-
         }
 
         $documents = $documents->orderBy('created_at', 'desc')->paginate(15);
@@ -77,6 +75,7 @@ class DocumentController extends Controller
                 'tab_active',
                 'document_types',
                 'old',
+                'access_document'
                 // 'unreadDocuments'
             ]));
     }
@@ -100,7 +99,9 @@ class DocumentController extends Controller
     public function create()
     {
         $user = auth()->user();
-        $users = User::where('school_id', $user->school_id)->get();
+        $users = User::where('school_id', $user->school_id)
+            ->where('id', '!=', $user->id)
+            ->get();
         $cabinets = Cabinet::where('school_id', $user->school_id)->get();
         $statuses = DocumentStatus::all();
         return view('documents.create')
@@ -127,9 +128,8 @@ class DocumentController extends Controller
             'cabinet_id' => 'required',
             'cabinet_id' => 'required',
             'code' => 'required',
-            'receive_code' => 'required',
+            // 'receive_code' => 'required',
             'date' => 'required',
-            'receive_date' => 'required',
             'send_to_users' => 'required_if:submit_type,send',
             'comment' => 'required_if:submit_type,send',
             'reply_type_id' => 'required_if:submit_type,send',
@@ -195,12 +195,14 @@ class DocumentController extends Controller
 
         return redirect()
             ->route("document.index")
-            ->with(['status'=>'success']) ;
+            ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
     public function getReference(Request $request) {
         $status = 200;
-        $data['data'] = Document::where("title", "like", "%{$request['query']}%")->take(5)->get();
+        $user = auth()->user();
+        $data['data'] = Document::where('school_id', $user->school_id)
+            ->where("title", "like", "%{$request['query']}%")->take(5)->get();
         // return $request;
         return response()->json($data, $status) ;
     }
@@ -246,13 +248,14 @@ class DocumentController extends Controller
         // $data = collect() ;
         $user = auth()->user();
         $document = Document::findOrFail($id);
-        $cabinets = Cabinet::where('school_id', auth()->user()->school_id)->get();
+        $cabinets = $user->cabinetPermissions;
         $users = User::where('school_id', $user->school_id)->get();
 
         return view('documents.edit', compact([
             'document',
             'users',
-            'cabinets'
+            'cabinets',
+            'user'
             ]));
     }
 
@@ -265,7 +268,6 @@ class DocumentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request->all() ;
         $documentModel = Document::findOrFail($id);
 
         switch ($request->action) {
@@ -305,7 +307,8 @@ class DocumentController extends Controller
         }
         $model->update($request->except(['files', 'file_delete']));
         return redirect()->
-            route('document.edit', $model->id);
+            route('document.edit', $model->id)
+            ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
     /**
@@ -319,11 +322,9 @@ class DocumentController extends Controller
     public function updateStatus(Document $model, Request $request) {
         $model->status = $request->status_value;
         $model->save();
-        // return $model;
-        // return $request->status_value;
         return redirect()
             ->route('document.index')
-            ->with(['status'=>'success']) ;
+            ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
     /**
@@ -382,7 +383,8 @@ class DocumentController extends Controller
             ]);
         }
 
-        return redirect()->route('document.index');
+        return redirect()->route('document.index')
+            ->withSuccess("ทำรายการสำเร็จ") ;
         
     }   
 
@@ -397,7 +399,7 @@ class DocumentController extends Controller
         Document::findOrFail($id)->delete();
         return redirect()
             ->route('document.index')
-            ->with(['status'=>'success']) ;
+            ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
     /**
@@ -408,7 +410,8 @@ class DocumentController extends Controller
         $document->accessibleDocuments()->sync($request->users);
         $info = array_merge( ["status"=>2], $request->except(["_token", "users"]));
         $document->update($info);
-        return redirect()->back() ;
+        return redirect()->back() 
+            ->withSuccess("ทำรายการสำเร็จ") ;
         // return 
     }
     
@@ -418,7 +421,27 @@ class DocumentController extends Controller
             ->where("document_id", $document->id)
             ->where("user_id", $user->id)
             ->update(["status" => 2]);
-        return redirect()->route('document.index') ;
+        return redirect()->route('document.index') 
+        ->withSuccess("ทำรายการสำเร็จ") ;
+
+    }
+
+    public function createPublishLink($id, Request $request) {
+        $documentModel = Document::find($id);
+        $documentModel->link()->create([
+            'token' => md5(uniqid(rand(), true))
+        ]);
+        return redirect()->route('document.show', $id);
+    }
+
+    public function sendMail($id, Request $request) {
+        $documentModel = Document::find($id);
+        // return $request->all();
+        $receivers = explode(" ", $request->emails);
+        Mail::to( $receivers )
+            ->send(new PublishDocument($documentModel));
+
+        return redirect()->route('document.show', $id);
 
     }
 }

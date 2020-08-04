@@ -16,6 +16,8 @@ Route::get('/', function () {
     // return redirect('/document');
     return redirect("/document");
 });
+Route::get('document/sharing/{token}', 'SharingDocumentController@show')
+    ->name('document.sharing');
 
 Route::middleware(['web','auth'])->group(function(){
 
@@ -23,49 +25,50 @@ Route::middleware(['web','auth'])->group(function(){
     Route::resource('document', 'DocumentController');
     Route::get('document/inbox', 'DocumentController@inbox');
     Route::get('document/sentbox', 'DocumentController@sentbox');
-    Route::get('doc/test', function(){
-        return Request::all();
-    });
-    
+
+    // Create comment for docuemnt
     Route::post('document/{document}/comment', 'DocumentController@comment')
         ->name('document.comment');
 
+    // Respond document (approve / read)
     Route::put('document/{document}/respond', 'DocumentController@respond')
         ->name('document.respond');
 
+    // Update Docuemnt Status (from draft to pending)
     Route::put('document/{document}/send', 'DocumentController@send')
         ->name('document.send');
 
+    // Create link for docuemnt to publish other
+    Route::post('document/{id}/publish', 'DocumentController@createPublishLink')
+        ->name('document.publish');
 
-    // Route::put('document/{docuemnt}/reply', 'DocumentController@reply')
-    //     ->name('document.reply');
-    // Route::get('document/{docuemnt}/reply/create', 'DocumentController@createReply')
-    //     ->name('document.reply.crate');
-    // Route::post('document/{docuemnt}/reply', 'DocumentController@createReply')
-    //     ->name('document.reply.store');
-    // Route::put('document/{document}/assign', 'DocumentController@assign')
-    //     ->name('document.assign');
-    // Route::put('document/{document}/acknowledge', 'DocumentController@acknowledge')
-    //     ->name('document.acknowledge');
+    // Send Link to user by email
+    Route::post('document/{id}/sendmail', 'DocumentController@sendMail')
+        ->name('document.sendmail');
 
-    // cabinet
+    // Resourse Cabinet 
     Route::resource('cabinet', 'CabinetController');
-
-    // cabinet
+    Route::get('cabinet/{id}/destroy', 'CabinetController@destroy')->name('cabinet.destroy');
+    // Get user who can access cabinet
     Route::get('cabinet/{cabinet}/permission', 'CabinetController@permission')
         ->name('cabinet.permission.index');
+    // Update user who can access
     Route::put('cabinet/{cabinet}/permission', 'CabinetController@updatePermission')
         ->name('cabinet.permission.update');
 
-    // folder
+    // Get folders by cabinet id
     Route::get('cabinet/{cabinet_id}/folder', 'CabinetController@indexFolder')
         ->name('cabinet.folder.index');
+    // Create folder binding with cabinet id
     Route::post('cabinet/{cabinet}/folder', 'CabinetController@storeFolder')
         ->name('cabinet.folder.store');
+    // Create folder Form
     Route::get('cabinet/{cabinet_id}/folder/create', 'CabinetController@createFolder')
         ->name('cabinet.folder.create');
+    // Update folder
     Route::put('cabinet/folder/{folder_id}', 'CabinetController@updateFolder')
         ->name('cabinet.folder.update');
+    // Update folder form
     Route::get('cabinet/folder/{folder}/edit', 'CabinetController@editFolder')
         ->name('cabinet.folder.edit');
 
@@ -78,6 +81,8 @@ Route::middleware(['web','auth'])->group(function(){
             storage_path("import-template.csv")
         );
     });
+    //$2y$10$DKkINgIhh1VgViD9sEEyRuGVtmL1sUV98KlTELZqalnvETt1KN5Hu
+    
     // user profile
     Route::get('profile', 'UserController@edit')
         ->name('user.profile');
@@ -86,6 +91,8 @@ Route::middleware(['web','auth'])->group(function(){
 
     Route::get('dashboard', 'DashBoardController@index');
 });
+
+Route::post('reset_password', 'OfficerController@password_reset')->name('password_reset');
 
 // donload file
 Route::get('file/{prefix}/{id}', 'FileController@downloadFile')

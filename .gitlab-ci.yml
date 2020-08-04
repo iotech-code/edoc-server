@@ -36,3 +36,4 @@ deploy:
   script:
     - ssh-add <(echo "$SSH_PRIV_KEY")
     - rsync -azP --exclude .git --exclude composer.lock --exclude composer.phar . iotech@$DEPLOY_HOST_B:/mnt/data/modeeducation.com/app
+  #  - ssh iotech@$DEPLOY_HOST_B "cd /mnt/data/modeeducation.com/app && composer install && composer dumpautoload && php artisan migrate"

@@ -62,4 +62,6 @@
     </form>
 
   </div>
+@include('alert.alert')
+
 @endsection

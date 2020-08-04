@@ -105,15 +105,15 @@
 }
 
 .table-tab > .item.t-sentbox {
-  color: #F5B100;
+  color: #F49F14;
 }
 
 .table-tab > .item.t-sentbox a {
-  color: #F5B100;
+  color: #F49F14;
 }
 
 .table-tab > .item.t-sentbox.active {
-  border-bottom: 4px solid #F5B100;
+  border-bottom: 4px solid #F49F14;
 }
 
 .table-tab > .item.t-cabinet.active {
@@ -256,7 +256,7 @@
 }
 
 .status-circle.status-yellow {
-  background-color: #F4AA00;
+  background-color: #F49F14;
 }
 
 .status-circle.status-red {

@@ -221,18 +221,50 @@
           <thead>
               <tr class=" text-center">
                   <th class="color-secondary" width="110">สถานะ</th>
-                  <th class="color-secondary" width="120">ตู้จัดเก็บเอกสาร</th>
+                  @if ($tab_active == 'all')
+                  <th class="color-secondary" width="120">ชนิดเอกสาร</th>
+                      
+                  @endif
+                  <th class="color-secondary" width="120">ตู้เอกสารต้นทาง</th>
                   <th class="color-secondary" width="100">เลขที่เอกสาร</th>
                   <th class="color-secondary" width="300">ชื่อเอกสาร</th>
-                  <th class="color-secondary" width="100">ที่มาเอกสาร</th>
+                  <th class="color-secondary" width="100">ตู้เอกสารปลายทาง</th>
                   <th class="color-secondary" width="150">วันที่เอกสาร</th>
                   <th class="color-secondary" width="100">จัดการเอกสาร</th>
               </tr>
           </thead>
           <tbody>
-            @foreach ($documents as $document)
-              <tr data-id="{{ $document->id }}" data-user-id="{{ $document->cabinet->id }}">
+           @foreach ($documents as $document)
+		  @if (!isset($document->id))
+                    {{json_encode($document)}}
+                  @endif
+		<tr data-id="{{ $document->id }}" data-user-id="{{ $document->cabinet->id }}">
+		  @if ($document->status == 1 && $user->id != $document->user_id) 
+                    @continue
+                  @endif
                   <td style="padding: 0.75rem 0"> {!!$document->render_status_tag !!}</td>
+                  @if ($tab_active == 'all')
+                  <td class="color-secondary">
+                    @if ( in_array($document->id, $access_document->toArray()))
+                        {{-- test --}}
+                        @php
+                          $access = $user->accessibleDocuments()->where('document_id', $document->id)
+                        @endphp
+                        @if ( $access->count() )
+                            @if ($access->first()->pivot->document_user_status == 1 )
+                              <span class="badge big" style="padding: 0.5rem 0.75rem;background:#2A730B; color: #fff">
+                                กล่องขาเข้า
+                              </span>
+                            @else
+                              <span class="badge big" style="padding: 0.5rem 0.75rem;background:#F49F14; color: #fff">
+                                กล่องขาออก
+                              </span>
+                                
+                            @endif
+                        @endif
+                    @endif
+                  </td>                      
+                  @endif
                   <td class=" text-center"> {{ $document->cabinet->name }} </td>
 
                   <td class=" text-center"> {{ $document->code }} </td>
@@ -277,7 +309,7 @@
                             <i class="fa fa-edit"></i>
                         </a>
                       @endif
-                      {{-- @if ($document->status == 1 && $document->user_id == $user->id)
+                      @if (($document->status == 1 && $document->user_id == $user->id) || $user->role_id == 1) 
                         <a class="text-secondary edoc-link-form icon-link btn-delete" href="#">
                             <i class="fa fa-trash"></i>
                             <form action="{{ route('document.update', $document->id) }}" method="post">
@@ -285,11 +317,11 @@
                                 @csrf
                             </form>
                         </a>
-                      @endif --}}
+                      @endif
                     @endif
                   </td>
                 </tr>
-            @endforeach 
+            @endforeach  
           </tbody>
         </table>
       </div>
@@ -303,7 +335,7 @@
         <span class="status-circle status-green"></span> อนุมัติ
       </div> --}}
       <div class="col">
-        รวมเอกสารทั้งหมด {{$documents->total()}} รายการ
+        ผลการค้นหาทั้งหมด {{$documents->total()}} รายการ
       </div>
       @if( !is_array($documents ))
       <div class="col">
@@ -416,8 +448,13 @@
 <script src="{{asset('js/document/index.js')}}"></script>
 <script>
 	$(`a.btn-delete`).click(function(e){
-		e.preventDefault();
-		$(this).find('form').submit();
+    e.preventDefault();
+    if(!confirm('แน่ใจแล้วหรือ?')){
+      return false;
+    } else {
+      $(this).find('form').submit();
+    }
+		
 	});
 
   $(`a.tab-box`).click(function(e){
@@ -487,6 +524,8 @@
 	});
 
 </script>
+@include('alert.alert')
+
 @endsection
 
 @push('css')
@@ -500,3 +539,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/locales/bootstrap-datepicker.th.min.js"></script>
 @endpush
+

@@ -19,88 +19,14 @@
 		รายละเอียดเอกสาร
 		</h3>
 		<div class="card border-top-primary ">
-	
 		  <div class="card-body">
-			  
-			  <div class="form-row">
-					<div class="form-group col-4">
-						<label for="">ตู้จัดเก็บเอกสาร</label>
-						<select id="cabinetSelect" class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
-								{{-- <option value="">เลือกตู้เอกสาร</option> --}}
-
-								@foreach ($cabinets as $item)
-									@if ($document->cabinet_id == $item->id)
-									<option value="{{$item->id}}" selected>{{$item->name}}</option>
-									@else
-									<option value="{{$item->id}}">{{$item->name}}</option>
-
-									@endif
-									
-								@endforeach
-							</select>
-					</div>
-					<div class="form-group col-4">
-						<label for="">เลขแฟ้ม</label>
-						<select id="folderSelect" class="form-control" name="folder_id" id="exampleFormControlSelect1" disabled>
-								{{-- @foreach (App\Models\Cabinet::first()->folders as $item)
-										<option value="{{$item->id}}">{{$item->name}}</option>
-								@endforeach --}}
-								<option value="{{$document->folder_id}}" selected>{{$document->folder->name}}</option>
-
-						</select>					
-					</div>
-					<div class="form-group col-4">
-						<label for="">ประเภทเอกสาร</label>
-						<select class="form-control" name="type_id" id="exampleFormControlSelect1">
-								@foreach (App\Models\DocumentType::all() as $item)
-									@if ($document->type_id == $item->id)
-									<option value="{{$item->id}}" selected>{{$item->name}}</option>
-									@else
-									<option value="{{$item->id}}">{{$item->name}}</option>
-	
-									@endif
-								@endforeach
-						</select>
-					</div>
-			  </div>
-			  <div class="form-row">
+				<div class="form-row">
 					<div class="form-group col">
-						<label for="">ที่มาเอกสาร</label>
-						<select class="form-control" name="send_to_cabinet_id" id="exampleFormControlSelect1">
-
-							@foreach ($cabinets as $item)
-								@if ($document->send_to_cabinet_id == $item->id)
-								<option value="{{$item->id}}" selected>{{$item->name}}</option>
-								@else
-								<option value="{{$item->id}}">{{$item->name}}</option>
-
-								@endif
-								
-							@endforeach
-						</select>
-					</div>
-
-					<div class="form-group col">
-						<label for="">เลขที่</label>
-						<input type="text" name="code" class="form-control" value="{{$document->code}}">
-					</div>
-					<div class="form-group col">
-						<label for="">วันที่</label>
-						<div class="input-group ">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1">
-									<i class="fa fa-calendar"></i>
-								</span>
-							</div>
-							<input type="text" name="date" class="form-control date-select" placeholder="" autocomplete="off" value="{{ $document->date }}">
-						</div>
+						<label for="">เรื่อง <span class="red-star"></span></label>
+						<input type="text" name="title" required class="form-control" value="{{ $document->title}}">
 					</div>
 				</div>
-				
-
-			  {{-- <div class="form-row"> --}}
-	
-			  <div class="form-row">
+				<div class="form-row">
 					<div class="form-group col">
 						<label for="">เอกสารอ้างอิง</label>
 						<div class="input-search-group" id="refer">
@@ -113,56 +39,85 @@
 								</div>
 							</div>
 							<div class="results">
-								{{-- <div class="result">test</div>
-								<div class="result">test</div>
-								<div class="result">test</div> --}}
+
 							</div>
 						</div>
 						<div id="taged">
-							{{-- @foreach ($document->references as $doc)
-								<span class="badge badge-info">{{$doc->title}}</span>
-									
-							@endforeach --}}
-							{{-- <span class="badge badge-info">Info ฟ</span>
-							<span class="badge badge-info">Info</span>
-							<span class="badge badge-info">Info</span>
-							<span class="badge badge-info">Info</span> --}}
 
 						</div>
-
 					</div>
 					<div class="form-group col">
-						<label for="">เรื่อง <span class="red-star"></span></label>
-						<input type="text" name="title" required class="form-control" value="{{ $document->title}}">
-					</div>
-	
-			  </div>
-			  {{-- </div> --}}
-			  {{-- <div class="form-row"> --}}
-				{{-- <div class="form-row">
-				  <div class="col">
-					<label for="">คำสำคัญ</label>
-				  </div>
+							<label for="">ประเภทเอกสาร<span class="red-star"></span></label>
+							<select class="form-control" name="type_id" id="exampleFormControlSelect1">
+									@foreach (App\Models\DocumentType::all() as $item)
+										@if ($document->type_id == $item->id)
+										<option value="{{$item->id}}" selected>{{$item->name}}</option>
+										@else
+										<option value="{{$item->id}}">{{$item->name}}</option>
+		
+										@endif
+									@endforeach
+							</select>
+						</div>
 				</div>
-				<div class="form-row">
-	
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				</div> --}}
-			  {{-- </div>      --}}
 			  <div class="form-row">
+					<div class="form-group col-4">
+						<label for="">ตู้เอกสารต้นทาง<span class="red-star"></span></label>
+						<select id="cabinetSelect" class="form-control" name="cabinet_id" id="exampleFormControlSelect1">
+								@foreach ($cabinets as $item)
+									@if ($document->cabinet_id == $item->id)
+									<option value="{{$item->id}}" selected>{{$item->name}}</option>
+									@else
+									<option value="{{$item->id}}">{{$item->name}}</option>
+
+									@endif
+									
+								@endforeach
+							</select>
+					</div>
 
 					<div class="form-group col">
-						<label for="">คำสำคัญ</label>
-						<input type="text" name="keywords" class="form-control" value="{{ $document->keywords}}">
+						<label for="">เลขที่เอกสาร<span class="red-star"></span></label>
+						<input type="text" name="code" class="form-control" value="{{$document->code}}">
 					</div>
+					<div class="form-group col">
+						<label for="">ลงวันที่<span class="red-star"></span></label>
+						<div class="input-group ">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+							<input type="text" name="date" class="form-control date-select" placeholder="" autocomplete="off" value="{{ $document->date }}">
+						</div>
+					</div>
+			  </div>
+			  <div class="form-row">
+					<div class="form-group col">
+						<label for="">เลขแฟ้มต้นทาง<span class="red-star"></span></label>
+						<select id="folderSelect" class="form-control" name="folder_id" id="exampleFormControlSelect1">
+								{{-- @foreach (App\Models\Cabinet::first()->folders as $item)
+										<option value="{{$item->id}}">{{$item->name}}</option>
+								@endforeach --}}
+								<option value="{{$document->folder_id}}" selected>{{$document->folder->name}}</option>
+
+						</select>					
+					</div>
+					<div class="form-group col">
+						<label for="">ตู้เอกสารปลายทาง<span class="red-star"></span></label>
+						<select class="form-control" name="send_to_cabinet_id" id="exampleFormControlSelect1">
+
+							@foreach ($cabinets as $item)
+								@if ($document->send_to_cabinet_id == $item->id)
+								<option value="{{$item->id}}" selected>{{$item->name}}</option>
+								@else
+								<option value="{{$item->id}}">{{$item->name}}</option>
+								@endif
+							@endforeach
+						</select>
+					</div>
+				</div>
+			  <div class="form-row">
 					<div class="form-group col">
 						<label for="">เลขที่รับ</label>
 						<input type="text" name="receive_code" class="form-control" value="{{ $document->receive_code}}">
@@ -178,6 +133,12 @@
 							<input name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" value="{{ $document->receive_date}}">
 						</div>
 					</div>
+					<div class="form-group col">
+						<label for="">คำค้น</label>
+						<input type="text" name="keywords" class="form-control" value="{{ $document->keywords}}">
+					</div>
+
+
 			  </div>     
 	
 		  </div>
@@ -289,22 +250,9 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label for="">ถึง: </label>
-							{{-- <input type="text" class="form-control"> --}}
-							{{-- <div class="input-search-group-name" id="nameSearch">
-								<div class="input-group">
-									<input  class="form-control" type="text" placeholder="ค้นหารายชื่อ">
-									<div class="input-group-append">
-										<span class="input-group-text">
-											<i class="fa fa-search"></i>
-										</span>
-									</div>
-								</div>
-								<div class="results">
-
-								</div>
-							</div> --}}
 							<select id="selectReceiver" class="form-control">
 								<option value="null"></option>
+								<option value="all">ทั้งหมด</option>
 								@foreach ($users as $user)
 									@if(auth()->user()->id != $user->id)
 										<option value="{{$user->id}}">{{$user->full_name}}</option>
@@ -382,21 +330,46 @@
 		// console.log(e);
 		value = $(this).val();
 		text = $(this).find('option:selected').text();
-		if( $(`input[name="send_to_users[]"][value="${value}"]`).length == 0 ){
-			$link = $(`<a href="">${text}</a>`);
-			$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${value}" > <i class="fa fa-times"> </i></a>`) ;
-			$value = $(`<input type="hidden" name="send_to_users[]" value="${value}" >`);
-			$tag = $(`<span class="badge badge-info mr-1" > ${text}</span>`) ;
-			
-			// $('input[name="send_to_users"]').val(text);
-			$tag.append($deleteBtn);
-			$tag.append($value);
-			$deleteBtn.click(function(e){
-				e.preventDefault();
-				$(this).parent().remove();
-			});
-			$("#tagged").append($tag);
-		} 
+
+		if(value === 'all') {
+			@foreach ($users as $user)
+				@if(auth()->user()->id != $user->id)
+
+			if( $(`input[name="send_to_users[]"][value="{{$user->id}}"]`).length == 0 ) {
+				// $link = $(`<a href="">{{$user->full_name}}</a>`);
+				$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="{{$user->id}}" > <i class="fa fa-times"> </i></a>`) ;
+				$value = $(`<input type="hidden" name="send_to_users[]" value="{{$user->id}}" >`);
+				$tag = $(`<span class="badge badge-info mr-1" > {{$user->full_name}}</span>`);
+				$tag.append($deleteBtn);
+				$tag.append($value);
+				$deleteBtn.click(function(e){
+					e.preventDefault();
+					$(this).parent().remove();
+				});
+				$("#tagged").append($tag);
+
+			}
+
+				@endif
+			@endforeach
+		} else {
+			if( $(`input[name="send_to_users[]"][value="${value}"]`).length == 0 ){
+				$link = $(`<a href="">${text}</a>`);
+				$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${value}" > <i class="fa fa-times"> </i></a>`) ;
+				$value = $(`<input type="hidden" name="send_to_users[]" value="${value}" >`);
+				$tag = $(`<span class="badge badge-info mr-1" > ${text}</span>`) ;
+				
+				// $('input[name="send_to_users"]').val(text);
+				$tag.append($deleteBtn);
+				$tag.append($value);
+				$deleteBtn.click(function(e){
+					e.preventDefault();
+					$(this).parent().remove();
+				});
+				$("#tagged").append($tag);
+			} 
+		}
+
 		$(this).find('option:selected').prop('selected', false);
 
 	})
@@ -444,7 +417,7 @@
 			.catch(function(err){
 			});
 		} else {
-			$folderEle.prop("disabled", true);
+			// $folderEle.prop("disabled", true);
 			$folderEle.val(null);
 		}
 	});

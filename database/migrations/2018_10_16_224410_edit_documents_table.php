@@ -15,6 +15,7 @@ class EditDocumentsTable extends Migration
     {
         Schema::table('documents', function (Blueprint $table) {
             $table->string('keywords')->nullable()->change ();
+            $table->string('receive_code')->nullable()->change ();
         });
     }
 

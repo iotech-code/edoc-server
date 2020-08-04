@@ -13,11 +13,11 @@
           เพิ่มรายชื่อ
         </a>
         <a id="importFile" href="{{route('officer.create' )}}" class="btn btn-primary ">
-          <i class="fa fa-plus"></i>
+          <i class="fa fa-upload"></i>
           นำเข้ารายชื่อจากไฟล์
         </a>
         <a id="importFile" href="{{ url('/officer/download/template')}}" class="btn btn-primary ">
-          <i class="fa fa-plus"></i>
+          <i class="fa fa-download"></i>
           ไฟล์ตัวอย่าง
         </a>
         <form action="{{ route("officer.import")}}" method="post" enctype="multipart/form-data">
@@ -28,16 +28,16 @@
   
     </div>
     <div class="row">
-      <div class="col-8 offset-2">
+      <div class="col-12">
         <div class="card">
           <div class="card-body p-0 border-top-primary">
             <table class="table table-striped">
               <thead>
                 <tr>
-
                   <th class="">ID</th>
-                  <th class="w-75">ชื่อ นามสกุล</th>
-                  <th class="w-75">ตำแหน่ง</th>
+                  <th class="w-50">ชื่อ นามสกุล</th>
+                  <th class="w-25">ตำแหน่ง</th>
+                  <th class="w-25">การจัดการ</th>
                 </tr>
               </thead>
               <tbody>
@@ -52,6 +52,26 @@
                   <td class="">
                       {{ __('role.'.$officer->role->name)}}
                   </td>
+                  <td class="">
+                      @if ($officer->role_id != 1)
+                      <form method="POST" action="{{ route('officer.destroy', $officer->id)}}"  class="form-delete" style="display: inline-block;">
+                        @method("DELETE")
+                        @csrf
+                        <button class="btn btn-danger" >
+                          ลบ
+                        </button>
+                      </form>
+                      <form method="POST" action="{{ route('password_reset') }}"  class="form-password-reset" style="display: inline-block;">
+                        @method("POST")
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $officer->user_id}}">
+                        <button class="btn btn-warning" >
+                          รีเซ็ตรหัสผ่าน
+                        </button>
+                      </form>
+                      @endif
+                  </td>
+                      
 
                 </tr>
                     
@@ -107,10 +127,20 @@
       </div>
     </div>
   </div>  
+  @include('alert.alert')
 @endsection 
 
 @section("script")
 <script>
+
+$('.form-delete').on('submit', function(e){
+if(confirm("คุณต้องการจะลบข้อมูลอย่างถาวรใช่ไหม ?")) {
+  return true;
+} else {
+  e.preventDefault()
+}
+})
+
 $("#importFile").click(function(e){
   e.preventDefault();
   $('input[name="import_file"]').trigger("click");

@@ -9,27 +9,34 @@ use App\Models\User;
 use Auth;
 use FastExcel;
 use Storage ;
+
 class OfficerController extends Controller
 {
 
-
     public function index(){
         $user = Auth::user() ;
-        $officers = User::where("school_id", $user->school_id)->paginate(10);
-
+        $officers = User::where("school_id", $user->school_id)->get();
         return view('officers.index', compact([
             'officers'
         ]));
     }
 
+    public function edit($id) {
+        $officer = User::findOrFail($id);
+        return view('officers.index', compact(
+            'officer'
+        ));
+    }
+
+    /**
+     * Import User In school by use CSV file
+     */
     public function import(Request $request) {
-        // return dd($request->file('import_file')) ;
         $school_id = Auth::user()->school_id;
         $store_path = $request->file('import_file')->storeAs("tmp", $request->file('import_file')->getClientOriginalName());
         $duplicate = [];
 
         $col = (new FastExcel)->import(storage_path("app/$store_path"), function($line) use($school_id, &$duplicate){
-            // return $line;
             if (User::where('user_id', $line['id'])->count() ==0 ) {
                 return User::create([
                     'user_id' => $line['id'],
@@ -41,7 +48,6 @@ class OfficerController extends Controller
                     'email' => $line['email'],
                 ]);
             } else {
-                // array_push($duplicate, $line);
                 $line['user_id'] = $line['id'];
                 unset($line['id']);
                 return User::where('user_id', $line['user_id'])->update(
@@ -53,16 +59,26 @@ class OfficerController extends Controller
         return redirect()->back();
     }
 
-    public function importByFile(Request $request) {
-        
-    }
-
     public function store(Request $request) {
         $addition = [
             'password' => bcrypt($request->user_id),
             'role_id' => 2
         ];
         User::create( array_merge($request->all(), $addition));
+        return redirect()->back();
+    }
+
+    public function password_reset(Request $request) {
+        $new_password = [
+            'password' => bcrypt($request->user_id)
+        ];
+        $user = User::where('user_id', $request->user_id)->update($new_password);
+
+        return redirect()->back()->withSuccess('ทำรายการสำเร็จ');
+    }
+
+    public function destroy($id){
+        User::findOrFail($id)->delete();
         return redirect()->back();
     }
 }

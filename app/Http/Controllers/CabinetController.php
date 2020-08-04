@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cabinet;
 use App\Models\User;
 
-// use App\Http\Controllers\CabinetFolderTrait ;
+use App\Http\Controllers\Traits\CabinetFolderTrait;
 
 class CabinetController extends Controller
 {
@@ -20,9 +20,11 @@ class CabinetController extends Controller
     public function index()
     {
         $cabinets = Cabinet::where('school_id', auth()->user()->school_id)->paginate(10);
+
         return view("cabinets.index", compact([
             'cabinets'
         ]));
+
 
     }
 
@@ -60,7 +62,8 @@ class CabinetController extends Controller
         $cabinet->permissions()->attach($user->id);
         $cabinet->folders()->create( array_merge($request->folder, ['school_id' => $school_id]));
         // return $cabinet->folders; 
-        return redirect()->route("cabinet.index");
+        return redirect()->route("cabinet.index")
+            ->withSuccess('ทำรายการสำเร็จ');
     }
 
     /**
@@ -98,7 +101,14 @@ class CabinetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+        $cabinet = Cabinet::find($id);
+        $cabinet->name = $request->cabinet_name;
+        $cabinet->description = $request->cabinet_desc;
+        $cabinet->save();
+
+        return redirect()->route("cabinet.index")
+            ->withSuccess('ทำรายการสำเร็จ');
     }
 
     /**
@@ -109,7 +119,10 @@ class CabinetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cabinet::destroy($id);
+
+        return redirect()->route("cabinet.index")
+            ->withSuccess('ทำรายการสำเร็จ');
     }
 
     public function getAjaxFolderByCabinetId($id) {
@@ -119,7 +132,9 @@ class CabinetController extends Controller
 
     public function permission(Cabinet $cabinet){
         $school_id = auth()->user()->school_id; 
-        $users = User::where('school_id', $school_id)->get()->keyBy("id");
+        $users = User::where('school_id', $school_id)
+            ->get()
+            ->keyBy("id");
         // return $users;
         return view('cabinets.permission.index')
             ->with('users', $users)
@@ -130,7 +145,9 @@ class CabinetController extends Controller
     public function updatePermission(Cabinet $cabinet, Request $request){
         // return $request->all();
         $cabinet->permissions()->sync($request->users);
-        return redirect()->back();
+        return redirect()
+            ->back()
+            ->withSuccess("บันทึกข้อมูลสำเร็จ");
     }
 
     // public function getAjax

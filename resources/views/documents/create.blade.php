@@ -30,29 +30,38 @@
 		<div class="card border-top-primary ">
 	
 		  <div class="card-body">
-			  
+			  	
 			  <div class="form-row">
-					<div class="form-group col-4">
-						<label for="">ตู้จัดเก็บเอกสาร</label>
-						<select id="cabinetSelect" class="form-control" name="send_to_cabinet_id" required>
-								<option value="">เลือกตู้เอกสาร</option> 
-								@foreach ($user->getLocalCabinets()->get() as $item)
-										<option value="{{$item->id}}">{{$item->name}}</option>
-								@endforeach
-						</select>
+					
+					<div class="form-group col">
+						<label for="">เรื่อง <span class="red-star"></span></label>
+						<input value="{{ old('title') }}" type="text" name="title" required class="form-control">
 					</div>
-					<div class="form-group col-4">
-						<label for="">เลขแฟ้ม</label>
-						<select id="folderSelect" class="form-control" name="folder_id" disabled required>
-								<option value="">เลือกแฟ้มเก็บเอกสาร</option> 
-
-								{{-- @foreach (App\Models\Cabinet::first()->folders as $item)
-										<option value="{{$item->id}}">{{$item->name}}</option>
-								@endforeach --}}
-						</select>					
-					</div>
-					<div class="form-group col-4">
-						<label for="">ประเภทเอกสาร</label>
+	
+				</div>
+				<div class="form-row">
+					<div class="form-group col">
+							<label for="">เอกสารอ้างอิง</label>
+							<div class="input-search-group" id="refer">
+								<div class="input-group">
+									<input class="form-control" type="text" placeholder="ค้นหาเอกสารอ้างอิง">
+									<div class="input-group-append">
+										<span class="input-group-text">
+											<i class="fa fa-search"></i>
+										</span>
+									</div>
+								</div>
+								<div class="results">
+	
+								</div>
+							</div>
+							<div id="taged">
+	
+							</div>
+	
+						</div>
+					<div class="form-group col">
+						<label for="">ประเภทเอกสาร<span class="red-star"></span></label>
 						<select class="form-control" name="type_id" required>
 								<option value="">เลือกประเภทเอกสาร</option> 
 
@@ -65,16 +74,14 @@
 								@endforeach
 						</select>
 					</div>
-			  </div>
+				</div>
 			  <div class="form-row">
 					<div class="form-group col">
-						<label for="">ที่มาเอกสาร</label>
-						{{-- <input type="text" name="from" class="form-control">
-						 --}}
-						 <select class="form-control" name="cabinet_id" >
-								<option value="">เลือกที่มาเอกสาร</option> 
-							 
-								@foreach ( $user->getLocalCabinets()->get() as $cabinet) 
+						<label for="">ตู้เอกสารต้นทาง<span class="red-star"></span></label>
+							<select id="cabinetSelect" class="form-control" name="cabinet_id" >
+								<option value="">เลือกตู้เอกสารต้นทาง</option> 
+								
+								@foreach ( $user->cabinetPermissions as $cabinet) 
 										<option value="{{$cabinet->id}}"
 												@if (old('cabinet_id') == $cabinet->id)
 														selected
@@ -83,13 +90,12 @@
 								@endforeach
 						</select>
 					</div>
-
 					<div class="form-group col">
-						<label for="">เลขที่เอกสาร</label>
+						<label for="">เลขที่เอกสาร<span class="red-star"></span></label>
 						<input type="text" name="code" class="form-control" value="{{old('code')}}">
 					</div>
 					<div class="form-group col">
-						<label for="">วันที่</label>
+						<label for="">ลงวันที่<span class="red-star"></span></label>
 						<div class="input-group ">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">
@@ -99,72 +105,30 @@
 							<input value="{{ old('date')}}" type="text" name="date" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1" required>
 						</div>
 					</div>
+
+			  </div>
+			  <div class="form-row">
+					<div class="form-group col">
+						<label for="">เลขแฟ้มต้นทาง<span class="red-star"></span></label>
+						<select id="folderSelect" class="form-control" name="folder_id" disabled required>
+							<option value="">เลือกแฟ้มเก็บเอกสาร</option> 
+						</select>					
+					</div>
+					<div class="form-group col">
+						<label for="">ตู้เอกสารปลายทาง<span class="red-star"></span></label>
+						<select  class="form-control" name="send_to_cabinet_id" required>
+							<option value="">เลือกตู้เอกสารปลายทาง</option> 
+							@foreach ($user->getLocalCabinets()->get() as $item)
+									<option value="{{$item->id}}">{{$item->name}}</option>
+							@endforeach
+						</select>
+					</div>
 				</div>
 				
-
-			  {{-- <div class="form-row"> --}}
-	
 			  <div class="form-row">
-					<div class="form-group col">
-						<label for="">เอกสารอ้างอิง</label>
-						<div class="input-search-group" id="refer">
-							<div class="input-group">
-								<input class="form-control" type="text" placeholder="ค้นหาเอกสารอ้างอิง">
-								<div class="input-group-append">
-									<span class="input-group-text">
-										<i class="fa fa-search"></i>
-									</span>
-								</div>
-							</div>
-							<div class="results">
-								{{-- <div class="result">test</div>
-								<div class="result">test</div>
-								<div class="result">test</div> --}}
-							</div>
-						</div>
-						<div id="taged">
-							{{-- <span class="badge badge-info">Info ฟ</span>
-							<span class="badge badge-info">Info</span>
-							<span class="badge badge-info">Info</span>
-							<span class="badge badge-info">Info</span> --}}
-
-						</div>
-
-					</div>
-					<div class="form-group col">
-						<label for="">เรื่อง <span class="red-star"></span></label>
-						<input value="{{ old('title') }}" type="text" name="title" required class="form-control">
-					</div>
-	
-			  </div>
-			  {{-- </div> --}}
-			  {{-- <div class="form-row"> --}}
-				{{-- <div class="form-row">
-				  <div class="col">
-					<label for="">คำสำคัญ</label>
-				  </div>
-				</div>
-				<div class="form-row">
-	
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				  <div class="form-group col">
-					  <input type="text" name="keywords[]" class="form-control" placeholder="คำสำคัญ">
-				  </div>
-				</div> --}}
-			  {{-- </div>      --}}
-			  <div class="form-row">
-
-					<div class="form-group col">
-						<label for="">คำสำคัญ</label>
-						<input type="text" name="keywords" class="form-control">
-					</div>
 					<div class="form-group col">
 						<label for="">เลขที่รับ</label>
+						
 						<input type="text" name="receive_code" class="form-control">
 					</div>
 					<div class="form-group col">
@@ -177,6 +141,11 @@
 							</div>
 							<input value="{{ old('receive_date')}}" name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
 						</div>
+					</div>
+					<div class="form-group col">
+						{{-- <label for="">คำค้น<span class="red-star"></span></label> --}}
+						<label for="">คำค้น</label>
+						<input type="text" name="keywords" class="form-control">
 					</div>
 			  </div>     
 	
@@ -266,30 +235,33 @@
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
-								<label for="">ถึง: </label>
-								{{-- <input type="text" class="form-control"> --}}
-								{{-- <div class="input-search-group-name" id="nameSearch">
-									<div class="input-group">
-										<input  class="form-control" type="text" placeholder="ค้นหารายชื่อ">
-										<div class="input-group-append">
-											<span class="input-group-text">
-												<i class="fa fa-search"></i>
-											</span>
-										</div>
+								<div class="row">
+									<div class="col-8">
+										<label for="">ถึง: </label>
+										<select id="selectReceiver" class="form-control" @change="addUser(userModel)" v-model="userModel">
+											<option v-for="user in users" :value="user.id">@{{user.full_name}}</option>
+										</select>
 									</div>
-									<div class="results">
-	
+									<div class="col-4">
+										<label for="selectAll">เลือกทั้งหมด</label>
+										<input id="selectAll" class="form-control" type="checkbox" :checked="users.length == 0" v-model="isSelectAll">
 									</div>
-								</div> --}}
-								<select id="selectReceiver" class="form-control">
-									<option value="null"></option>
-									@foreach ($users as $user)
-										@if(auth()->user()->id != $user->id)
-											<option value="{{$user->id}}">{{$user->full_name}}</option>
-										@endif
-									@endforeach
-								</select>
-								<div id="tagged"></div>
+								</div>
+
+							</div>
+							<div class="form-group">
+
+								<div class="row">
+									<div class="col">
+											<div id="tagged">
+														<span div v-for="selected in selected_users" class="badge badge-info mr-1" > 
+															<input type="hidden" name="send_to_users[]" :value="selected.id" >
+																@{{selected.full_name}}
+															<a class="rm-tag" href="#" v-on:click.prevent="removeSelectedUser(selected)" > <i class="fa fa-times"> </i></a>
+														</span>
+												</div>
+									</div>
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-6">
@@ -348,11 +320,68 @@
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.8/vue.min.js"></script>
+
 <script src="{{asset('js/document/create.js')}}"></script>
 {{-- <script src="{{asset('js/nameSearch.js')}}"></script> --}}
 {{-- <script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script> --}}
 <script>
 
+	vueContainer = new Vue({
+		el:'#submitModal',
+		data: {
+			userModel: null,
+			isSelectAll: false,
+			users: {!! $users->toJson() !!},
+			selected_users: []
+		},
+		watch: {
+			isSelectAll(newValue) {
+
+				if (newValue) {
+					for(i=0; i<this.users.length;i++) {
+						this.selected_users.push(this.users[i])
+					}
+					this.users.splice(0, this.users.length)
+				} else {
+					for(i=0; i<this.selected_users.length;i++) {
+						this.users.push(this.selected_users[i])
+					}
+					this.selected_users.splice(0, this.selected_users.length)
+				}
+			}
+
+		},
+		mounted() {
+			// console.log(this.users);
+			
+		},
+		methods: {
+			addUser: function(user) {
+				this.userModel = null
+				index = this.users.findIndex( (item) => {return item.id == user} )
+				this.selected_users.push(this.users[index])
+				this.users.splice(index, 1)
+			},
+			removeSelectedUser(user) {
+				this.userModel = null
+				index = this.selected_users.findIndex( (item) => {return item.id == user.id} )
+				this.users.push(user)
+				this.selected_users.splice(index, 1)
+			},
+			selectAll() {
+				console.log(this.users.length);
+				
+				if (this.users.length) {
+					for(i=0; i<this.users.length;i++) {
+						this.selected_users.push(this.users)
+					}
+					this.users.splice(0, this.users.length)
+				}
+
+			}
+		},
+	})
 	function getFolderurl(id) {
 		host = "{{ url("") }}";
 		uri = host+"/ajax/cabinets/"+id+"/folders" ;
@@ -366,28 +395,28 @@
 		$('button[type="submit"]').trigger('click');
 	});
 
-	$("#selectReceiver").change(function(e){
-		// console.log(e);
-		value = $(this).val();
-		text = $(this).find('option:selected').text();
-		if( $(`input[name="send_to_users[]"][value="${value}"]`).length == 0 ){
-			$link = $(`<a href="">${text}</a>`);
-			$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${value}" > <i class="fa fa-times"> </i></a>`) ;
-			$value = $(`<input type="hidden" name="send_to_users[]" value="${value}" >`);
-			$tag = $(`<span class="badge badge-info mr-1" > ${text}</span>`) ;
+	// $("#selectReceiver").change(function(e){
+	// 	// console.log(e);
+	// 	value = $(this).val();
+	// 	text = $(this).find('option:selected').text();
+	// 	if( $(`input[name="send_to_users[]"][value="${value}"]`).length == 0 ){
+	// 		$link = $(`<a href="">${text}</a>`);
+	// 		$deleteBtn = $(`<a class="rm-tag" href="#" data-refer="${value}" > <i class="fa fa-times"> </i></a>`) ;
+	// 		$value = $(`<input type="hidden" name="send_to_users[]" value="${value}" >`);
+	// 		$tag = $(`<span class="badge badge-info mr-1" > ${text}</span>`) ;
 			
-			// $('input[name="send_to_users"]').val(text);
-			$tag.append($deleteBtn);
-			$tag.append($value);
-			$deleteBtn.click(function(e){
-				e.preventDefault();
-				$(this).parent().remove();
-			});
-			$("#tagged").append($tag);
-		} 
-		$(this).find('option:selected').prop('selected', false);
+	// 		// $('input[name="send_to_users"]').val(text);
+	// 		$tag.append($deleteBtn);
+	// 		$tag.append($value);
+	// 		$deleteBtn.click(function(e){
+	// 			e.preventDefault();
+	// 			$(this).parent().remove();
+	// 		});
+	// 		$("#tagged").append($tag);
+	// 	} 
+	// 	$(this).find('option:selected').prop('selected', false);
 
-	})
+	// })
 
 	$('select[name="reply_type_id"]').change(function(e){
 		value = $(this).find("option:selected").val();
@@ -457,8 +486,8 @@
 
 @push('css')
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
-	{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> --}}
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+	{{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> --}}
 
 	<link rel="stylesheet" href="{{ asset("css/document/create.css") }}">
 	{{-- <link rel="stylesheet" type="text/css" href="{{asset("semantic/dist/semantic.css")}}"> --}}

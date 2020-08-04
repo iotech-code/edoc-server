@@ -39,6 +39,10 @@ class Document extends Model
         // 'reply_type_text'
     ];
 
+    protected $with = [
+        'fromCabinet'
+    ];
+
     /**
      * relation
      * 
@@ -77,6 +81,15 @@ class Document extends Model
     /**
      * relation 
      * 
+     * @return App\Models\School
+     */
+    public function school() {
+        return $this->belongsTo(School::class, 'school_id');
+    }
+
+    /**
+     * relation 
+     * 
      * @return App\Models\Cabinet
      */
     public function type() {
@@ -103,12 +116,10 @@ class Document extends Model
                 break;
             case 2:
                 //waiting
-                // $text = 'กำลังดำเนินการ';
                 $text = 'ดำเนินการ';
                 break; 
             case 3:
                 //approve
-                // $text = 'อนุมัติ/รับทราบ';
                 $text = 'สำเร็จ';
                 break; 
             case 4:
@@ -292,5 +303,20 @@ class Document extends Model
             && $user_id == $approve_user;
     }
 
+    public function link() {
+        return $this->hasOne(SharingDocument::class, 'document_id');
+    }
+
+    public function shareLink() {
+        return $this->link();
+    }
+
+    // public function publishUrl() {
+    //     if ($this->link()->count()) {
+    //         return null;    
+    //     } else {
+    //         return null;
+    //     }
+    // }
 
 }

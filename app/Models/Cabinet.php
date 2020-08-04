@@ -49,6 +49,9 @@ class Cabinet extends Model
         return $this->belongsToMany(User::class, 'user_cabinet_permission', 'cabinet_id', 'user_id');
     }
 
+    /**
+     * Use to display first Charactor of name of cabinet
+     */
     public function getFirstCharAttribute() {
         return mb_substr($this->attributes['name'], 0, 1, 'UTF-8');
     }

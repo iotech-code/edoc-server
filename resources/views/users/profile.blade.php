@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
     <div class="container">
 			@include("errors.validate")
 			<h3 class="text-center mt-2 mb-2">
@@ -48,4 +49,7 @@
 				</div>
 			</div>
 		</div>
+
+
 @endsection
+@include('alert.alert')

@@ -90,6 +90,7 @@
     
   });
 </script>
+@include('alert.alert')
     
 @endsection
 

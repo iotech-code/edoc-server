@@ -21,6 +21,7 @@ class DocumentCommentAttachment extends Model
         'link'
     ];
 
+    // generate link by id
     public function getLinkAttribute() {
         return route("attachment.download", ["comment",$this->id]);
     }
