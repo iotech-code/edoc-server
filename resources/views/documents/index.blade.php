@@ -235,7 +235,89 @@
           </thead>
           <tbody>
             @foreach ($documents as $document)
-              {{ json_encode($document) }}
+                <tr data-id="{{ $document->id }}" data-user-id="{{ $document->cabinet_id }}">
+                  @if ($document->status == 1 && $user->id != $document->user_id) 
+                    @continue
+                  @endif
+                  <td style="padding: 0.75rem 0"> {!!$document->render_status_tag !!}</td>
+                  @if ($tab_active == 'all')
+                  <td class="color-secondary">
+                    @if ( in_array($document->id, $access_document->toArray()))
+                        {{-- test --}}
+                        @php
+                          $access = $user->accessibleDocuments()->where('document_id', $document->id)
+                        @endphp
+                        @if ( $access->count() )
+                            @if ($access->first()->pivot->document_user_status == 1 )
+                              <span class="badge big" style="padding: 0.5rem 0.75rem;background:#2A730B; color: #fff">
+                                กล่องขาเข้า
+                              </span>
+                            @else
+                              <span class="badge big" style="padding: 0.5rem 0.75rem;background:#F49F14; color: #fff">
+                                กล่องขาออก
+                              </span>
+                                
+                            @endif
+                        @endif
+                    @endif
+                  </td>                      
+                  @endif
+                  <td class=" text-center"> {{ $document->cabinet_name or '' }} </td>
+
+                  <td class=" text-center"> {{ $document->code }} </td>
+                  <td> <a href="{{ route("document.show", $document->id) }}"> {{ $document->title }}</a>  </td>
+                  <td class=" text-center"> {{ $document->sendToCabinet->name or '' }} </td>
+
+                  {{-- <td></td> --}}
+                  <td class=" text-center"> {{ $document->thai_date }} </td>
+                  {{-- <td> {{ dateToFullDateThai($document->th) }} </td> --}}
+                  <td>
+                    @if ($user->assignmentAlert($document->id)->count() )
+                        <a 
+                        class="btn btn-danger"
+                        href="{{ route("document.show", $document->id) }}">
+                            มีการแจ้งเตือน
+                        </a>
+                        {{-- <button class="btn btn-danger"
+                        data-toggle="modal"
+                        data-target="#alertModal" 
+                        >มีการแจ้งเตือน</button> --}}
+                    @else
+                        
+                      @if ( $document->status == 1 && $document->user_id == $user->id )
+                        <a class="text-secondary edoc-link-form icon-link assign" href="#" 
+                          data-toggle="modal"
+                          data-target="#examModal" 
+                          data-doc-type="{{$document->type->name}}"
+                          data-doc-id="{{$document->id}}"
+                          {{-- data-url="{{route("document.assign", $document->id)}}" --}}
+                          >
+                            {{-- <form action="{{ route('document.update', $document->id) }}" method="post">
+                                <input type="hidden" name="action" value="update_status">
+                                <input type="hidden" name="status_value" value="2">
+                                @method("PUT")
+                                @csrf
+                            </form> --}}
+                            <i class="fa fa-external-link"></i>
+                        </a>  											
+                      @endif
+                      @if ( $document->status == 1 && $document->user_id == $user->id)
+                        <a class="text-secondary icon-link" href="{{ route('document.edit', $document->id) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                      @endif
+                      @if (($document->status == 1 && $document->user_id == $user->id) || $user->role_id == 1) 
+                        <a class="text-secondary edoc-link-form icon-link btn-delete" href="#">
+                            <i class="fa fa-trash"></i>
+                            <form action="{{ route('document.update', $document->id) }}" method="post">
+                                @method("DELETE")
+                                @csrf
+                            </form>
+                        </a>
+                      @endif
+                    @endif
+                  </td>
+                </tr>
             @endforeach 
           </tbody>
         </table>

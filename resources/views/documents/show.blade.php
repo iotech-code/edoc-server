@@ -20,13 +20,13 @@
 			<span class="font-weight-bold mr-2">
 				เอกสารจาก: 
 			</span>
-			{{ $document->sendFormCabinet->name }}
+			{{ $document->sendFormCabinet->name or '' }}
 			@if($document->replyType )
 				|
 				<span class="font-weight-bold ml-2">
 					รูปแบบการตอบกลับ: 
 				</span>
-				{{ $document->replyType->name }}
+				{{ $document->replyType->name or '' }}
 			@endif
 
 		</div>

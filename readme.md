@@ -4,13 +4,15 @@ Powered by Laravel
 ## Install
 
 ``` sh
-cp env-example .env
+cp .env.example .env
+composer install
 ```
 
 then **Don't froget to edit your .env file**
 
 ``` sh
 php artisan key:generate
+php artisan storage:link
 php passport:client
 php artisan migrate [--seed]
 

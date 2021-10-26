@@ -10472,9 +10472,8 @@ a.text-dark:focus {
 }
 
 img.book-stack {
-  width: 360px;
+  width: 260px;
   position: absolute;
-  margin-left: -30%;
 }
 
 @media (max-width: 1200px) {
