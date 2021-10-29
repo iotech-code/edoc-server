@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*!
+@import url(https://fonts.googleapis.com/css2?family=Sarabun:wght@300&display=swap);
+/*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
  * Copyright 2011-2018 Twitter, Inc.
@@ -32,8 +33,8 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Nunito", sans-serif;
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-family-sans-serif: "Sarabun", sans-serif;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,"Sarabun", "Liberation Mono", "Courier New", monospace;
 }
 
 *,
@@ -44,7 +45,7 @@
 }
 
 html {
-  font-family: sans-serif;
+  font-family: "Sarabun",sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -71,7 +72,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: "Sarabun", sans-serif;
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
@@ -208,7 +209,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas,"Sarabun", "Liberation Mono", "Courier New", monospace;
   font-size: 1em;
 }
 
@@ -4516,9 +4517,12 @@ input[type="button"].btn-block {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding-left: 0;
-  margin-bottom: 0;
   list-style: none;
+  max-width: 900px;
+  margin : 15px auto ;
+  background-color: #f7f8f8;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .nav-link {
@@ -6324,7 +6328,7 @@ button.close {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Nunito", sans-serif;
+  font-family: "Sarabun", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -6449,7 +6453,7 @@ button.close {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Nunito", sans-serif;
+  font-family: "Sarabun", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -10151,7 +10155,7 @@ button.bg-dark:focus {
 }
 
 .text-monospace {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas,"Sarabun", "Liberation Mono", "Courier New", monospace;
 }
 
 .text-justify {
@@ -10547,6 +10551,12 @@ a.text-dark:focus {
 
 .color-primary {
   color: #0275D8;
+
+}
+
+.color-primary-login {
+  color: #000000;
+  font-weight: bold;
 }
 
 .color-secondary {
@@ -10584,13 +10594,13 @@ a.edoc-nav-link {
 
 a.edoc-nav-link:hover {
   text-decoration: none;
-  color: #0196D6 !important;
+  color: #089944 !important;
 }
 
 a.edoc-nav-link.active {
-  color: #0196D6 !important;
+  color: #089944 !important;
   font-weight: bold;
-  border-bottom: 4px solid #0196D6;
+  border-bottom: 4px solid #089944;
 }
 
 .logo {
@@ -10609,8 +10619,8 @@ a.edoc-nav-link.active {
 }
 
 .nav-wrapper {
-  -webkit-box-shadow: 0px 2px 0.5px 0px #E3E3E3;
-          box-shadow: 0px 2px 0.5px 0px #E3E3E3;
+  /* -webkit-box-shadow: 0px 2px 0.5px 0px #E3E3E3;
+          box-shadow: 0px 2px 0.5px 0px #E3E3E3; */
 }
 
 .dropdown-toggle::after {

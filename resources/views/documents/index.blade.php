@@ -7,7 +7,7 @@
 @section('content')
 <div class="container-fluid " style="/*padding: 0*/">
 
-  <div class="row table-tab">
+  <div align="center" class="row table-tab">
 
     <div class="col t-all item @if($tab_active == 'all') active @endif">
         {{-- <span class="mdi mdi-inbox"></span> --}}
@@ -241,7 +241,7 @@
                   @endif
                   <td style="padding: 0.75rem 0"> {!!$document->render_status_tag !!}</td>
                   @if ($tab_active == 'all')
-                  <td class="color-secondary">
+                  <td align="center" class="color-secondary">
                     @if ( in_array($document->id, $access_document->toArray()))
                         {{-- test --}}
                         @php
@@ -271,7 +271,7 @@
                   {{-- <td></td> --}}
                   <td class=" text-center"> {{ $document->thai_date }} </td>
                   {{-- <td> {{ dateToFullDateThai($document->th) }} </td> --}}
-                  <td>
+                  <td align="center"> 
                     @if ($user->assignmentAlert($document->id)->count() )
                         <a 
                         class="btn btn-danger"
