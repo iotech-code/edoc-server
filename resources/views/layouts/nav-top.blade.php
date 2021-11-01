@@ -3,7 +3,7 @@
 @endphp
 
 <div class="nav-wrapper">
-    <div class="container">
+    <div class="container py-3">
         <div class="row mt-3">
             <div class="col">
               <div class="logo">
@@ -61,8 +61,8 @@
               </div>
             </div>
           </div>
-        <ul class="nav justify-content-center">
-            <li class="nav-item">
+        <ul class="nav justify-content-center py-1">
+            <li class="nav-item ">
                 <a alt="Dashboard" class="edoc-nav-link @if(isset($active) && $active==0) active @endif"  href="{{ url('dashboard') }}">
                 <i class="fas fa-chart-line"></i>&nbsp; 
                   แดชบอร์ด
