@@ -45,7 +45,7 @@
 }
 
 html {
-  font-family: "Sarabun";
+  font-family: "Sarabun",sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -72,7 +72,7 @@ section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont,"Sarabun", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Sarabun";
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
@@ -10653,4 +10653,3 @@ a.edoc-nav-link.active {
 .edoc-breadcrumb > li.item:first-child::before {
   content: "";
 }
-
