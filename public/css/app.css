@@ -45,7 +45,7 @@
 }
 
 html {
-  font-family: "Sarabun",sans-serif;
+  font-family: "Sarabun";
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -72,7 +72,7 @@ section {
 
 body {
   margin: 0;
-  font-family: "Sarabun", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont,"Sarabun", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.6;
@@ -10621,6 +10621,7 @@ a.edoc-nav-link.active {
 .nav-wrapper {
   /* -webkit-box-shadow: 0px 2px 0.5px 0px #E3E3E3;
           box-shadow: 0px 2px 0.5px 0px #E3E3E3; */
+  /* background: linear-gradient(90deg, rgba(84,181,249,1) 0%, rgba(245,245,250,1) 100%, rgba(0,212,255,1) 100%);        */
 }
 
 .dropdown-toggle::after {

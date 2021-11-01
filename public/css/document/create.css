@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont,"Sarabun", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 .badge a {
   color: #fff;
 }
