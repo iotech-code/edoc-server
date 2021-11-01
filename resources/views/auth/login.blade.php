@@ -1,25 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container " >
+<div class="container float-right my-4" >
 
-    <div class="row justify-content-center" style="margin-top: 80px">
-        <div class="col-md-8">
-            <div class="card shadow p-3 mb-5 bg-white rounded">
+    <div class="row justify-content-center " style="margin-top: 100px">
+        <!-- <div class="col-md-8"> -->
+            <!-- <div class="card shadow p-3 mb-5 bg-white rounded"> -->
+                <div class="p-3  ">
                 {{-- <div class="card-header">{{ __('Login') }}</div> --}}
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-5 col-md-0 col-sm-0">
+                        <!-- <div class="col-lg-5 col-md-0 col-sm-0">
                             <img class="book-stack" src="{{asset('image/login-pic.png')}}" alt="">
-                        </div>
-                        <div class="col-lg-7 col-md-12 col-sm-12">
-                                <h2 class="color-primary">Smart</h2>
-                                <h3 class="color-primary">e-Document System</h3>
+                        </div> -->
+                        <div class="col-lg-15 text-center" >
+                                <h2 class="color-primary-login">Smart</h2>
+                                <h3 class="color-primary-login">e-Document System</h3>
                                 <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                                     @csrf
             
-                                    <div class="form-group row">
+                                    <div class="form-group row" style="margin-top: 20px">
                                         {{-- <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label> --}}
                                         <label for="user_id" class="col-12 col-form-label text-md-left">เลขบัตรประชาชน</label>
             

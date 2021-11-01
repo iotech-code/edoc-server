@@ -86,38 +86,37 @@ canvas {
         //   data: [12, 19, 3, 5],
         data: {!! $local_cabinets_count !!},
           backgroundColor: [
-            '#b64b10',
-                '#829712',
-                '#07ca46',
-                '#07ca46',
-                '#d922ea',
-                '#ff79aa',
-                '#271794',
-                '#ae23f0',
-                '#a50030',
-                '#fa97ce',
-                '#f05800',
-                '#fa7b4d',
-                '#1e3fff',
-                '#da8f00'
-              // 'rgba(153, 102, 255, 0.2)',
-              // 'rgba(255, 159, 64, 0.2)'
+            '#0f6dab', //สีน้ำเงิน
+                '#70a253', //สีเขียวเข้ม
+                '#08e9f7', //สีฟ้า
+                '#fbeb58', //สีทอง
+                '#760d80', //สีม่วง
+                '#ff79aa', //สีชมพูอ่อน
+                '#1d2873', //สีกรม
+                '#2e6361', //สีเขียวแก่
+                '#9cffb7', //สีเขียวอ่อน
+                '#fb58c4', //สีชมพู
+                '#fb58c4', //สีส้ม
+                '#636cf5', //สีม่วงเข้ม
+                '#816ed9', //สีม่วงอ่อน
+                '#c460a0' //สีน้ำตาลทอง
           ],
+          //backgroundColor: ["#0f6dab","#12977c","#874a14","#0f6dab","#0f6dab"],
           borderColor: [
-            '#b64b10',
-                '#829712',
-                '#07ca46',
-                '#07ca46',
-                '#d922ea',
-                '#ff79aa',
-                '#271794',
-                '#ae23f0',
-                '#a50030',
-                '#fa97ce',
-                '#f05800',
-                '#fa7b4d',
-                '#1e3fff',
-                '#da8f00'
+                '#0f6dab', //สีน้ำเงิน
+                '#70a253', //สีเขียวเข้ม
+                '#08e9f7', //สีฟ้า
+                '#fbeb58', //สีทอง
+                '#760d80', //สีม่วง
+                '#ff79aa', //สีชมพูอ่อน
+                '#1d2873', //สีกรม
+                '#2e6361', //สีเขียวแก่
+                '#9cffb7', //สีเขียวอ่อน
+                '#fb58c4', //สีชมพู
+                '#fb58c4', //สีส้ม
+                '#636cf5', //สีม่วงเข้ม
+                '#816ed9', //สีม่วงอ่อน
+                '#c460a0' //สีน้ำตาลทอง
               // 'rgba(153, 102, 255, 1)',
               // 'rgba(255, 159, 64, 1)'
           ],
@@ -131,31 +130,8 @@ canvas {
             label: '# ปริมาณเอกสาร แยกตามตู้',
         //   data: [12, 19, 3, 5],
             data: {!! $document_type_count !!},
-            backgroundColor: [
-                '#b64b10',
-                '#829712',
-                '#07ca46',
-                '#07ca46',
-                '#d922ea',
-                '#ff79aa',
-                '#271794',
-                '#ae23f0',
-                '#a50030',
-                '#fa97ce',
-                '#f05800',
-                '#fa7b4d',
-                '#1e3fff',
-                '#da8f00'
-                
-
-                // 'rgba(255, 99, 132, 0.2)',
-                // 'rgba(54, 162, 235, 0.2)',
-                // 'rgba(255, 206, 86, 0.2)',
-                // 'rgba(75, 192, 192, 0.2)',
-                // 'rgba(153, 102, 255, 0.2)',
-                // 'rgba(255, 159, 64, 0.2)'
-            ],
-        //   borderColor: [
+            backgroundColor: ["#78a8fb", "#acdfef", "#72d3bd", "#f86a74", "#edadc4", "#ae98c9", "#c7b9f8", "#a6e47d", "#ffeb96", "#e8bf98", "#ac9e9b", "#fcbb84","#bfbfbf"],
+            //   borderColor: [
         //       'rgba(255,99,132,1)',
         //       'rgba(54, 162, 235, 1)',
         //       'rgba(255, 206, 86, 1)',
@@ -197,3 +173,10 @@ canvas {
     });
 </script>
 @endsection
+
+@push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.css">
+    <link rel="stylesheet" href="{{ asset("css/document/index.css") }}">
+
+@endpush
