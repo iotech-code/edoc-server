@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('nav-top')
-    @include('layouts.nav-top')
+    @include('layouts.nav-top', ['active'=>1])
 @endsection
 
 @section('content')
-<div class="container-fluid " style="/*padding: 0*/">
-
-  <div align="center" class="row table-tab">
+<div class="container"  >
+<div class="col-12">
+  <div  class="row table-tab text-center">
 
     <div class="col t-all item @if($tab_active == 'all') active @endif">
         {{-- <span class="mdi mdi-inbox"></span> --}}
         <a href="#" class="tab-box" data-tab="all">
-          <i class="fas fa-inbox"></i>
+        <img class="mr-1" src="{{ asset("image/doc-all.png")}}" alt="" srcset="" >
           <span class="header">
             ทั้งหมด
           </span>
@@ -20,20 +20,20 @@
     </div>
     <div class="col t-inbox item @if($tab_active == 'inbox') active @endif">
       <a href="#" class="tab-box" data-tab="inbox">
-        <i class="fas fa-envelope-open-text"></i>
+      <img class="mr-1" src="{{ asset("image/doc-inbox.png")}}" alt="" srcset="" >
         {{-- <span class="mdi mdi-inbox-arrow-down"></span> --}}
         <span class="header" >
             เอกสารขาเข้า
         </span>
         @if ($user->hasInbox())
             
-          <span class="badge big" style="padding: 0.5rem 0.75rem;background:#2A730B; color: #fff">ใหม่</span>
+          <span class="badge big" style="padding: 0.5rem 0.75rem;background:#049b36; color: #fff">ใหม่</span>
         @endif
       </a>
     </div>
     <div class="col t-sentbox item @if($tab_active == 'sent') active @endif">
       <a href="#" class="tab-box" data-tab="sent">
-        <i class="fas fa-envelope"></i>
+      <img class="mr-1" src="{{ asset("image/doc-outbox.png")}}" alt="" srcset="" >
         {{-- <span class="mdi mdi-inbox-arrow-up"></span> --}}
         <span class="header"> 
           เอกสารขาออก
@@ -41,16 +41,16 @@
         </span>
       </a>
     </div>
-    <div class="col"></div>
+    <!-- <div class="col"></div> -->
     <div class="col">
       <div class="item">
-        <div class="input-icon">
+        <div class="input-icon my-3">
           <input id="searchInput" type="text" placeholder="ค้นหา" name="search[title]" @isset($old) value="{{ $old['title']}}" @endisset>
         </div>
       </div>
         {{-- <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              สถานนะ
+              สถานะ
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="#"><span class="status-circle status-blue mr-1"></span> ทั้งหมด</a>
@@ -214,7 +214,7 @@
             </div>
           </div>
         </div>
-        
+        </div>
       </div>
       <div class="card-body p-0 ">
         <table class="table">
@@ -225,7 +225,7 @@
                   <th class="color-secondary" width="120">ชนิดเอกสาร</th>
                       
                   @endif
-                  <th class="color-secondary" width="120">ตู้เอกสารต้นทาง</th>
+                  <!-- <th class="color-secondary" width="120">ตู้เอกสารต้นทาง</th> -->
                   <th class="color-secondary" width="100">เลขที่เอกสาร</th>
                   <th class="color-secondary" width="300">ชื่อเอกสาร</th>
                   <th class="color-secondary" width="100">ตู้เอกสารปลายทาง</th>
@@ -262,7 +262,7 @@
                     @endif
                   </td>                      
                   @endif
-                  <td class=" text-center"> {{ $document->cabinet_name or '' }} </td>
+                  <!-- <td class=" text-center"> {{ $document->cabinet_name or '' }} </td> -->
 
                   <td class=" text-center"> {{ $document->code }} </td>
                   <td> <a href="{{ route("document.show", $document->id) }}"> {{ $document->title }}</a>  </td>
@@ -308,7 +308,7 @@
                       @endif
                       @if (($document->status == 1 && $document->user_id == $user->id) || $user->role_id == 1) 
                         <a class="text-secondary edoc-link-form icon-link btn-delete" href="#">
-                            <i class="fa fa-trash"></i>
+                        <img  src="{{ asset("image/cabinet-delete.png")}}" alt="" srcset="" >
                             <form action="{{ route('document.update', $document->id) }}" method="post">
                                 @method("DELETE")
                                 @csrf
@@ -322,7 +322,7 @@
           </tbody>
         </table>
       </div>
-  </div>
+  
   <div class="row mt-3" style="color: #515151">
       {{-- <div class="col">
         สถานะ: 
@@ -438,7 +438,7 @@
     </div>
   </div>
 </div>
-
+</div>
 @endsection
 
 @section('script')

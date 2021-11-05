@@ -14,7 +14,7 @@
 Route::get('/', function () {
     // return view('welcome');
     // return redirect('/document');
-    return redirect("/document");
+    return redirect("/index");
 });
 Route::get('document/sharing/{token}', 'SharingDocumentController@show')
     ->name('document.sharing');
@@ -90,6 +90,7 @@ Route::middleware(['web','auth'])->group(function(){
         ->name('user.update');
 
     Route::get('dashboard', 'DashBoardController@index');
+    Route::get('index', 'MenuHomeController@index');
 });
 
 Route::post('reset_password', 'OfficerController@password_reset')->name('password_reset');

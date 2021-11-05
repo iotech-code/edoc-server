@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('nav-top')
-  @include('layouts.nav-top', ['active'=>3])
-  {{ Breadcrumbs::render('cabinet.edit') }}
+  @include('layouts.nav-top', ['active'=>7])
+  <!-- {{ Breadcrumbs::render('cabinet.edit') }} -->
 
 @endsection
 @section('content')
@@ -10,7 +10,7 @@
       @csrf
       @method("PUT")
         <div class="row">
-          <div class="col-md-7 offset-2">
+          <div class="col-12">
               <h3 class="text-center">แก้ไขตู้เอกสาร</h3>
             <div class="card border-top-primary">
               

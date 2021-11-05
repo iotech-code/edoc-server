@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('nav-top')
-  @include('layouts.nav-top', ['active'=>3])
+  @include('layouts.nav-top', ['active'=>7])
   {{ Breadcrumbs::render('folder.create', $cabinet) }}
 
   {{-- @include('layouts.breadcrumb', [$items => $breadcrumbs]) --}}
@@ -10,7 +10,7 @@
 @section('content')
   <div class="container">
     <div class="text-right mb-3">
-      <div class="col-8 offset-2">
+      <div class="col-12">
         <a href="{{route('cabinet.folder.create', $cabinet->id)}}" class="btn edoc-btn-primary ">
           <i class="fa fa-plus"></i>
           สร้างแฟ้มใหม่
@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-8 offset-2">
+      <div class="col-12">
         <div class="card">
           <div class="card-body p-0 border-top-primary">
             <table class="table table-striped">

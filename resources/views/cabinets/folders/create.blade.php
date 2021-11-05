@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('nav-top')
-  @include('layouts.nav-top', ['active'=>3])
+  @include('layouts.nav-top', ['active'=>7])
 
 @endsection
 @section('content')
@@ -8,7 +8,7 @@
     <form action="{{ route('cabinet.folder.store', $cabinet->id)}}" method="post">
       @csrf
         <div class="row">
-          <div class="col-md-7 offset-2">
+          <div class="col-12">
               <h3 class="text-center">สร้างแฟ้มใหม่</h3>
             <div class="card border-top-primary">
               

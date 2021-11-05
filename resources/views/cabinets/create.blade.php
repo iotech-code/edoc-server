@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('nav-top')
-  @include('layouts.nav-top', ['active'=>3])
-  {{ Breadcrumbs::render('cabinet.create') }}
+  @include('layouts.nav-top', ['active'=>7])
+  <!-- {{ Breadcrumbs::render('cabinet.create') }} -->
 
 @endsection
 @section('content')
@@ -9,7 +9,7 @@
     <form action="{{ route('cabinet.store')}}" method="post">
       @csrf
         <div class="row">
-          <div class="col-md-7 offset-2">
+          <div class="col-12">
               <h3 class="text-center">สร้างตู้เอกสารใหม่</h3>
             <div class="card border-top-primary">
               

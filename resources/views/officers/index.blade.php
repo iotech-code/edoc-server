@@ -1,31 +1,32 @@
 @extends('layouts.app')
 
 @section('nav-top')
-    @include('layouts.nav-top',['active'=>5])
+    @include('layouts.nav-top',['active'=>4])
 @endsection
 
 @section('content')
-  <div class="container">
-    <div class="text-right mb-3">
-      <div class="col-8 offset-2">
-        <a href="" class="btn btn-primary " data-toggle="modal" data-target="#createModal">
-          <i class="fa fa-plus"></i>
+  <div class="container text-center ">
+    <div class="mb-3">
+      <div class="col-12 ">
+        <!-- <div class="row "> -->
+        <a href="" class="btn btn-primary1 " data-toggle="modal" data-target="#createModal">
+        <img class="" src="{{ asset("image/officer-add.png")}}" alt="" srcset="" > &nbsp;
           เพิ่มรายชื่อ
         </a>
-        <a id="importFile" href="{{route('officer.create' )}}" class="btn btn-primary ">
-          <i class="fa fa-upload"></i>
+        <a id="importFile" href="{{route('officer.create' )}}" class="btn btn-primary2 ">
+        <img class="" src="{{ asset("image/officer-file.png")}}" alt="" srcset="" > &nbsp;
           นำเข้ารายชื่อจากไฟล์
         </a>
-        <a id="importFile" href="{{ url('/officer/download/template')}}" class="btn btn-primary ">
-          <i class="fa fa-download"></i>
+        <a id="importFile" href="{{ url('/officer/download/template')}}" class="btn btn-primary3 ">
+        <img class="" src="{{ asset("image/officer-example.png")}}" alt="" srcset="" > &nbsp;
           ไฟล์ตัวอย่าง
         </a>
         <form action="{{ route("officer.import")}}" method="post" enctype="multipart/form-data">
           @csrf
           <input type="file" name="import_file" accept=".csv" id="" style="display:none"/>
         </form>
+      <!-- </div> -->
       </div>
-  
     </div>
     <div class="row">
       <div class="col-12">

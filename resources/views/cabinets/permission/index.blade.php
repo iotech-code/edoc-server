@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('nav-top')
-  @include('layouts.nav-top', ['active'=>3])
+  @include('layouts.nav-top', ['active'=>7])
   {{-- {{ Breadcrumbs::render('cabinet.index') }} --}}
   
 @endsection
@@ -12,14 +12,14 @@
       @method("PUT")
       @csrf
     <div class="text-center mb-3">
-      <div class="col-8 offset-2">
+      <div class="col-12">
         <h3>
           จัดการสิทธิ์ {{$cabinet->name}}
         </h3>
       </div>
     </div>
     <div class="row">
-      <div class="col-8 offset-2">
+      <div class="col-12">
         <div class="card">
           <div class="card-body p-0 border-top-primary">
             <table class="table table-striped">
@@ -66,7 +66,7 @@
       </div>
     </div>
     <div class="row mt-3">
-      <div class="col-7 offset-2 ">
+      <div class="col-12 ">
 
         <div class="button-group text-center">
           <a href="{{ route("cabinet.index", $cabinet->id) }}" class="btn edoc-btn-primary inverse">ย้อนกลับ</a>

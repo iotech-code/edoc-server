@@ -8,10 +8,11 @@
 
 @section('content')
   <div class="container">
+ 
     @if (auth()->user()->role_id == 1)
         
     <div class="text-right mb-3">
-      <div class="col-8 offset-2">
+      <div class="col-12 ">    
         <a href="{{route('cabinet.create')}}" class="btn edoc-btn-primary ">
           <i class="fa fa-plus"></i>
           สร้างตู้ใหม่
@@ -21,7 +22,9 @@
     </div>
     @endif
     <div class="row">
-      <div class="col-8 offset-2">
+    <img class="ml-3 mr-2 text-left" src="{{ asset("image/cabinet.png")}}" alt="" srcset="" width="30px" height="30px">&nbsp;
+	    <label style="font-size: 20px; font-weight:bold; color:forestgreen"> ตู้เอกสาร </label>
+      <div class="col-12 mt-2">
         <div class="card">
           <div class="card-body p-0 border-top-primary">
             <table class="table table-striped">
@@ -68,25 +71,25 @@
                   </td>
                   <td class="">
                       @if( auth()->user()->role_id == 1 ) 
+                      <!-- <a href="{{ url('index') }}"><img class="mr-1" src="{{ asset("image/icon-logo2.png")}}" alt="" srcset="" ></a> -->
                       <a class="text-secondary icon-link" href="{{ route('cabinet.permission.index', $cabinet->id) }}">
-                          <i class="fa fa-address-book"></i>
+                      <img class="mr-1" src="{{ asset("image/cabinet-add.png")}}" alt="" srcset="" >
                       </a>
                       <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
-                          <i class="fa fa-edit"></i>
-                      </a>
-                      <a class="text-secondary icon-link" href="{{ route('cabinet.destroy', $cabinet->id) }}" onclick="if(confirm('Are you sure?')==false) return false">
-                          <i class="fa fa-trash"></i>
+                      <img class="mr-1" src="{{ asset("image/cabinet-edit.png")}}" alt="" srcset="" >
                       </a>
                       <a href="{{route('cabinet.folder.create', $cabinet->id)}}" class="text-secondary icon-link">
-                          <i class="fa fa-folder"></i>
-                          
+                      <img class="mr-1" src="{{ asset("image/cabinet-doc.png")}}" alt="" srcset="" >
+                      </a>
+                      <a class="text-secondary icon-link" href="{{ route('cabinet.destroy', $cabinet->id) }}" onclick="if(confirm('Are you sure?')==false) return false">
+                      <img class="mr-1" src="{{ asset("image/cabinet-delete.png")}}" alt="" srcset="" >
                         </a>
                       @elseif( auth()->user()->cabinetPermissions->where("id", $cabinet->id)->count() )
                       {{-- <a class="text-secondary icon-link" href="{{ route('cabinet.edit', $cabinet->id) }}">
-                          <i class="fa fa-edit"></i>
+                      <img class="mr-1" src="{{ asset("image/cabinet-edit.png")}}" alt="" srcset="" >
                       </a> --}}
                       <a href="{{route('cabinet.folder.create', $cabinet->id)}}" class="text-secondary icon-link">
-                          <i class="fa fa-folder"></i>
+                      <img class="mr-1" src="{{ asset("image/cabinet-doc.png")}}" alt="" srcset="" >
                           
                         </a>
                       @endif
