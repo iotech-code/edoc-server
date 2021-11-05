@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('nav-top')
-  @include('layouts.nav-top', ['active'=>3])
+  @include('layouts.nav-top', ['active'=>7])
 
 @endsection
 @section('content')
@@ -9,7 +9,7 @@
       @csrf
       @method("PUT")
         <div class="row">
-          <div class="col-md-7 offset-2">
+          <div class="col-12">
               <h3 class="text-center">แก้ไขแฟ้ม</h3>
             <div class="card border-top-primary">
               
@@ -38,7 +38,7 @@
           <div class="col-7 offset-2 ">
 
             <div class="button-group text-center">
-              <a class="btn edoc-btn-primary inverse">ย้อนกลับ</a>
+              <a href="{{route('cabinet.index')}}" class="btn edoc-btn-primary inverse">ย้อนกลับ</a>
               <button class="btn edoc-btn-primary">บันทึก</button>
   
             </div>

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container float-right my-4" >
+<div class="container" >
 
     <div class="row justify-content-center " style="margin-top: 100px">
         <!-- <div class="col-md-8"> -->
-            <!-- <div class="card shadow p-3 mb-5 bg-white rounded"> -->
-            <div class="card-login p-3">
+        <div class="card p-3 mb-3 ">
+                <div class="card-login p-3">
                 {{-- <div class="card-header">{{ __('Login') }}</div> --}}
 
                 <div class="card-body">

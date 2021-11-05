@@ -5,7 +5,11 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="container py-3">
+		<label style="font-size: 22px; font-weight:bold; color:forestgreen">
+				<img class="img-head"  src="{{ asset("image/create.png")}}" alt="" srcset="" width="30px" height="30px">&nbsp; 
+					เพิ่มเอกสาร 
+		</label>
 	  {{-- <div class="alert alert-danger alert-dismissible" role="alert">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>Danger!</strong> You should <a href="#" class="alert-link">read this message</a>.

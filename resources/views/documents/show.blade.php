@@ -7,13 +7,11 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col">
-			<h2>
-				{{$document->title}}
-				<span class="badge badge-secondary" style="font-size: 0.5em">{{$document->type->name}}</span>
-			</h2>
+		<!-- <div class="col"> -->
+		<a href="{{ route('document.index') }}"><img class="ml-3" src="{{ asset("image/back.png")}}" alt="" srcset="" ></a> &nbsp;&nbsp;
+		<h4>{{$document->title}} <span class="badge badge-secondary" style="font-size: 0.75em">{{$document->type->name}}</span> </h4>
 
-		</div>
+		<!-- </div> -->
 	</div>
 	<div class="row mt-3">
 		<div class="col">
