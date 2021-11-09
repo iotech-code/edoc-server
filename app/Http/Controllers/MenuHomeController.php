@@ -34,21 +34,17 @@ class MenuHomeController extends Controller
         $documents = Document::where('school_id', $user->school_id)
             ->orderBy('created_at')->take(5)->get();
 
-        $documents_count = Document::where('school_id', $user->school_id)->count();
+        $documents_count = $user->accessibleDocuments() ->count();
 
         $cabinets_count = Cabinet::where('school_id', $user->school_id)->count();
 
-        $documents_status1 = Document::where('school_id', $user->school_id)->where('status','=','1')
-        ->count(); //แบบร่าง
+        $documents_status1 =  $user->accessibleDocuments()->where('status','=','1')->count(); //แบบร่าง
 
-        $documents_status2 = Document::where('school_id', $user->school_id)->where('status','=','2')
-        ->count(); //ดำเนินการ
+        $documents_status2 = $user->accessibleDocuments()->where('status','=','2')->count(); //ดำเนินการ
 
-        $documents_status3 = Document::where('school_id', $user->school_id)->where('status','=','3')
-        ->count(); //เสร็จสิ้น
+        $documents_status3 = $user->accessibleDocuments()->where('status','=','3')->count(); //เสร็จสิ้น
 
-        $documents_status4 = Document::where('school_id', $user->school_id)->where('status','=','4')
-        ->count(); //ไม่อนุมัติ
+        $documents_status4 = $user->accessibleDocuments()->where('status','=','4')->count(); //ไม่อนุมัติ
 
         $users = User::where('school_id', $user->school_id)->count();
         return view('menuhome', compact([
