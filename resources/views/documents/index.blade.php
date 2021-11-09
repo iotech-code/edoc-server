@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('nav-top')
-    @include('layouts.nav-top', ['active'=>1])
+    @include('layouts.nav-top')
 @endsection
 
 @section('content')
-<div class="container"  >
+<div class="container" >
 <div class="col-12">
   <div  class="row table-tab text-center">
 
@@ -241,7 +241,7 @@
                   @endif
                   <td style="padding: 0.75rem 0"> {!!$document->render_status_tag !!}</td>
                   @if ($tab_active == 'all')
-                  <td align="center" class="color-secondary">
+                  <td class="color-secondary">
                     @if ( in_array($document->id, $access_document->toArray()))
                         {{-- test --}}
                         @php
@@ -437,7 +437,6 @@
       </div>
     </div>
   </div>
-</div>
 </div>
 @endsection
 
