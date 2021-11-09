@@ -34,9 +34,22 @@ class MenuHomeController extends Controller
         $documents = Document::where('school_id', $user->school_id)
             ->orderBy('created_at')->take(5)->get();
 
-        $documents_count = $user->accessibleDocuments() ->count();
-
         $cabinets_count = Cabinet::where('school_id', $user->school_id)->count();
+
+
+        $documents_count_admin =  Document::where('school_id', $user->school_id)->count(); 
+
+        $documents_status1_admin = Document::where('school_id', $user->school_id)->where('status','=','1')->count();
+
+        $documents_status2_admin = Document::where('school_id', $user->school_id)->where('status','=','2')->count();
+
+        $documents_status3_admin = Document::where('school_id', $user->school_id)->where('status','=','3')->count();
+
+        $documents_status4_admin = Document::where('school_id', $user->school_id)->where('status','=','4')->count();
+
+
+        
+        $documents_count = $user->accessibleDocuments() ->count();
 
         $documents_status1 =  $user->accessibleDocuments()->where('status','=','1')->count(); //แบบร่าง
 
@@ -60,7 +73,12 @@ class MenuHomeController extends Controller
             'documents_status1',
             'documents_status2',
             'documents_status3',
-            'documents_status4'
+            'documents_status4',
+            'documents_count_admin',
+            'documents_status1_admin',
+            'documents_status2_admin',
+            'documents_status3_admin',
+            'documents_status4_admin'
 
         ]));
         // return view('index');

@@ -66,14 +66,21 @@
 				        <div class="card-body" style="min-width: 320px">
 					        <div class="row mb-2">
 						        <div class="col-12 p-2 text-center">
+                    @if (auth()->user()->role_id == 1 )
+                      <label style="font-size: 20px; color: dodgerblue; font-weight:bold;">สถิติการใช้งาน </label></br>
+                      <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ผู้ใช้งานทั้งหมด : {!! $users !!} คน</label></br>
+                      <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">เอกสารทั้งหมด : {!! $documents_count_admin !!} ฉบับ</label></br>
+                      <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ดำเนินการแล้วเสร็จ :  {!! $documents_status3_admin !!} ฉบับ</label></br>
+                      <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">อยู่ระหว่างดำเนินการ : {!! $documents_status2_admin !!} ฉบับ</label></br>
+                      <!-- <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">(ไม่อนุมัติ :  {!! $documents_status4_admin !!} ฉบับ / แบบร่าง :  {!! $documents_status1_admin !!} ฉบับ)</label></br> -->
+                    @endif
+                    @if (auth()->user()->role_id == 2 )
                       <label style="font-size: 20px; color: dodgerblue; font-weight:bold;">สถิติการใช้งาน </label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ผู้ใช้งานทั้งหมด : {!! $users !!} คน</label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">เอกสารทั้งหมด : {!! $documents_count !!} ฉบับ</label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ดำเนินการแล้วเสร็จ :  {!! $documents_status3 !!} ฉบับ</label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">อยู่ระหว่างดำเนินการ : {!! $documents_status2 !!} ฉบับ</label></br>
-                      <!-- <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ไม่อนุมัติ :  {!! $documents_status4 !!} ฉบับ</label></br> -->
-                      <!-- <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">แบบร่าง :  {!! $documents_status1 !!} ฉบับ</label></br> -->
-                    
+                    @endif    
   </div>
 </div> 
 @endsection 
