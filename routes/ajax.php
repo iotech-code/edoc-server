@@ -12,7 +12,9 @@ Route::middleware(["web", "auth"])->group(function(){
     Route::get("cabinets/{id}/folders", "CabinetController@getAjaxFolderByCabinetId");
 
     Route::post("feedback", "FeedBackController@sendFeedback");
-
+    Route::post("feedback", "FeedBackController@sendFeedback");
+    Route::post('online-document/create', 'OnlineDocumentController@create')
+        ->name('online.create');
     // Route::get('folder', 'CabinetController@getAjaxFolder')
     //     ->name('ajax.cabinet.folder');
 

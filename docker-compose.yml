@@ -1,0 +1,41 @@
+version: '3'
+services:
+  http:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "8000:80"
+      - "8443:443"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+  
+  app:
+    image: iamapinan/edoc-mod:latest
+    restart: always
+    volumes:
+      - ./:/var/www/html
+
+  db:
+    image: mariadb
+    restart: always
+    environment: 
+        MARIADB_DATABASE: ${DB_DATABASE}
+        MARIADB_USER: ${DB_USERNAME}
+        MARIADB_PASSWORD: ${DB_PASSWORD}
+        MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+        - database_file:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  redis:
+    image: redis
+    restart: always
+
+volumes:
+  database_file:

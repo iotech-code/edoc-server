@@ -163,6 +163,9 @@
 			<h3>ไฟล์แนบ</h3>
 			<div class="card border-top-primary">
 				<div class="card-body" style="min-width: 320px">
+					<a href="/editor/?token={{csrf_token()}}" class="btn btn-info rounded">สร้างเอกสารออนไลน์</a>
+				</div>
+				<div class="card-body" style="min-width: 320px">
 					<div class="row mb-2">
 						<div class="col-12">
 						<div id="fileGroup">

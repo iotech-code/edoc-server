@@ -6,7 +6,7 @@
     "type": "project",
     "require": {
         "php": "^7.1.3",
-        "caouecs/laravel-lang": "~3.0",
+        "laravel-lang/lang": "~2.0",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
