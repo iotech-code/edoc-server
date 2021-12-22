@@ -5,7 +5,9 @@
   {{-- {{ Breadcrumbs::render('cabinet.index') }} --}}
   
 @endsection
-
+@php
+  $unreadDocuments = auth()->user()->unreadDocuments ;
+@endphp
 @section('content')
   <div class="container">
     <div class="row mb-3">
@@ -13,44 +15,84 @@
         <div class="card border-top-primary ">
             <div class="card-body ">
                 <div class="form-row ">
-                <div class=" row py-1 ">
-                <div class=" m-1">
-                <a href="{{url('dashboard')}}" class="btn-home btn-menu btn-sq-lg btn-dashboard ">
-                <img class="mr-1" src="{{ asset("image/01.png")}}" alt="" srcset="" width="70" height="70" ><br/>
-                  แดชบอร์ด
-                </a>
-                </div>
+                <!-- <div  class="row table-tab text-center">
 
+                <div class="col t-all item ">
+                    {{-- <span class="mdi mdi-inbox"></span> --}}
+                    <a href="{{ url('index') }}" class="tab-box" data-tab="all">
+                    <img class="" src="{{ asset("image/doc-all.png")}}" alt="" srcset="" >
+                      <span class="header">
+                        หน้าแรก
+                      </span>
+                    </a>
+                </div>
+                <div class="col t-inbox item ">
+                  <a href="#" class="tab-box" data-tab="inbox">
+                  <img class="" src="{{ asset("image/doc-inbox.png")}}" alt="" srcset="" >
+                    {{-- <span class="mdi mdi-inbox-arrow-down"></span> --}}
+                    <span class="header" >
+                      ทะเบียนเอกสารส่ง
+                    </span>
+                  </a>
+                </div>
+                <div class="col t-sentbox item ">
+                  <a href="#" class="tab-box" data-tab="sent">
+                  <img class="" src="{{ asset("image/doc-outbox.png")}}" alt="" srcset="" >
+                    <span class="header"> 
+                      ทะเบียนเอกสารรับ
+                    </span>
+                  </a>
+                </div>
+             </div> -->
+            <div class=" row py-1">
                 <div class=" m-1">
-                <a href="{{route('document.index')}}" class="btn-home btn-menu btn-sq-lg btn-inbox  ">
+                <a href="{{route('document.index')}}" class="btn-home btn-menu btn-sq-lg btn-dashboard ">
                 <img class="mr-1" src="{{ asset("image/02.png")}}" alt="" srcset="" width="70" height="70" ><br/>
                   เอกสาร
                 </a>
                 </div>
 
+                @if (auth()->user()->role_id == 1)
                 <div class=" m-1">
-                <a href="{{route('document.create')}}" class="btn-home btn-menu btn-sq-lg btn-create "> 
-                <img class="mr-1" src="{{ asset("image/03.png")}}" alt="" srcset="" width="70" height="70" ><br/>
+                <a href="{{route('receive')}}" class="btn-home btn-menu btn-sq-lg btn-receive  ">
+                <img class="mr-1" src="{{ asset("image/06.png")}}" alt="" srcset="" width="70" height="70" ><br/>
+                ลงทะเบียนรับ
+                </a>
+                </div>
+                @endif
+
+                <div class=" m-1">
+                <a href="{{route('document.create')}}" class="btn-home btn-menu btn-sq-lg btn-inbox ">
+                <img class="" src="{{ asset("image/03.png")}}" alt="" srcset="" width="70" height="70" >
+                  <br/>
                   สร้างเอกสาร
                 </a>
                 </div>
 
-                <div class=" m-1">
                 {{-- @if( Auth::user()->role_id == 1 ) --}}
-                <a href="{{route('cabinet.index')}}" class="btn-home btn-menu btn-sq-lg btn-cabinet  ">
+                <div class=" m-1">
+                <a href="{{route('cabinet.index')}}" class="btn-home btn-menu btn-sq-lg btn-create "> 
                 <img class="mr-1" src="{{ asset("image/04.png")}}" alt="" srcset="" width="70" height="70" ><br/>
                   ตู้เอกสาร
                 </a>
-                {{-- @endif --}}
                 </div>
+                {{-- @endif --}}
 
-                <div class=" m-1">
+
                 @if (auth()->user()->role_id == 1 )
+                <div class=" m-1">
                 <a href="{{route('officer.index')}}" class="btn-home btn-menu btn-sq-lg btn-manage ">
                 <img class="mr-1" src="{{ asset("image/05.png")}}" alt="" srcset="" width="60" height="70" ><br/>
                   จัดการบุคลากร
                 </a>
+                </div> 
                 @endif
+
+                <div class=" m-1">
+                <a href="{{url('dashboard')}}" class="btn-home btn-menu btn-sq-lg btn-cabinet">
+                <img class="mr-1" src="{{ asset("image/01.png")}}" alt="" srcset="" width="70" height="70" ><br/>
+                  แดชบอร์ด
+                </a>
                 </div>
 
                 </div>
@@ -73,16 +115,18 @@
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ดำเนินการแล้วเสร็จ :  {!! $documents_status3_admin !!} ฉบับ</label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">อยู่ระหว่างดำเนินการ : {!! $documents_status2_admin !!} ฉบับ</label></br>
                       <!-- <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">(ไม่อนุมัติ :  {!! $documents_status4_admin !!} ฉบับ / แบบร่าง :  {!! $documents_status1_admin !!} ฉบับ)</label></br> -->
-                    @endif
-                    @if (auth()->user()->role_id == 2 )
+                      @endif
+                      @if (auth()->user()->role_id == 2 )
                       <label style="font-size: 20px; color: dodgerblue; font-weight:bold;">สถิติการใช้งาน </label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ผู้ใช้งานทั้งหมด : {!! $users !!} คน</label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">เอกสารทั้งหมด : {!! $documents_count !!} ฉบับ</label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ดำเนินการแล้วเสร็จ :  {!! $documents_status3 !!} ฉบับ</label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">อยู่ระหว่างดำเนินการ : {!! $documents_status2 !!} ฉบับ</label></br>
-                    @endif    
-  </div>
-</div> 
+                      @endif    
+                    </div>
+                </div> 
+
+  @include('alert.alert')
 @endsection 
 
 

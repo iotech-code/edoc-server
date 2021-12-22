@@ -91,6 +91,15 @@ Route::middleware(['web','auth'])->group(function(){
 
     Route::get('dashboard', 'DashBoardController@index');
     Route::get('index', 'MenuHomeController@index');
+    Route::get('receives/index', 'ReceiveController@index')
+    ->name('receive');
+    Route::get('receives/received', 'ReceiveController@received')
+    ->name('received');
+    Route::get('receives/export', 'ReceiveController@export')
+    ->name('ExportPDF');
+    Route::get('receives/pdf', 'ReceiveController@pdf')
+    ->name('pdf');
+
 });
 
 Route::post('reset_password', 'OfficerController@password_reset')->name('password_reset');
