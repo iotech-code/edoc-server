@@ -10,25 +10,25 @@
 </head>
 <body data-editor="DecoupledDocumentEditor" data-collaboration="false" data-revision-history="false">
 <div class="document-container">
+    <div class="topnav">
+        <a href="#" onclick="if(!confirm('คุณแน่ใจหรือไม่?')) { return false; } else { history.back() }">          
+            ย้อนกลับ
+        </a>
+        <a href="" id="save">
+            บันทึก
+        </a>
+        <input type="text" name="_title" id="_title"  class="input_title" placeholder="ไฟล์ไม่มีชื่อ">
+    </div>
     <div id="toolbar-container"></div>
     <div class="minimap-wrapper">
         <div class="editor-container">
-        
-            <div id="editor">
-                
-            </div>
+            <div id="editor"></div>
         </div>
-        <div class="minimap-container">
-            <!-- This is where the minimap will be inserted. -->
-        </div>
-    </div>
-    <div id="save">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.59 3.59c-.38-.38-.89-.59-1.42-.59H5c-1.11 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7.83c0-.53-.21-1.04-.59-1.41l-2.82-2.83zM12 19c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm1-10H7c-1.1 0-2-.9-2-2s.9-2 2-2h6c1.1 0 2 .9 2 2s-.9 2-2 2z"/></svg>
+        <div class="minimap-container"></div>
     </div>
 
 </div>
 <script src="./translations/th.js"></script>
 <script src="./edocument-editor.js"></script>
-
 </body>
 </html>
