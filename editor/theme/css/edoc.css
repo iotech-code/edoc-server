@@ -1,0 +1,92 @@
+ /* Editor styles */
+body {
+    margin: 0;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: rgb(255, 255, 255);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-self: flex-start;
+    width: 100%;
+  }
+  input#_title {
+    border: none;
+    width: 50%;
+    outline: none;
+    color: #000;
+    font-size: 14px;
+    padding-left: 10px;
+    font-weight: bold;
+}
+/* Style the links inside the navigation bar */
+.topnav a {
+    cursor: pointer;
+    color: #2f2f2f;
+    text-align: center;
+    padding: 10px 10px;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: rgb(228, 228, 228);
+    color: black;
+}
+
+.document-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex-grow: 1;
+    max-width: 100%;
+    margin: 0 auto;
+}
+.editor-container {
+    border: 1px solid hsl( 0, 0%, 80% );
+    min-height: calc( 100vh - 80px );
+    width: 100%;
+    overflow: auto;
+    background: hsl( 0, 0%, 95% );
+    border-right: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+#toolbar-container {
+    width: 100%;
+}
+.minimap-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    position: relative;
+    top: -1px;
+}
+.minimap-container {
+    width: 120px;
+    flex: 0 0 auto;
+    border: 1px solid var(--ck-color-toolbar-border);
+    position: relative;
+    overflow: hidden;
+    max-height: 100%;
+}
+#editor {
+    width: calc( 210mm + 2px );
+    min-height: calc( 210mm + 2px );
+    height: auto;
+    padding: 2cm 1.2cm;
+	margin: 2.5rem auto;
+    box-sizing: border-box;
+    background: hsl( 0, 0%, 100% );
+    border: 1px solid hsl( 0, 0%, 88% );
+    box-shadow: 0 2px 8px hsla( 0, 0%, 0%, .08 );
+    overflow: hidden;
+    font-family: 'Sarabun';
+}

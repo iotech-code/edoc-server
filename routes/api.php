@@ -56,6 +56,7 @@ Route::group(
 
     Route::post('documents/{document}/comment', 'DocumentApiController@comment')
         ->name('document.comment');
+
     Route::put('documents/{document}/respond', 'DocumentApiController@respond')
         ->name('document.respond');
 
