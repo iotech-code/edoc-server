@@ -1,16 +1,15 @@
 @extends('layouts.app')
 
 @section('nav-top')
-	@include('layouts.nav-top', ['active'=>7])
+	@include('layouts.nav-top', ['active'=>2])
 @endsection
 
 @section('content')
 <div class="container py-3">
-	
-	<label style="font-size: 22px; font-weight:bold; color:forestgreen">
-	<img class="img-head"  src="{{ asset("image/create.png")}}" alt="" srcset="" width="30px" height="30px">&nbsp; 
-	เพิ่มเอกสาร </label>
-	<!-- <a href="{{ url('index') }}">  หน้าแรก</a> -->
+		<label style="font-size: 22px; font-weight:bold; color:forestgreen">
+				<img class="img-head"  src="{{ asset("image/create.png")}}" alt="" srcset="" width="30px" height="30px">&nbsp; 
+					เพิ่มเอกสาร 
+		</label>
 	  {{-- <div class="alert alert-danger alert-dismissible" role="alert">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 				<strong>Danger!</strong> You should <a href="#" class="alert-link">read this message</a>.
@@ -29,9 +28,9 @@
 		@csrf
   <div class="row">
 	<div class="col-md-7 mb-2">
-		<h4>
+		<h3>
 		รายละเอียดเอกสาร
-		</h4>
+		</h3>
 		<div class="card border-top-primary ">
 	
 		  <div class="card-body">
@@ -96,7 +95,7 @@
 						</select>
 					</div>
 					<div class="form-group col">
-						<label for=""  >เลขที่เอกสาร<span class="red-star"></span></label>
+						<label for="">เลขที่เอกสาร<span class="red-star"></span></label>
 						<input type="text" name="code" class="form-control" value="{{old('code')}}">
 					</div>
 					<div class="form-group col">
@@ -132,12 +131,12 @@
 				
 			  <!-- <div class="form-row">
 					<div class="form-group col">
-						<label for="">เลขที่ส่ง</label>
+						<label for="">เลขที่รับ/ส่ง</label>
 						
 						<input type="text" name="receive_code" class="form-control">
 					</div>
 					<div class="form-group col">
-						<label for="">วันที่ส่ง</label>
+						<label for="">วันที่รับ</label>
 						<div class="input-group ">
 							<div class="input-group-prepend">
 								<span class="input-group-text" id="basic-addon1">
@@ -161,7 +160,7 @@
 	</div>
 	<div class="col-md-5 row">
 		<div class="col-12">
-			<h4>ไฟล์แนบ</h4>
+			<h3>ไฟล์แนบ</h3>
 			<div class="card border-top-primary">
 				<div class="card-body" style="min-width: 320px">
 					<a href="/editor/?token={{csrf_token()}}" class="btn btn-info rounded">สร้างเอกสารออนไลน์</a>
@@ -197,7 +196,7 @@
 
 		</div>
 			<div class="col-12" >
-					<h4>รายการเอกสารอ้างอิง</h4>
+					<h3>รายการเอกสารอ้างอิง</h3>
 					<div class="card border-top-primary">
 						<div class="card-body" style="min-width: 320px">
 							<div class="row mb-2" id="referItem">
