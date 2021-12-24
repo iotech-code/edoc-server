@@ -129,7 +129,7 @@
 					</div>
 				</div>
 				
-			  <div class="form-row">
+			  <!-- <div class="form-row">
 					<div class="form-group col">
 						<label for="">เลขที่รับ/ส่ง</label>
 						
@@ -151,7 +151,7 @@
 						<label for="">คำค้น</label>
 						<input type="text" name="keywords" class="form-control">
 					</div>
-			  </div>     
+			  </div>      -->
 	
 		  </div>
 	

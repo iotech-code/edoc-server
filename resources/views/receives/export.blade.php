@@ -1,71 +1,29 @@
 @extends('layouts.app')
 
 @section('nav-top')
-    @include('layouts.nav-top', ['active'=>1])
+    @include('layouts.nav-top')
 @endsection
 
 @section('content')
-<div class="container"  >
-<div class="col-12">
-  <div  class="row table-tab text-center">
 
-    <div class="col t-all item @if($tab_active == 'all') active @endif">
-        {{-- <span class="mdi mdi-inbox"></span> --}}
-        <a href="#" class="tab-box" data-tab="all">
-        <img class="mr-1" src="{{ asset("image/doc-all.png")}}" alt="" srcset="" >
-          <span class="header">
-            ทั้งหมด
-          </span>
-        </a>
-    </div>
-    <div class="col t-inbox item @if($tab_active == 'inbox') active @endif">
-      <a href="#" class="tab-box" data-tab="inbox">
-      <img class="mr-1" src="{{ asset("image/doc-inbox.png")}}" alt="" srcset="" >
-        {{-- <span class="mdi mdi-inbox-arrow-down"></span> --}}
-        <span class="header" >
-            เอกสารขาเข้า
-        </span>
-        @if ($user->hasInbox())
-            
-          <span class="badge big" style="padding: 0.5rem 0.75rem;background:#049b36; color: #fff">ใหม่</span>
-        @endif
-      </a>
-    </div>
-    <div class="col t-sentbox item @if($tab_active == 'sent') active @endif">
-      <a href="#" class="tab-box" data-tab="sent">
-      <img class="mr-1" src="{{ asset("image/doc-outbox.png")}}" alt="" srcset="" >
-        {{-- <span class="mdi mdi-inbox-arrow-up"></span> --}}
-        <span class="header"> 
-          เอกสารขาออก
-              
-        </span>
-      </a>
-    </div>
-    <!-- <div class="col"></div> -->
+<div class="container">
+<div class="col-12">
+  <div  class="row table-tab ">
+  <a class="btn" href="{{ route('received') }}" style="font-size: 22px; font-weight:bold; color:forestgreen">
+		<img class="img-head"  src="{{ asset("image/create.png")}}" alt="" srcset="" width="40px" height="40px" >&nbsp; 
+					ทะเบียนรับหนังสือ
+    </a>
     <div class="col">
       <div class="item">
-        <div class="input-icon my-3">
-          <input id="searchInput" type="text" placeholder="ค้นหา" name="search[title]" @isset($old) value="{{ $old['title']}}" @endisset>
-        </div>
-      </div>
-        {{-- <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              สถานะ
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#"><span class="status-circle status-blue mr-1"></span> ทั้งหมด</a>
-              <a class="dropdown-item" href="#"><span class="status-circle status-grey mr-1"></span> ฉบับร่าง</a>
-              <a class="dropdown-item" href="#"> <span class="status-circle status-yellow mr-1"></span> ดำเนินการ</a>
-              <a class="dropdown-item" href="#"><span class="status-circle status-red mr-1"></span> ไม่อนุมัติ</a>
-              <a href="#" class="dropdown-item"><span class="status-circle status-green mr-1"></span>สำเร็จ</a>
-            </div>
-          </div> --}}
-
     </div>
   </div>
+  <div class="my-2" style="padding-left:100px">
+  <!-- <button class="btn btn-danger " style="color: white" name="exportPDF" type="submit"><i class="fa fa-file"></i>&nbsp; ส่งออกไฟล์ PDF </button> -->
+  </div>
+
   <div class="row">
-    <div id="moreSearch" class="explain-search">
-      <form id="searchForm" action="{{ route('document.index')}}" method="get">
+    <div id="moreSearch" class="pdf-search">
+      <form id="searchForm" action="{{ route('pdf')}}" method="get">
       <input id="textSearch" type="hidden" name="search[title]" @isset($old) value="{{ $old['title']}}" @endisset>
       @isset($old['t'])  
         <input type="hidden" name="t" value="{{$old['t']}}">
@@ -74,7 +32,7 @@
 
       @endif
         <div class="body">
-        <div class="row align-items-center mb-3 mt-3">
+          <div class="row align-items-center mt-3">
               <div class="col-2">
                   <label for="">เลขที่เอกสาร</label>
               </div>
@@ -100,7 +58,7 @@
             <div class="col-2">
               <label for="">วันที่เอกสาร</label>
             </div>
-            <div class="col-4">
+            <div class="col-4 mb-3">
               {{-- <input class="form-control" type="text"> --}}
               <div class="input-group ">
                   <div class="input-group-prepend">
@@ -115,11 +73,10 @@
                   @endif
                 </div>
             </div>
-
             <div class="col-2">
-              <label class="label" for="">วันที่รับเอกสาร</label>
+              <label class="label" for="">วันที่สิ้นสุด</label>
             </div>
-            <div class="col-4">
+            <div class="col-4 mb-3">
               {{-- <input type="text" class="form-control"> --}}
               <div class="input-group ">
                   <div class="input-group-prepend">
@@ -132,6 +89,46 @@
 
                   @else
                     <input  type="text" name="search[date_end]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @endif
+                  </div>
+            </div></br></br>
+            <div class="col-2 ">
+              <label class="label" for="">วันที่รับเอกสาร</label>
+            </div>
+            <div class="col-4">
+              {{-- <input type="text" class="form-control"> --}}
+              <div class="input-group ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                  @if( isset($old['date_start2']))
+                    <input value="{{ $old['date_start2'] }}"  type="text" name="search[date_start2]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @else
+                    <input  type="text" name="search[date_start2]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @endif
+                  </div>
+            </div>
+            <div class="col-2">
+              <label class="label" for="">วันที่สิ้นสุดรับ</label>
+            </div>
+            <div class="col-4">
+              {{-- <input type="text" class="form-control"> --}}
+              <div class="input-group ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                  @if( isset($old['date_start3']))
+                    <input value="{{ $old['date_start3'] }}"  type="text" name="search[date_start3]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @else
+                    <input  type="text" name="search[date_start3]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
 
                   @endif
                   </div>
@@ -224,34 +221,33 @@
               @endforeach
             </div>
           </div>
-          <div class="row">
+          <div class="row mb-3" >
             <div class="col text-right">
-              <button id="closeMoreSearch" class="btn btn-secondary" type="button">ปิด</button>
+            <button class="btn btn-danger " style="color: white" name="exportPDF" type="submit"><i class="fa fa-file"></i>&nbsp; ส่งออกไฟล์ PDF </button>
+            <!-- <button class="btn btn-primary" >ค้นหา</button> -->
               {{-- <button id="closeMoreSearch" class="btn btn-secondary" type="button">ปิด</button> --}}
-
-              <button class="btn btn-primary" type="submit">ค้นหา</button>
+              
+            <!-- <button id="closeMoreSearch" class="btn btn-secondary" type="button">ปิด</button> -->
               {{-- <button id="closeMoreSearch" class="btn btn-secondary" type="button">ปิด</button> --}}
-
             </div>
           </div>
         </div>
         </div>
       </div>
+  <div class="row">
+   
       <div class="card-body p-0 ">
         <table class="table">
           <thead>
               <tr class=" text-center">
-                  <th class="color-secondary" width="110">สถานะ</th>
-                  @if ($tab_active == 'all')
-                  <th class="color-secondary" width="120">ชนิดเอกสาร</th>
-                      
-                  @endif
-                  <th class="color-secondary" width="120">ผู้ส่ง</th>
-                  <th class="color-secondary" width="100">เลขที่เอกสาร</th>
-                  <th class="color-secondary" width="300">ชื่อเอกสาร</th>
-                  <th class="color-secondary" width="100">ตู้เอกสารปลายทาง</th>
-                  <th class="color-secondary" width="150">วันที่เอกสาร</th>
-                  <th class="color-secondary" width="100">จัดการเอกสาร</th>
+                  <th class="color-secondary" width="50"></th>
+                  <th class="color-secondary" width="100">เลขทะเบียนรับ</th>
+                  <th class="color-secondary" width="140">วันที่รับ</th>
+                  <th class="color-secondary" width="150">จาก</th>
+                  <!-- <th class="color-secondary" width="140">วันที่เอกสาร</th> -->
+                  <th class="color-secondary" width="350">เรื่อง</th>
+                  <th class="color-secondary" width="150">ตู้เอกสาร</th>
+                  <!-- <th class="color-secondary" width="100">เลขที่เอกสาร</th> -->
               </tr>
           </thead>
           <tbody>
@@ -260,83 +256,21 @@
                   @if ($document->status == 1 && $user->id != $document->user_id) 
                     @continue
                   @endif
-                  <td style="padding: 0.75rem 0"> {!!$document->render_status_tag !!}</td>
-                  @if ($tab_active == 'all')
-                  <td align="center" class="color-secondary">
+                  <!-- <td align="center" class="color-secondary"> -->
                     @if ( in_array($document->id, $access_document->toArray()))
-                        {{-- test --}}
-                        @php
-                          $access = $user->accessibleDocuments()->where('document_id', $document->id)
-                        @endphp
-                        @if ( $access->count() )
-                            @if ($access->first()->pivot->document_user_status == 1 )
-                              <span class="badge big" style="padding: 0.5rem 0.75rem;background:#2A730B; color: #fff">
-                                กล่องขาเข้า
-                              </span>
-                            @else
-                              <span class="badge big" style="padding: 0.5rem 0.75rem;background:#F49F14; color: #fff">
-                                กล่องขาออก
-                              </span>
-                                
-                            @endif
-                        @endif
-                    @endif
-                  </td>                      
-                  @endif
-                  <td class=" text-center"> {{ $document->sendFormCabinet->name or '' }} </td>
 
-                  <td class=" text-center"> {{ $document->code }} </td>
-                  <td> <a href="{{ route("document.show", $document->id) }}"> {{ $document->title }}</a>  </td>
+                  @endif
+
+                  <td><a class="btn btn-success" style="color: white">ลงรับแล้ว </td>
+                  <td class=" text-center"> {{ $document->receive_code }} </td>  
+                  <td class=" text-center"> {{ ($document->thai_date2) }} </td>
                   <td class=" text-center"> {{ $document->creator->full_name}} </td>
-                  {{-- <td></td> --}}
-                  <td class=" text-center"> {{ $document->thai_date }} </td>
-                  {{-- <td> {{ dateToFullDateThai($document->th) }} </td> --}}
-                  <td align="center"> 
-                    @if ($user->assignmentAlert($document->id)->count() )
-                        <a 
-                        class="btn btn-danger"
-                        href="{{ route("document.show", $document->id) }}">
-                            มีการแจ้งเตือน
-                        </a>
-                        {{-- <button class="btn btn-danger"
-                        data-toggle="modal"
-                        data-target="#alertModal" 
-                        >มีการแจ้งเตือน</button> --}}
-                    @else
-                        
-                      @if ( $document->status == 1 && $document->user_id == $user->id )
-                        <a class="text-secondary edoc-link-form icon-link assign" href="#" 
-                          data-toggle="modal"
-                          data-target="#examModal" 
-                          data-doc-type="{{$document->type->name}}"
-                          data-doc-id="{{$document->id}}"
-                          {{-- data-url="{{route("document.assign", $document->id)}}" --}}
-                          >
-                            {{-- <form action="{{ route('document.update', $document->id) }}" method="post">
-                                <input type="hidden" name="action" value="update_status">
-                                <input type="hidden" name="status_value" value="2">
-                                @method("PUT")
-                                @csrf
-                            </form> --}}
-                            <i class="fa fa-external-link"></i>
-                        </a>  											
-                      @endif
-                      @if ( $document->status == 1 && $document->user_id == $user->id)
-                        <a class="text-secondary icon-link" href="{{ route('document.edit', $document->id) }}">
-                        <img  src="{{ asset("image/cabinet-edit.png")}}" alt="" srcset="" >
-                        </a>
-                      @endif
-                      @if (($document->status == 1 && $document->user_id == $user->id) || $user->role_id == 1) 
-                        <a class="text-secondary edoc-link-form icon-link btn-delete" href="#">
-                        <img  src="{{ asset("image/cabinet-delete.png")}}" alt="" srcset="" >
-                            <form action="{{ route('document.update', $document->id) }}" method="post">
-                                @method("DELETE")
-                                @csrf
-                            </form>
-                        </a>
-                      @endif
-                    @endif
-                  </td>
+                  <td> <a href="{{ route("document.show", $document->id) }}"> {{ $document->title }}</a></td>
+                  <td class=" text-center"> {{ $document->sendToCabinet->name or '' }} </td>
+                  <!-- <td class=" text-center"> {{ $user->full_name }} </td> -->
+                  <!-- <td class=" text-center"> {{ $document->thai_date }} </td> -->
+                  <!-- <td class=" text-center"> {{ $document->code }} </td> -->
+
                 </tr>
             @endforeach 
           </tbody>
@@ -471,7 +405,6 @@
     } else {
       $(this).find('form').submit();
     }
-		
 	});
 
   $(`a.tab-box`).click(function(e){
@@ -485,20 +418,22 @@
 	$("#nameSearch").search({
 		url: "{{ route("ajax.search_user")}}"
 	});
+
 	$('a.assign').click(function(e){
 		e.preventDefault();
 		url = $(this).data("url");
 		type = $(this).data("doc-type");
 		id = $(this).data("doc-id");
-
 		$("#approveForm").attr("action", url);
 		$("#approveForm").find(`input[name="document_id"]`).attr("value", id);		
 		$("#modalDoctypeInput").attr("value", type);
+
   })
   
   $('#searchInput').on('focus focusout', function(e){
     if (e.type == 'focus'){
       $('#moreSearch').addClass('active');
+      $('#pdf').hide();
     } 
   });
 
@@ -506,9 +441,16 @@
     $("#textSearch").val($(this).val());
   });
 
+  $("#pdf").click(function(e){
+    e.preventDefault()
+    $('#searchInput').hide();
+    $('#moreSearch').addClass('active');
+  });
+
   $("#closeMoreSearch").click(function(){
     console.log("asd");
-    
+    $('#pdf').show();
+    $('#searchInput').show();
     $('#moreSearch').removeClass('active');
 
   });

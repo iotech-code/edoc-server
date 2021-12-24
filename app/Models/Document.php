@@ -34,6 +34,7 @@ class Document extends Model
 
     protected $appends = [
         'thai_date',
+        'thai_date2'
         // 'approve_able'
         // 'document_type_text',
         // 'reply_type_text'
@@ -222,6 +223,12 @@ class Document extends Model
         if( $data['date_end'] != null ) {
             $q->where('created_at', '<=', $data['date_end']);
         } 
+        if( $data['date_start2'] != null ) {
+            $q->where('receive_date', '>=', $data['date_start2']);
+        } 
+         if( $data['date_start'] != null ) {
+            $q->where('receive_date', '<=', $data['date_start']);
+        } 
         if( $data['cabinet_id'] != null) {
             $q->orWhere('cabinet_id', $data['cabinet_id']);
             $q->orWhere('send_to_cabinet_id', $data['cabinet_id']);
@@ -232,6 +239,9 @@ class Document extends Model
         if( isset($data['statuses']) && $data['statuses'] != null) {
             $q->whereIn('status', $data['statuses']);
         }
+        if( $data['code'] != null ) {
+            $q->where('code', 'like' ,"%{$data['code']}%");
+        } 
         return $q ;
     }
 
@@ -255,6 +265,11 @@ class Document extends Model
 
     public function getThaiDateAttribute() {
         return dateToFullDateThai(date("d/m/Y", strtotime("{$this->attributes['date']}"))) ;
+
+    }
+
+    public function getThaiDate2Attribute() {
+        return dateToFullDateThai2(date("d/m/Y", strtotime("{$this->attributes['receive_date']}"))) ;
 
     }
 

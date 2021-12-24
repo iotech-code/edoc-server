@@ -32,8 +32,10 @@ class DashBoardController extends Controller
         foreach ($document_type_query as $type) {
             $document_type_count->push($type->documents->count());
         }
-        $documents = Document::where('school_id', $user->school_id)
-            ->orderBy('created_at')->take(5)->get();
+        
+        $documents = $user->accessibleDocuments()
+            ->orderBy('created_at','desc')->take(5)->get();
+
         return view('dashboard', compact([
             'documents',
             'local_cabinets',

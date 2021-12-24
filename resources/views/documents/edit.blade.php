@@ -14,6 +14,42 @@
 	<form class="" action="{{ route('document.update', $document->id) }}" method="POST" enctype="multipart/form-data">
 		@method("PUT")
   <div class="row">
+  <div class="col-md-7 mb-2">
+		<h3>
+		ลงทะเบียนรับหนังสือ
+		</h3>
+		<div class="card border-top-primary ">
+		  <div class="card-body">		
+			  <div class="form-row">
+					<div class="form-group col">
+						<label for="">เลขที่รับ</label>
+						<input type="text" name="receive_code" class="form-control" value="{{ $document->receive_code}}">
+					</div>
+					<div class="form-group col">
+						<label for="">วันที่รับ</label>
+						<div class="input-group ">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1" >
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+							<input name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" value="{{ $document->receive_date}}">
+						</div>
+					</div>
+					<div class="form-group col">
+						<label for="">คำค้น</label>
+						<input type="text" name="keywords" class="form-control" value="{{ $document->keywords}}">
+					</div>
+					</div>     
+
+
+			  </div>     
+	
+		  </div>
+	
+		</div>
+
+
 	<div class="col-md-7 mb-2">
 		<h3>
 		รายละเอียดเอกสาร
@@ -116,36 +152,8 @@
 							@endforeach
 						</select>
 					</div>
-				</div>
-			  <div class="form-row">
-					<div class="form-group col">
-						<label for="">เลขที่รับ</label>
-						<input type="text" name="receive_code" class="form-control" value="{{ $document->receive_code}}">
-					</div>
-					<div class="form-group col">
-						<label for="">วันที่รับ</label>
-						<div class="input-group ">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="basic-addon1" >
-									<i class="fa fa-calendar"></i>
-								</span>
-							</div>
-							<input name="receive_date" type="text" class="form-control date-select" placeholder="" autocomplete="off" value="{{ $document->receive_date}}">
-						</div>
-					</div>
-					<div class="form-group col">
-						<label for="">คำค้น</label>
-						<input type="text" name="keywords" class="form-control" value="{{ $document->keywords}}">
-					</div>
-
-
-			  </div>     
-	
-		  </div>
-	
-		</div>
-
-	</div>
+				</div></div></div></div>
+		
 	<div class="col-md-5 row">
 		<div class="col-12" >
 			<h3>ไฟล์แนบ</h3>
@@ -223,7 +231,7 @@
   @csrf
 	<div class="text-center">
 		{{-- <a class="btn btn-secondary mx-auto mt-3"  href="{{ route('document.index') }}">หน้าแรก</a> --}}
-		<button class="btn btn-primary mx-auto mt-3" type="submit">แก้ไข</button>
+		<button class="btn btn-primary mx-auto mt-3" type="submit" >บันทึก</button>
 		{{-- <button class="btn btn-outline-primary mx-auto mt-3" style="" type="submit" name="save">บันทึก</button> --}}
 		<button id="sendBtn" class="btn btn-primary mx-auto mt-3" style="" type="button"
 			data-toggle="modal"
