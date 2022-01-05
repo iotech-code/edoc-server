@@ -307,7 +307,7 @@ class DocumentController extends Controller
         }
         $model->update($request->except(['files', 'file_delete']));
         return redirect()->
-            route('document.edit', $model->id)
+            route('received', $model->id)
             ->withSuccess("ทำรายการสำเร็จ") ;
     }
 

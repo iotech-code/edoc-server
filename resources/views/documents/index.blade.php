@@ -73,8 +73,8 @@
         <input type="hidden" name="t" value="all">
 
       @endif
-        <div class="body">
-        <div class="row align-items-center mb-3 mt-3">
+      <div class="body">
+          <div class="row align-items-center mt-3">
               <div class="col-2">
                   <label for="">เลขที่เอกสาร</label>
               </div>
@@ -98,9 +98,9 @@
             </div></div>
             <div class="row align-items-center mb-3 mt-3">
             <div class="col-2">
-              <label for="">วันที่เอกสาร</label>
+            <label for="">วันที่เอกสาร</label>
             </div>
-            <div class="col-4">
+            <div class="col-4 mb-3">
               {{-- <input class="form-control" type="text"> --}}
               <div class="input-group ">
                   <div class="input-group-prepend">
@@ -115,11 +115,10 @@
                   @endif
                 </div>
             </div>
-
             <div class="col-2">
-              <label class="label" for="">วันที่รับเอกสาร</label>
+              <label class="label" for="">วันที่สิ้นสุด</label>
             </div>
-            <div class="col-4">
+            <div class="col-4 mb-3">
               {{-- <input type="text" class="form-control"> --}}
               <div class="input-group ">
                   <div class="input-group-prepend">
@@ -132,6 +131,46 @@
 
                   @else
                     <input  type="text" name="search[date_end]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @endif
+                  </div>
+            </div></br></br>
+            <div class="col-2 ">
+              <label class="label" for="">วันที่รับเอกสาร</label>
+            </div>
+            <div class="col-4">
+              {{-- <input type="text" class="form-control"> --}}
+              <div class="input-group ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                  @if( isset($old['date_start2']))
+                    <input value="{{ $old['date_start2'] }}"  type="text" name="search[date_start2]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @else
+                    <input  type="text" name="search[date_start2]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @endif
+                  </div>
+            </div>
+            <div class="col-2">
+              <label class="label" for="">วันที่สิ้นสุดรับ</label>
+            </div>
+            <div class="col-4">
+              {{-- <input type="text" class="form-control"> --}}
+              <div class="input-group ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                      <i class="fa fa-calendar"></i>
+                    </span>
+                  </div>
+                  @if( isset($old['date_start3']))
+                    <input value="{{ $old['date_start3'] }}"  type="text" name="search[date_start3]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  @else
+                    <input  type="text" name="search[date_start3]" class="form-control date-select" placeholder="" autocomplete="off" aria-label="Example text with button addon" aria-describedby="button-addon1">
 
                   @endif
                   </div>
@@ -283,11 +322,11 @@
                     @endif
                   </td>                      
                   @endif
-                  <td class=" text-center"> {{ $document->sendFormCabinet->name or '' }} </td>
+                  <td class=" text-center"> {{ $document->creator->full_name}}  </td>
 
                   <td class=" text-center"> {{ $document->code }} </td>
                   <td> <a href="{{ route("document.show", $document->id) }}"> {{ $document->title }}</a>  </td>
-                  <td class=" text-center"> {{ $document->creator->full_name}} </td>
+                  <td class=" text-center"> {{ $document->sendToCabinet->name or '' }} </td>
                   {{-- <td></td> --}}
                   <td class=" text-center"> {{ $document->thai_date }} </td>
                   {{-- <td> {{ dateToFullDateThai($document->th) }} </td> --}}
@@ -321,11 +360,13 @@
                             <i class="fa fa-external-link"></i>
                         </a>  											
                       @endif
-                      @if ( $document->status == 1 && $document->user_id == $user->id)
+
+                      @if ( $document->status == 2 && $document->user_id == $user->id )  
                         <a class="text-secondary icon-link" href="{{ route('document.edit', $document->id) }}">
                         <img  src="{{ asset("image/cabinet-edit.png")}}" alt="" srcset="" >
                         </a>
                       @endif
+                      &nbsp
                       @if (($document->status == 1 && $document->user_id == $user->id) || $user->role_id == 1) 
                         <a class="text-secondary edoc-link-form icon-link btn-delete" href="#">
                         <img  src="{{ asset("image/cabinet-delete.png")}}" alt="" srcset="" >

@@ -218,7 +218,7 @@ class Document extends Model
             $q->where('title', 'like' ,"%{$data['title']}%");
         } 
         if($data['date_start'] != null ) {
-            $q->where('created_at', '>=', $data['date_start']);
+            $q->where('date', '>=', $data['date_start']);
         }
         if( $data['date_end'] != null ) {
             $q->where('created_at', '<=', $data['date_end']);
@@ -226,8 +226,8 @@ class Document extends Model
         if( $data['date_start2'] != null ) {
             $q->where('receive_date', '>=', $data['date_start2']);
         } 
-         if( $data['date_start'] != null ) {
-            $q->where('receive_date', '<=', $data['date_start']);
+         if( $data['date_start3'] != null ) {
+            $q->where('receive_date', '<=', $data['date_start3']);
         } 
         if( $data['cabinet_id'] != null) {
             $q->orWhere('cabinet_id', $data['cabinet_id']);

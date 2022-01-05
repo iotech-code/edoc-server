@@ -5,12 +5,11 @@
 @endsection
 
 @section('content')
-<div class="container">
-	<div class="row">
+<div class="container py-3">
+	<div class="row ">
 		<!-- <div class="col"> -->
 		<a href="{{ route('document.index') }}"><img class="ml-3" src="{{ asset("image/back.png")}}" alt="" srcset="" ></a> &nbsp;&nbsp;
 		<h4>{{$document->title}} <span class="badge badge-secondary" style="font-size: 0.75em">{{$document->type->name}}</span> </h4>
-
 		<!-- </div> -->
 	</div>
 	<div class="row mt-3">
@@ -154,6 +153,17 @@
 						data-target="#exampleModal">
 						ไม่อนุมัติ
 					</button>
+				</form>
+				<form class="d-inline-block" action="{{ route('document.respond', $document->id) }}" method="post">
+					@csrf
+					@method("PUT")
+                        @foreach ($document->attachments as $file)
+                        <a 
+                        class="btn btn-warning"
+                        href="http://202.9.90.27:8000/">
+                            จัดการเอกสาร
+                        </a>
+                        @endforeach
 				</form>
 			</div>
 		</div>

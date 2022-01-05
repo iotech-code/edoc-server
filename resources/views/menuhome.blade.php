@@ -107,7 +107,7 @@
 			        <div class="card border-top-secondary">
 				        <div class="card-body" style="min-width: 320px">
 					        <div class="row mb-2">
-						        <div class="col-12 p-2 text-center">
+						        <div class="col-12 pl-5">
                     @if (auth()->user()->role_id == 1 )
                       <label style="font-size: 20px; color: dodgerblue; font-weight:bold;">สถิติการใช้งาน </label></br>
                       <label style="font-size: 18px; color:darkslategrey; font-weight:bold;">ผู้ใช้งานทั้งหมด : {!! $users !!} คน</label></br>
