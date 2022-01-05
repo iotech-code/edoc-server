@@ -213,6 +213,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'FastExcel' => Rap2hpoutre\FastExcel\FastExcel::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Validator' => Illuminate\Support\Facades\Validator::class,
+
     ],
 
 ];

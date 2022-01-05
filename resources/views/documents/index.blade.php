@@ -322,11 +322,11 @@
                     @endif
                   </td>                      
                   @endif
-                  <td class=" text-center"> {{ $document->sendFormCabinet->name or '' }} </td>
+                  <td class=" text-center"> {{ $document->creator->full_name}}  </td>
 
                   <td class=" text-center"> {{ $document->code }} </td>
                   <td> <a href="{{ route("document.show", $document->id) }}"> {{ $document->title }}</a>  </td>
-                  <td class=" text-center"> {{ $document->creator->full_name}} </td>
+                  <td class=" text-center"> {{ $document->sendToCabinet->name or '' }} </td>
                   {{-- <td></td> --}}
                   <td class=" text-center"> {{ $document->thai_date }} </td>
                   {{-- <td> {{ dateToFullDateThai($document->th) }} </td> --}}
