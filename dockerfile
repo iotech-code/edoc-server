@@ -2,12 +2,6 @@ FROM php:7.1-fpm
 
 WORKDIR /var/www/html
 
-ENV TZ="Asia/Bangkok"
-RUN date
-
-COPY composer.* /var/www/html
-
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -52,7 +46,7 @@ ENV TZ=Asia/Bangkok
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Copy existing application directory contents
 # Change current user to www
-RUN chown -R www-data:www-data /var/www
+RUN chown -R www-data:www-data /var/www/html
 RUN chmod 777 -R /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Install PHP dependency
