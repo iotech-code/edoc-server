@@ -3,8 +3,10 @@ services:
   app:
     image: iamapinan/edoc-mod:latest
     restart: always
+    ports:
+      - 8000:80
     volumes:
-      - ./data:/var/www/html/storage/app/public
+      - ./:/var/www/html/
 
   db:
     image: mariadb
