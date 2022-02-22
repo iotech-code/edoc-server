@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="manifest" href="/manifest/manifest.webmanifest">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -41,6 +41,7 @@
             @yield('content')
         </main>
     </div>
+
     @yield('script')
     @if ( auth()->check() )
     <div class="modal" tabindex="-1" role="dialog" id="feedbackForm">
@@ -65,7 +66,6 @@
             </div>
         </div>
     </div>
-          
     <script>
         function submit() {
             $("#btnFeedback").prop('disabled', true);
@@ -91,5 +91,70 @@
  
     </script>
     @endif
+        <!-- Install button, hidden by default -->
+    <div id="installContainer" style="display:none;">
+      <button id="butInstall" type="button" 
+      style="
+        background-color: #000;
+        color: #fff;
+        padding: 5px 20px;
+        cursor: pointer;">
+        Install e-Document
+      </button>
+    </div>
+    <script>
+        // install
+        const divInstall = document.getElementById('installContainer');
+        const butInstall = document.getElementById('butInstall');
+        window.addEventListener('beforeinstallprompt', (event) => {
+        // Prevent the mini-infobar from appearing on mobile.
+            event.preventDefault();
+            console.log('👍', 'beforeinstallprompt', event);
+            // Stash the event so it can be triggered later.
+            window.deferredPrompt = event;
+            // Remove the 'hidden' class from the install button container.
+            divInstall.style.display='block';
+        });
+        // detect app was installed.
+        window.addEventListener('appinstalled', () => {
+            alert('installed')
+            divInstall.style.display = 'none'
+            // Clear the deferredPrompt so it can be garbage collected
+            deferredPrompt = null;
+            console.log("installed")
+        });
+
+        // install button clicked
+        butInstall.addEventListener('click', async () => {
+            const promptEvent = window.deferredPrompt;
+            if (!promptEvent) {
+                // The deferred prompt isn't available.
+                return;
+            }
+            // Show the install prompt.
+            promptEvent.prompt();
+            // Log the result
+            const result = await promptEvent.userChoice;
+            // Reset the deferred prompt variable, since
+            // prompt() can only be called once.
+            window.deferredPrompt = null;
+        });
+
+        // register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/generate-sw.js');
+            });
+        }
+    </script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+        OneSignal.init({
+        appId: "e944c8e1-810a-4b99-853a-8d05b1ae6169",
+        });
+    });
+    </script>
 </body>
 </html>
