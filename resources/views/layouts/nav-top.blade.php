@@ -23,7 +23,7 @@
 
                 <a class=" dropdown-toggle bg-white " id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="color-primary ">
-                  <img class="mr-1" src="{{ asset("image/icon-user.png")}}" alt="" srcset="" width="35px" height="35px" >
+                  <img class="mr-1" src="https://www.gravatar.com/avatar/{{ md5(\Auth::user()->email) }}" alt="" srcset="" width="35px" height="35px" >
 
                       {{-- สวัสดี อธิกร บดินทรา --}}
                     {{\Auth::user()->full_name}} 
