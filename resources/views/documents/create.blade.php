@@ -6,8 +6,11 @@
 
 @section('content')
 <div class="container py-3">
+		<div class="mb-3">
+			<a href="/" class="btn btn-white text-secondary"><i class="fa fa-chevron-left"></i> ย้อนกลับ</a>
+		</div>
 		<label style="font-size: 22px; font-weight:bold; color:forestgreen">
-				<img class="img-head"  src="{{ asset("image/create.png")}}" alt="" srcset="" width="30px" height="30px">&nbsp; 
+				<img class="img-head"  src="{{ asset('image/create.png') }}" alt="" srcset="" width="30px" height="30px">&nbsp; 
 					เพิ่มเอกสาร 
 		</label>
 	  {{-- <div class="alert alert-danger alert-dismissible" role="alert">
@@ -28,7 +31,7 @@
 		@csrf
   <div class="row">
 	<div class="col-md-7 mb-2">
-		<h3>
+		<h3 class="mb-3">
 		รายละเอียดเอกสาร
 		</h3>
 		<div class="card border-top-primary ">
@@ -160,11 +163,16 @@
 	</div>
 	<div class="col-md-5 row">
 		<div class="col-12">
-			<h3>ไฟล์แนบ</h3>
+			<h3 class="mb-3">ไฟล์แนบ</h3>
+			<div class="row my-2 px-3" style="min-width: 320px">
+				<a href="/editor" class="btn btn-white"><i class="fa fa-file"></i> สร้างใหม่</a>
+				<a href="#" class="btn btn-white" id="openDocument"><i class="fa fa-folder-open"></i> เลือกเอกสารออนไลน์</a>
+			</div>
+			<div class="row mt-2 mb-3 card-body" id="attatch_document">
+			</div>
+			<input type="hidden" name="attatch_file_id" id="attatch_file_id">
+
 			<div class="card border-top-primary">
-				<div class="card-body" style="min-width: 320px">
-					<a href="/editor/?token={{csrf_token()}}" class="btn btn-info rounded">สร้างเอกสารออนไลน์</a>
-				</div>
 				<div class="card-body" style="min-width: 320px">
 					<div class="row mb-2">
 						<div class="col-12">
@@ -195,8 +203,8 @@
 				</div>
 
 		</div>
-			<div class="col-12" >
-					<h3>รายการเอกสารอ้างอิง</h3>
+			<div class="col-12 mt-3" >
+					<h3 class="mb-3">รายการเอกสารอ้างอิง</h3>
 					<div class="card border-top-primary">
 						<div class="card-body" style="min-width: 320px">
 							<div class="row mb-2" id="referItem">
@@ -210,11 +218,9 @@
 										</div>
 									@endforeach
 								@endif
-
-								
 							</div>
 						</div>
-						</div>
+					</div>
 				</div>
 		</div>
 	
@@ -222,12 +228,15 @@
 
 	@csrf
 	<div class="text-center">
-		{{-- <a class="btn btn-secondary mx-auto mt-3"  href="{{ route('document.index') }}">หน้าแรก</a> --}}
-		<button class="btn btn-outline-primary mx-auto mt-3" style="" type="submit" name="save">บันทึก</button>
-		<button id="sendBtn" class="btn btn-primary mx-auto mt-3" style="" type="button"
-			data-toggle="modal"
-			data-target="#submitModal" >ส่ง</button>
-
+		<!-- <a class="btn btn-secondary mx-auto mt-3"  href="{{ url('/') }}">หน้าแรก</a> -->
+		<button class="btn btn-outline-primary mx-auto mt-3" type="submit" name="save">
+			<i class="fa fa-save"></i>
+			บันทึก
+		</button>
+		<button id="sendBtn" class="btn btn-primary mx-auto mt-3" type="button" data-toggle="modal" data-target="#submitModal">
+			<i class="fa fa-rocket"></i>
+			ส่งเอกสาร
+		</button>
 	</div>
 
 	<div id="submitModal" class="modal" role="dialog" >
@@ -322,7 +331,15 @@
 	</div>
 	</form>
 </div>
-
+<div id="openDialog">
+	<h3>
+		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M147.8 192H480V144C480 117.5 458.5 96 432 96h-160l-64-64h-160C21.49 32 0 53.49 0 80v328.4l90.54-181.1C101.4 205.6 123.4 192 147.8 192zM543.1 224H147.8C135.7 224 124.6 230.8 119.2 241.7L0 480h447.1c12.12 0 23.2-6.852 28.62-17.69l96-192C583.2 249 567.7 224 543.1 224z"/></svg>
+		เอกสารของฉัน
+	</h3>
+	<a class="close_button"><i class="fa fa-times fa-2x"></i></a>
+	<ul id="doclist">
+	</ul>
+</div>
 
 @endsection
 
@@ -333,6 +350,42 @@
 {{-- <script src="{{asset('js/nameSearch.js')}}"></script> --}}
 {{-- <script src="{{asset('auto-complete/js/bootstrap-typeahead.min.js')}}"></script> --}}
 <script>
+    document.getElementsByClassName("close_button")[0].addEventListener( "click", () => {
+        document.getElementById('openDialog').style.display = 'none'
+    } )
+	document.getElementById("openDocument").addEventListener( "click", () => {
+		document.getElementById('openDialog').style.display = 'block'
+        fetch('/mydocument', {
+            method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            redirect: 'follow', // manual, *follow, error
+            referrerPolicy: 'no-referrer'
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            var item
+            document.getElementById('doclist').innerHTML = '<li></li>'
+            
+            data.forEach(file => {
+                item = document.createElement('li')
+                item.innerHTML = '<a onclick="addthis('+file.id+', \''+file.doc_title+'\')"><i class="fa fa-file"></i> '+file.doc_title+'</a>'
+                document.getElementById('doclist').appendChild(item)
+            })
+        })
+	} )
+	function addthis(id, title) {
+		var attachfile = document.getElementById('attatch_document')
+		attachfile.innerHTML = '<a href="/editor?edit='+id+'" target="_blank" class="btn btn-link text-secondary"><i class="fa fa-file"></i> '+title+'</a><a onclick="removeAtt()"><i class="fa fa-times"></i></a>'
+		document.getElementById('attatch_file_id').value = id
+		document.getElementById('openDialog').style.display = 'none'
+	}
+
+	function removeAtt() {
+		document.getElementById('attatch_file_id').value = ''
+		document.getElementById('attatch_document').innerHTML = ''
+	}
 
 	vueContainer = new Vue({
 		el:'#submitModal',
@@ -427,7 +480,6 @@
 
 	$('select[name="reply_type_id"]').change(function(e){
 		value = $(this).find("option:selected").val();
-		console.log(value);
 
 		if (value == 2) {
 			$('select[name="approved_user_id"]').prop('disabled', false);

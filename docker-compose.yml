@@ -8,26 +8,45 @@ services:
     volumes:
       - ./:/var/www/html/
 
+  openldap:
+    image: osixia/openldap:1.5.0
+    environment:
+      - LDAP_ADMIN_PASSWORD=m0dep@ss
+      - LDAP_DOMAIN=mode-education.com
+      - LDAP_ORGANISATION=Mode Solution Co.,LTD.
+    volumes:
+      - ./ldap/data:/data/slapd
+    ports:
+      - 389:389
+
   db:
     image: mariadb
     restart: always
     environment: 
-        MARIADB_DATABASE: ${DB_DATABASE}
-        MARIADB_USER: ${DB_USERNAME}
-        MARIADB_PASSWORD: ${DB_PASSWORD}
-        MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_DATABASE: ${DB_DATABASE}
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
     volumes:
-        - database_file:/var/lib/mysql
+      - database_file:/var/lib/mysql
 
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 8001:8080
 
   redis:
     image: redis
     restart: always
+
+  ldapadmin:
+    image: osixia/phpldapadmin
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=openldap
+    ports:
+      - 8433:443
+
 
 volumes:
   database_file:

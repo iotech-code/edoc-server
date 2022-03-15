@@ -8,7 +8,7 @@ use App\Models\Folder;
 use App\Models\Cabinet;
 use App\Models\User;
 use App\Models\DocumentType;
-
+use App\Models\OnlineDocument; 
 use App\Http\Controllers\Traits\DocumentCommentTrait ;
 use App\Http\Controllers\Traits\DocumentRespondTrait ;
 
@@ -191,6 +191,15 @@ class DocumentController extends Controller
                     'file_path' => $file->store("document/{$documentModel->id}")
                 ]);
             }
+        }
+
+        if ( $request->attatch_file_id ) {
+            $doc = OnlineDocument::where('id', $request->attatch_file_id)->first();
+            
+            $documentModel->attachments()->create([
+                'name' => $doc->doc_title,
+                'file_path' => 'online_document/'.$request->attatch_file_id.'.html'
+            ]);
         }
 
         return redirect()

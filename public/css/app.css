@@ -10681,4 +10681,60 @@ a.edoc-nav-link.active {
   height: 150px !important;
 }
 
+#openDialog {
+  position: fixed;
+  z-index: 999;
+  border: 1px solid #ccc;
+  top: 3%;
+  left: 3%;
+  padding: 20px 20px 20px 0;
+  background-color: #fff;
+  width: 94%;
+  height: 88%;
+  overflow-y: auto;
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 3px 3px 3px rgb(0 0 0 / 10%);
+  display: none;
+}
 
+#openDialog h3 {
+  margin-top: 10px;
+  padding-inline: 40px;
+  color: #565656;
+}
+#openDialog ul {
+  height: calc( 100vh - 150px );
+  overflow-y: auto;
+}
+#openDialog ul li {
+  list-style: none;
+  padding-inline: 10px;
+  line-height: 34px;
+  border-bottom: 1px solid #e6e5e5;
+}
+
+#openDialog ul li a {
+  text-decoration: none;
+  color: rgb(59, 59, 59);
+}
+#openDialog ul li:hover {
+  background-color: #eee;
+}
+a.close_button {
+  position: absolute;
+  top: 3%;
+  right: 2%;
+}
+a.close_button i {
+  color: #aaa;
+}
+
+a.close_button:hover > i {
+  color: #000;
+}
+.attatch_document {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

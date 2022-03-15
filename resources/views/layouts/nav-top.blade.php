@@ -2,7 +2,7 @@
   $unreadDocuments = auth()->user()->unreadDocuments ;
 @endphp
 
-<div class="nav-wrapper">
+<div class="nav-wrapper mb-5">
     <div class="container py-3">
         <div class="row ">
             <div class="col">
@@ -41,10 +41,11 @@
                 </div>
                 
               </div>
+
               <div class="dropdown float-right mr-3">
                 <a href="#" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
-                  <i class="far fa-bell text-secondary fa-2x " ></i>
+                  <i class="fa fa-bell text-secondary fa-2x " ></i>
                   @if ($unreadDocuments->count() > 0)
                   <div class="badge badge-danger rounded " style="position:absolute;bottom:-0.25rem;right:-0.45rem;font-size:0.8em">
                     {{ $unreadDocuments->count() }}
@@ -58,6 +59,7 @@
                     @endforeach
                   </div>
                 @endif
+                
                 </div>  
             </div>
         </div>

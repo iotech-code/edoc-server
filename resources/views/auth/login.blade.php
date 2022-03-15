@@ -17,7 +17,7 @@
                         <div class="col-lg-15 text-center" >
                                 <h2 class="color-primary-login">Smart</h2>
                                 <h3 class="color-primary-login">e-Document System</h3>
-                                <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                                <form method="POST" action="{{ url('post-login') }}" aria-label="{{ __('Login') }}">
                                     @csrf
             
                                     <div class="form-group row" style="margin-top: 20px">
@@ -76,6 +76,9 @@
                                         </div>
                                     </div>
                                 </form>
+                                <p style="margin-top: 30px;">Powered by
+                                    <img src="/image/openldap.png" width="90" alt="openldap">
+                                </p>
                         </div>
                     </div>
                     

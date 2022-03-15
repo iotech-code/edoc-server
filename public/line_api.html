@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .line_button {
+            text-align: center;
+            align-self: center;
+            padding: 8px 15px;
+            border: 1px soliid #eee;
+            background-color: rgb(28, 165, 16);
+            border-radius: 15px;
+        }
+        .line_button a {
+            color: #fff;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        #code_area {
+            color: rgb(77, 77, 77);
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="line_button">
+            <a href="https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=AvtaSr4alAmzPfhOX6bjsK&redirect_uri=https://gettersgo.com/line_api.html&scope=notify&state=tOYKLXLEqvS6DWEcZPo9K9LIzmImdnagm5EjWtS4pHb">เข้าสู่ระบบ Line</a>
+        </div>
+        <p id="code_area"></p>
+    </div>
+    <script>
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var code = url.searchParams.get("code");
+
+        if(code) {
+            const formdata = { 
+                grant_type:'authorization_code',
+                code: code,
+                redirect_uri:'https://gettersgo.com/line_api.html',
+                client_id:'AvtaSr4alAmzPfhOX6bjsK',
+                client_secret:'tOYKLXLEqvS6DWEcZPo9K9LIzmImdnagm5EjWtS4pHb'
+            };
+    
+            const searchParams = Object.keys(formdata).map((key) => {
+                return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+            }).join('&');
+    
+            fetch('https://notify-bot.line.me/oauth/token', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                    body: searchParams,
+                })
+            .then(response => response.json())
+            .then(data => {
+                    document.getElementById("code_area").html = data.code
+                })
+            .catch((error) => {
+                    console.error('Error:', error);
+                }
+            );
+        }
+        
+    </script>
+</body>
+</html>

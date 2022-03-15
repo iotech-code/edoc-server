@@ -18,7 +18,9 @@
 
 body{
     background-color: #efefef;
-    font-family: 'Sarabun';
+}
+p {
+    line-height: 26px;
 }
 .page-break{
     content: "";
@@ -34,6 +36,7 @@ body{
     box-shadow: 0 2px 8px #00000014;
     box-sizing: border-box;
     overflow: hidden;
+    font-family: 'Sarabun',Arial, Helvetica, sans-serif;
 }
 
 /* ckeditor5-font/theme/fontsize.css */
