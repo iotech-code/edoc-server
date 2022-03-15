@@ -13,22 +13,26 @@ RUN apt-get update && apt-get install -y \
     jpegoptim optipng pngquant gifsicle \
     vim \
     unzip \
-    git \
-    curl \
     supervisor \
     pkg-config \
     libonig-dev \
     libssl-dev \
-    libcurl4-openssl-dev
+    libcurl4-openssl-dev \
+    libldap2-dev \
+    nginx \
+    nginx-extras
 # Clear cache
 RUN apt-get -y --no-install-recommends install g++ zlib1g-dev
-RUN apt-get install -y nginx nginx-extras
+
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
+
 # Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath zip
 RUN docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/include/
-RUN docker-php-ext-install gd
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath zip
+RUN docker-php-ext-install gd 
+RUN docker-php-ext-install ldap
+RUN docker-php-ext-enable ldap
 
 # Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

@@ -13,8 +13,11 @@ Route::middleware(["web", "auth"])->group(function(){
 
     Route::post("feedback", "FeedBackController@sendFeedback");
     Route::post("feedback", "FeedBackController@sendFeedback");
-    Route::post('online-document/create', 'OnlineDocumentController@create')
+    Route::post('online-document/save', 'OnlineDocumentController@create')
         ->name('online.create');
+    Route::put('online-document/save', 'OnlineDocumentController@update')
+        ->name('online.update');
+
     // Route::get('folder', 'CabinetController@getAjaxFolder')
     //     ->name('ajax.cabinet.folder');
 

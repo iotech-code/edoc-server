@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Document;
 use App\Models\DocumentType;
 use App\Models\User;
+use App\Models\Line;
 use App\Models\Cabinet;
 
 class MenuHomeController extends Controller
@@ -60,6 +61,7 @@ class MenuHomeController extends Controller
         $documents_status4 = $user->accessibleDocuments()->where('status','=','4')->count(); //ไม่อนุมัติ
 
         $users = User::where('school_id', $user->school_id)->count();
+        $line = Line::where('uid', $user->id)->get();
         return view('menuhome', compact([
             'documents',
             'local_cabinets',
@@ -68,6 +70,7 @@ class MenuHomeController extends Controller
             'document_type_count',
             'local_cabinets_object',
             'users',
+            'line',
             'documents_count',
             'cabinets_count',
             'documents_status1',

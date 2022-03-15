@@ -16,10 +16,19 @@ Route::get('/', function () {
     // return redirect('/document');
     return redirect("/index");
 });
+Route::get('line_callback', 'LineController@callback');
+Route::get('line_unset', 'LineController@unset');
+Route::post('post-login', 'AuthController@postLogin'); 
+Route::post('post-registration', 'AuthController@postRegistration'); 
+Route::get('logout', 'AuthController@logout');
 Route::get('document/sharing/{token}', 'SharingDocumentController@show')
-    ->name('document.sharing');
-
+->name('document.sharing');
+Route::get('/migrate', 'UserController@migrate')->name('migrate');
 Route::middleware(['web','auth'])->group(function(){
+
+    Route::get("/editor", "OnlineDocumentController@editor");
+    Route::get("/mydocument", "OnlineDocumentController@documentList");
+    Route::get('online-document/{id}', 'OnlineDocumentController@delete');
 
     // document
     Route::resource('document', 'DocumentController');
