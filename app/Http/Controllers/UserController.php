@@ -37,9 +37,10 @@ class UserController extends Controller
         return $ds;
     }
 
-    public function migrate() {
-        $users = User::where('role_id', '=', 1)->limit(200)->get();
+    public function migrate(Request $request) {
+        $users = User::where('role_id', '=', $request->role)->where('id', '>', $request->from)->limit($request->limit)->get();
         $ds = $this->ldap_connect();
+        echo "<h1>Role: ".$request->role." Limit: ".$request->limit."</h1>";
         if ($ds) {
             $r = ldap_bind($ds, env('LDAP_ADMIN_USER'), env('LDAP_ADMIN_PASSWORD'));
             foreach($users as $user) {
@@ -60,9 +61,6 @@ class UserController extends Controller
                 $r = ldap_add($ds, $dn, $info);
             }
         }
-
-  
-        // return response()->json($users);
     }
 
     public function update(Request $request) {

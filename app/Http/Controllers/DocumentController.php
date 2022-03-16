@@ -93,7 +93,7 @@ class DocumentController extends Controller
     }
 
     public function updatelog(Request $request) {
-        DocumentLog::::create([
+        DocumentLog::create([
             'document_id' => $request->doc_id,
             'action' => $request->log
         ]);
