@@ -295,7 +295,7 @@
           </thead>
           <tbody>
             @foreach ($documents as $document)
-                <tr data-id="{{ $document->id }}" data-user-id="{{ $document->cabinet_id }}">
+                <tr data-id="{{ $document->id }}" data-user-id="{{-- $document->cabinet_id --}}">
                   @if ($document->status == 1 && $user->id != $document->user_id) 
                     @continue
                   @endif
@@ -322,7 +322,7 @@
                     @endif
                   </td>                      
                   @endif
-                  <td class=" text-center"> {{ $document->creator->full_name}}  </td>
+                  <td class=" text-center"> {{-- $document->creator->full_name --}}  </td>
 
                   <td class=" text-center"> {{ $document->code }} </td>
                   <td> <a href="{{ route("document.show", $document->id) }}"> {{ $document->title }}</a>  </td>

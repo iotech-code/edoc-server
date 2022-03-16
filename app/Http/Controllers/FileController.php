@@ -18,10 +18,12 @@ class FileController extends Controller
         } else {
             return response()->json("มีบางอย่างผิดพลาด", 404);
         }
-        $path = "app/$model->file_path" ;
-        return response()->download(
-            storage_path($path),
-            $model->name
-        );
+        $path = "storage/app/$model->file_path" ;
+        // return response()->download(
+        //     storage_path($path),
+        //     $model->name
+        // );
+        return redirect($path);
+        // );
     }
 }

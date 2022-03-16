@@ -30,7 +30,7 @@ class OnlineDocumentController extends Controller
         $template = str_replace('{title}', $request->_title, $template);
         $template = str_replace('{body}', $request->_body, $template);
 
-        Storage::disk('public')->put('online_document/'.$onlinedocument->id.'.html', $template);
+        Storage::disk('public')->put('app/online_document/'.$onlinedocument->id.'.html', $template);
 
         // $statuses = DocumentStatus::all();
         $data = ['status' => 'success', 'id' => $onlinedocument->id];
@@ -41,7 +41,7 @@ class OnlineDocumentController extends Controller
         // return response()->json($request);
         $deletefile = OnlineDocument::where('id', $id)->where('is_lock', '<>', '1')->delete();
         if($deletefile) {
-            Storage::disk('public')->delete('online_document/'.$id.'.html');
+            Storage::disk('public')->delete('app/online_document/'.$id.'.html');
             $data = ['status' => 'success'];
             return response()->json($data, 200);
         } else {
@@ -62,7 +62,7 @@ class OnlineDocumentController extends Controller
         $template = str_replace('{title}', $request->_title, $template);
         $template = str_replace('{body}', $request->_body, $template);
 
-        Storage::disk('public')->put('online_document/'.$request->_id.'.html', $template);
+        Storage::disk('public')->put('app/online_document/'.$request->_id.'.html', $template);
 
         // $statuses = DocumentStatus::all();
         $data = ['status' => 'success', 'id' => $request->_id];

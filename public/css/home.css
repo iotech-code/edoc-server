@@ -455,6 +455,18 @@ body {
     background-color: rgb(15, 185, 78);
     border-color: rgb(15, 185, 78);
   }
+
+  .btn-onlinedoc {
+    color: #ffffff;
+    background-color: #646eff;
+    border-color: #646eff;
+  }
+  
+  .btn-onlinedoc:hover {
+    color: #ffffff;
+    background-color: #99a0fb;
+    border-color: #99a0fb;
+  }
   
   .btn-cabinet:focus,
   .btn-cabinet.focus {

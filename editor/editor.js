@@ -14,7 +14,12 @@
             alert("โปรดบันทึกไฟล์ก่อน")
             return false;
         } else {
-            document.getElementById("saveDocument").click()
+            document.getElementById("saveDocument").click();
+            setInterval(() => {
+                id = document.getElementById('_id').value
+                if(id!==null)
+                    window.location.href='/storage/app/online_document/'+id+'.html';
+            }, 2000)
         }
     })
 

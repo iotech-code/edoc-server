@@ -65,10 +65,10 @@
 				@if( $user->id == $document->user_id)
 
 				@elseif ($user->pivot->is_read)
-					<span class="badge badge-success" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
+					<span class="badge badge-success mt-1" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
 
 				@else
-					<span class="badge badge-secondary" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
+					<span class="badge badge-secondary mt-1" style="font-size: 0.9em; padding: .5em .6em;"> {{ $user->full_name }}</span>
 				@endif
 			@endforeach
 		</div>

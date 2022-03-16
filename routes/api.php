@@ -60,4 +60,6 @@ Route::group(
     Route::put('documents/{document}/respond', 'DocumentApiController@respond')
         ->name('document.respond');
 
+    Route::post('document-log', 'DocumentController@updatelog');
+
 });
