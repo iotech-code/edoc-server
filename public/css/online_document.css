@@ -38,7 +38,9 @@ p {
     overflow: hidden;
     font-family: 'Sarabun',Arial, Helvetica, sans-serif;
 }
-
+#print_area img {
+    max-width: 100%;
+}
 /* ckeditor5-font/theme/fontsize.css */
 .ck-content .text-tiny {
     font-size: .7em;
