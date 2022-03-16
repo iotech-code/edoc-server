@@ -3,3 +3,4 @@ node_modules/
 *.lock
 storage/logs/*
 /ldap
+bootstrap/caache/*

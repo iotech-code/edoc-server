@@ -44,6 +44,7 @@ COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./start.sh /
 COPY ./supervisord.conf /
 RUN composer install
+RUN mkdir -p /var/www/html/storage/app/public/app/online_document
 
 # set time zone service to bangkok
 ENV TZ=Asia/Bangkok  
