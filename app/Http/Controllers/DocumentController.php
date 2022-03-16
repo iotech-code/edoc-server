@@ -6,6 +6,7 @@ use App\Models\Document;
 use App\Models\DocumentStatus;
 use App\Models\Folder;
 use App\Models\Cabinet;
+use App\Models\DocumentLog;
 use App\Models\User;
 use App\Models\DocumentType;
 use App\Models\OnlineDocument; 
@@ -62,7 +63,7 @@ class DocumentController extends Controller
         }
 
         $documents = $documents->orderBy('created_at', 'desc')->paginate(15);
-        
+   
         return view('documents.index')
             ->with(compact([
                 'documents',
@@ -89,6 +90,15 @@ class DocumentController extends Controller
             default:
                 return null;
         }
+    }
+
+    public function updatelog(Request $request) {
+        DocumentLog::::create([
+            'document_id' => $request->doc_id,
+            'action' => $request->log
+        ]);
+
+        return response()->json(['status'=>'success']);
     }
 
     /**
@@ -202,8 +212,7 @@ class DocumentController extends Controller
             ]);
         }
 
-        return redirect()
-            ->route("document.index")
+        return redirect('/')
             ->withSuccess("ทำรายการสำเร็จ") ;
     }
 
