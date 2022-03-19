@@ -12,7 +12,7 @@ use App\Models\DocumentType;
 use App\Models\OnlineDocument; 
 use App\Http\Controllers\Traits\DocumentCommentTrait ;
 use App\Http\Controllers\Traits\DocumentRespondTrait ;
-
+use App\Http\Controllers\LineController;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Mail;
@@ -186,6 +186,7 @@ class DocumentController extends Controller
                 'comment' => $request->comment 
             ]);
             foreach($request->send_to_users as $user_id) {
+                LineController::Send($user_id, 'คุณมีเอกสารใหม่ กรุณาตรวจสอบได้ที่ '.url('/document'));
                 $documentModel->accessibleUsers()->attach($user_id,[
                     'document_user_status' => 1
                 ]);
@@ -396,6 +397,8 @@ class DocumentController extends Controller
             'comment' => $request->comment 
         ]);
         foreach($request->send_to_users as $user_id) {
+            LineController::Send($user_id, 'คุณมีเอกสารใหม่ กรุณาตรวจสอบได้ที่ '.url('/document'));
+
             $documentModel->accessibleUsers()->attach($user_id,[
                 'document_user_status' => 1
             ]);
