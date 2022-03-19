@@ -5,8 +5,8 @@ services:
     restart: always
     ports:
       - 8000:80
-    # volumes:
-    #   - ./:/var/www/html/
+    volumes:
+      - ./:/var/www/html/
 
   openldap:
     image: osixia/openldap:1.5.0

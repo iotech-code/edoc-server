@@ -17,6 +17,7 @@ Route::get('/', function () {
     return redirect("/index");
 });
 Route::get('line_callback', 'LineController@callback');
+Route::get('line_test', 'LineController@testSend');
 Route::get('line_unset', 'LineController@unset');
 Route::post('post-login', 'AuthController@postLogin'); 
 Route::post('post-registration', 'AuthController@postRegistration'); 
