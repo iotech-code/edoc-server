@@ -77,7 +77,7 @@
                                     </div>
                                 </form>
                                 <p style="margin-top: 30px;">Powered by
-                                    <img src="/image/openldap.png" width="90" alt="openldap">
+                                    <img src="{{url('/image/openldap.png')}}" width="90" alt="openldap">
                                 </p>
                         </div>
                     </div>

@@ -152,7 +152,7 @@
     window.OneSignal = window.OneSignal || [];
     OneSignal.push(function() {
         OneSignal.init({
-        appId: "e944c8e1-810a-4b99-853a-8d05b1ae6169",
+        appId: "{{ env('ONESIGNAL_ID') }}",
         });
     });
     </script>
