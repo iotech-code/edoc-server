@@ -34,9 +34,9 @@ class LineController extends Controller
         return $send;
     }
 
-    public function Send(Request $request) {
+    public function Send(Request $request, $message) {
         $user = User::where('id',$request->user)->first();
-        $send = $this->sendNotify($user, 'test message');
+        $send = $this->sendNotify($user, $message);
         return $send;
     }
 
