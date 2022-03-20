@@ -47,15 +47,8 @@ jobs:
           tags: ${{ secrets.DOCKER_IMAGE }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
-  callwebhook:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Runs a single command using the runners shell
-    - name: Webhook
-      uses: distributhor/workflow-webhook@v2
-      env:
-        webhook_url: "https://docker.getters.app/api/webhooks/66c42b01-9980-4c03-bf70-a53f50b3059a"
-        webhook_secret: "66c42b01-9980-4c03-bf70-a53f50b3059a"
+      - name: Hook
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: "https://docker.getters.app/api/webhooks/66c42b01-9980-4c03-bf70-a53f50b3059a"
+          webhook_secret: "66c42b01-9980-4c03-bf70-a53f50b3059a"
