@@ -9,8 +9,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -60,3 +58,4 @@ jobs:
       uses: distributhor/workflow-webhook@v2
       env:
         webhook_url: "https://docker.getters.app/api/webhooks/66c42b01-9980-4c03-bf70-a53f50b3059a"
+        webhook_secret: "66c42b01-9980-4c03-bf70-a53f50b3059a"
