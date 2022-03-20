@@ -184,7 +184,7 @@ class DocumentController extends Controller
                 'author_id' => $user->id,
                 'comment' => $request->comment 
             ]);
-            $line = new App\Http\Controllers\LineController;
+            $line = new \App\Http\Controllers\LineController();
             foreach($request->send_to_users as $user_id) {
                 $line->Send($user_id, 'คุณมีเอกสารใหม่ กรุณาตรวจสอบได้ที่ '.url('/document'));
                 $documentModel->accessibleUsers()->attach($user_id,[
@@ -396,7 +396,7 @@ class DocumentController extends Controller
             'author_id' => $user->id,
             'comment' => $request->comment 
         ]);
-        $line = new App\Http\Controllers\LineController;
+        $line = new \App\Http\Controllers\LineController();
         foreach($request->send_to_users as $user_id) {
             $line->Send($user_id, 'คุณมีเอกสารใหม่ กรุณาตรวจสอบได้ที่ '.url('/document'));
 
