@@ -34,6 +34,12 @@ class LineController extends Controller
         return $send;
     }
 
+    public function Send(Request $request) {
+        $user = User::where('id',$request->user)->first();
+        $send = $this->sendNotify($user, 'test message');
+        return $send;
+    }
+
     public function sendNotify(User $user, $message) {
         $user_token = Line::where('uid',$user->id)->first();
         if($user_token->line_token == '') {

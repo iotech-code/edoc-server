@@ -43,6 +43,7 @@ COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./start.sh /
 COPY ./supervisord.conf /
+COPY ./.env.example ./.env
 RUN composer install
 RUN mkdir -p /var/www/html/storage/app/public/app/online_document
 
