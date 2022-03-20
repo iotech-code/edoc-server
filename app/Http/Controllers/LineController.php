@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Line;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -34,8 +35,8 @@ class LineController extends Controller
         return $send;
     }
 
-    public function Send(Request $request, $message) {
-        $user = User::where('id',$request->user)->first();
+    public function Send($user, $message) {
+        $user = User::where('id',$user)->first();
         $send = $this->sendNotify($user, $message);
         return $send;
     }
@@ -55,7 +56,7 @@ class LineController extends Controller
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer '.$user_token->line_token,
                                                         'Content-Type: application/x-www-form-urlencoded'));
             $response = curl_exec($curl);
-            echo $response;
+
             curl_close($curl);
             return response()->json(['status'=>'success', 'message'=>$message], 200);
         }
