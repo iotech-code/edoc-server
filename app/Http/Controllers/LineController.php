@@ -43,7 +43,7 @@ class LineController extends Controller
 
     public function sendNotify(User $user, $message) {
         $user_token = Line::where('uid',$user->id)->first();
-        if($user_token->line_token == '') {
+        if(!$user_token->line_token) {
             return response()->json(['status'=>'error', 'message'=>'Current user does not connect with LINE Notify service.'], 400);
         } else {
             $data = [
